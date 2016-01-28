@@ -418,6 +418,23 @@
                     templateUrl: '/js/app/reports/views/index.html',
                     controller: 'ReportController'
                 })
+                //-----Services-------------
+                .when('/services', {
+                    templateUrl: '/js/app/services/views/index.html',
+                    controller: 'ServicesController'
+                })
+                .when('/services/create', {
+                    templateUrl: '/services/form-create',
+                    controller: 'ServicesController'
+                })
+                .when('/services/edit/:id',{
+                    templateUrl:'/services/form-edit',
+                    controller: 'ServicesController'
+                })
+                .when('/services/editD/:id',{
+                    templateUrl:'/services/form-editD',
+                    controller: 'ServicesController'
+                })
                 .otherwise({
                     redirectTo: '/'
                 });

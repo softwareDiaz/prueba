@@ -20,10 +20,11 @@ class CustomerRepo extends BaseRepo{
     }
     public function searchVenta($q)
     {
-        $customers =Customer::select(\DB::raw('id,nombres,apellidos,empresa,CONCAT(nombres,"-",apellidos,"-",empresa) as busqueda'))
+        $customers =Customer::select(\DB::raw('id,dni,nombres,apellidos,ruc,direccFiscal,empresa,fijo,movil,empresa,CONCAT(nombres,"-",apellidos,"-",empresa) as busqueda'))
                     ->where('nombres','like', $q.'%')
                     ->orWhere('apellidos','like',$q.'%')
                     ->orWhere('empresa','like',$q.'%')
+                    ->orWhere('dni','like',$q.'%')
                     ->paginate(15);
         return $customers;
     } 

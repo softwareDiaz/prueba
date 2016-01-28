@@ -825,7 +825,7 @@
                 $scope.getAtributos = function(val) {
                   return crudServiceOrders.reportProWare('products',$scope.store.id,$scope.warehouse.id,val).then(function(response){
                     return response.map(function(item){
-                        //$log.log(item);
+                        $log.log(item);
                       return item;
                     });
                   });
@@ -1500,7 +1500,7 @@
 
 
                  $scope.open = function (size) {
-                    $log.log($scope.atributoSelected+" open");                    
+                    //$log.log($scope.atributoSelected+" open");                    
                     $scope.cargarAtri(size);                   
                 };
 

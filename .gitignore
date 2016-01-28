@@ -1,0 +1,11 @@
+/vendor
+/node_modules
+/public/node_modules
+/public/vendor
+/public/images/employees/*
+/public/images/products/*
+/public/images/variants/*
+/public/images/users/*
+/.idea
+Homestead.yaml
+.env

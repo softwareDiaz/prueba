@@ -14,8 +14,10 @@ class FBnumberRepo extends BaseRepo{
     public function numeracion($tipo,$id){
     	if($tipo=="F"){
     	      $number=FBnumber::select("numFactura")->where("caja_id","=",$id)->first();
-        }else{
+        }else if($tipo=="B"){
               $number=FBnumber::select("numBoleta")->where("caja_id","=",$id)->first();
+        }else{
+          $number=FBnumber::select("numServicio")->where("caja_id","=",$id)->first();  
         }
         return $number;
     }
