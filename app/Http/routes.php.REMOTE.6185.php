@@ -711,27 +711,6 @@ Route::post('api/cardextop10peoresFechas/create/{fechaini}/{fechafin}/{tienda}/{
 Route::post('api/reportMovimientoVarianteDMA/generate/{tipo}/{fecha}/{tienda}/{var}','PurchasesController@reportMovimientoVarianteDMA');
 Route::post('api/reportMovimientosVarianteRangoF/create/{fechaini}/{fechafin}/{tipo}/{tienda}/{var}','PurchasesController@reportMovimientosVarianteRangoF');
 
-<<<<<<< HEAD
-//-----------------------------Servicios---------------------------
-Route::get('services',['as'=>'person','uses'=>'ServiceController@index']);
-Route::get('services/create',['as'=>'person_create','uses'=>'ServiceController@index']);
-Route::get('services/edit/{id?}', ['as' => 'person_edit', 'uses' => 'ServiceController@index']);
-Route::get('services/form-create',['as'=>'person_form_create','uses'=>'ServiceController@form_create']);
-Route::get('services/form-edit',['as'=>'person_form_edit','uses'=>'ServiceController@form_edit']);
-Route::get('api/services/all',['as'=>'person_all', 'uses'=>'ServiceController@all']);
-Route::get('api/services/paginate/',['as' => 'person_paginate', 'uses' => 'ServiceController@paginatep']);
-Route::post('api/services/create',['as'=>'person_create', 'uses'=>'ServiceController@create']);
-Route::put('api/services/edit',['as'=>'person_edit', 'uses'=>'ServiceController@edit']);
-Route::post('api/services/destroy',['as'=>'person_destroy', 'uses'=>'ServiceController@destroy']);
-Route::get('api/services/search/{q?}',['as'=>'person_search', 'uses'=>'ServiceController@search']);
-Route::get('api/services/find/{id}',['as'=>'person_find', 'uses'=>'ServiceController@find']);
-
-Route::get('api/services/numero',['as'=>'person_find', 'uses'=>'ServiceController@numeroServicio']);
-
-Route::get('services/editD/{id?}', ['as' => 'person_editD', 'uses' => 'ServiceController@index']);
-Route::get('services/form-editD',['as'=>'person_form_editD','uses'=>'ServiceController@form_editD']);
-//Route::put('api/services/editD',['as'=>'person_editD', 'uses'=>'ServiceController@edit']);
-=======
 //route::controller('/', 'Layout\proban@prob'); 
 Route::get('listServices',['as'=>'brand','uses'=>'ListServicesController@index']);
  Route::get('listServices/create',['as'=>'brand_create','uses'=>'ListServicesController@index']);
@@ -747,5 +726,4 @@ Route::get('listServices',['as'=>'brand','uses'=>'ListServicesController@index']
  Route::get('api/listServices/find/{id}',['as'=>'brand_find', 'uses'=>'ListServicesController@find']);
  Route::get('api/listServices/validar/{text}',['as'=>'brand_find', 'uses'=>'ListServicesController@validaBrandname']);
  //END STORE ROUTES
->>>>>>> d3546ceeb166bb29d4e578aa932b359171ec8c84
 

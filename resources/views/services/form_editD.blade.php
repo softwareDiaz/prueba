@@ -192,6 +192,21 @@
                                   </div>
      
                                 </div> 
+                                <table class="table table-bordered">       
+                                    <tr>
+                                      <td>
+                                          <button data-toggle="popover" popover-template="dynamicPopover.templateUrl" type="button" class="btn btn-default">@{{compras[$index].cantidad}}</button>
+                                      </td>
+                                      <td><a popover-template="dynamicPopover5.templateUrl" popover-trigger="mouseenter">@{{compras[$index].NombreAtributos}}</a></td>
+                                      <td>
+                                          <button data-toggle="popover" popover-template="dynamicPopover1.templateUrl" type="button" class="btn btn-default">@{{compras[$index].precioVenta| number:2}}</button>
+                                      </td>
+                                      <td>@{{compras[$index].subTotal | number:2}}</td>
+                                      <td><button type="button" class="btn btn-danger ng-binding"  ng-click="sacarRow($index,row.subTotal)">
+                                      <span class="glyphicon glyphicon-trash"></span>
+                                      </td>                    
+                                    </tr>                                    
+                                  </table> 
 
                                 <table class="table table-bordered">
                                   <tr>

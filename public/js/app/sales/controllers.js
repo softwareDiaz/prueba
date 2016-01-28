@@ -315,9 +315,19 @@
                                             //alert(data.created_at);
                                             $scope.FechaCreado=new Date(data.created_at);
                                             $scope.anoFactura=""+$scope.FechaCreado.getFullYear();
-                                            $scope.diaFactura=""+$scope.FechaCreado.getDate();
-                                            $scope.convertirMes($scope.FechaCreado.getMonth()+1);
+                                            //$scope.diaFactura=""+$scope.FechaCreado.getDate();
+                                            //$scope.convertirMes($scope.FechaCreado.getMonth()+1);
                                             $scope.insertar(Number(data.Total));
+                                            if($scope.FechaCreado.getDate()<10){
+                                                $scope.diaFactura="0"+$scope.FechaCreado.getDate();
+                                            }else{
+                                                $scope.diaFactura=""+$scope.FechaCreado.getDate();
+                                            }
+                                            if(($scope.FechaCreado.getMonth()+1)<10){
+                                                $scope.mesActual="0"+($scope.FechaCreado.getMonth()+1);
+                                            }else{
+                                                $scope.mesActual=""+$scope.FechaCreado.getMonth()+1;
+                                            }
                                             if(Number(data.numero)<10){
                                                 $scope.numeroDocumento="000000"+data.numero;
                                             }else{
@@ -1772,7 +1782,7 @@
             $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+" CON "+((num-Math.floor(num))*100).toFixed(0)+"/100 NUEVOS SOLES";
             
         }else{
-            $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+" NUEVOS SOLES";
+            $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+" ";
         }
         
     }
