@@ -711,5 +711,19 @@ Route::post('api/cardextop10peoresFechas/create/{fechaini}/{fechafin}/{tienda}/{
 Route::post('api/reportMovimientoVarianteDMA/generate/{tipo}/{fecha}/{tienda}/{var}','PurchasesController@reportMovimientoVarianteDMA');
 Route::post('api/reportMovimientosVarianteRangoF/create/{fechaini}/{fechafin}/{tipo}/{tienda}/{var}','PurchasesController@reportMovimientosVarianteRangoF');
 
-
+//route::controller('/', 'Layout\proban@prob'); 
+Route::get('listServices',['as'=>'brand','uses'=>'ListServicesController@index']);
+ Route::get('listServices/create',['as'=>'brand_create','uses'=>'ListServicesController@index']);
+ Route::get('listServices/edit/{id?}', ['as' => 'brand_edit', 'uses' => 'ListServicesController@index']);
+ Route::get('listServices/form-create',['as'=>'brand_form_create','uses'=>'ListServicesController@form_create']);
+ Route::get('listServices/form-edit',['as'=>'brand_form_edit','uses'=>'ListServicesController@form_edit']);
+ Route::get('api/listServices/all',['as'=>'brand_all', 'uses'=>'ListServicesController@all']);
+ Route::get('api/listServices/paginate/',['as' => 'brand_paginate', 'uses' => 'ListServicesController@paginatep']);
+ Route::post('api/listServices/create',['as'=>'brand_create', 'uses'=>'ListServicesController@create']);
+ Route::put('api/listServices/edit',['as'=>'brand_edit', 'uses'=>'ListServicesController@edit']);
+ Route::post('api/listServices/destroy',['as'=>'brand_destroy', 'uses'=>'ListServicesController@destroy']);
+ Route::get('api/listServices/search/{q?}',['as'=>'brand_search', 'uses'=>'ListServicesController@search']);
+ Route::get('api/listServices/find/{id}',['as'=>'brand_find', 'uses'=>'ListServicesController@find']);
+ Route::get('api/listServices/validar/{text}',['as'=>'brand_find', 'uses'=>'ListServicesController@validaBrandname']);
+ //END STORE ROUTES
 

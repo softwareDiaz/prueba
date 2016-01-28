@@ -1,9 +1,10 @@
-body{
+.documento_venta{
 	position: absolute;
-	width: 1400px;
+	//width: px;
 	margin-top: 50px;
-	margin-left: 80px;
-
+	margin-left: 0px;
+    font-size: 5em;
+     
 }
 .logotipo{
 	background-color: green;
@@ -58,10 +59,9 @@ body{
 .headfac{
 	background-color: violet;
 	width: 800px;
+	 
 }
-input{
-	width: 100px;
-}
+
 
 #printx { 
 	visibility:visible; 

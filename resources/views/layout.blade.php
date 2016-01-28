@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Salesfly | @section('module')Dashboard @show</title>
+    <title>SistemaVentas | @section('module')Dashboard @show</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.4 -->
@@ -44,16 +44,16 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="/" class="logo">
+        <a href="/" class="logo" >
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>SL</b>F</span>
+          <span class="logo-mini"><b>CP</b>T</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Sales</b>Fly</span>
+          <span class="logo-lg" ><img src="/images/logotipo.png" style="height:30px;"></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top"  role="navigation">
           <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas"  role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
           <div class="navbar-custom-menu">
@@ -122,7 +122,7 @@
         </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
+      <aside class="main-sidebar" style="background-color:#1C2E3C;">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
@@ -163,6 +163,7 @@
               <ul class="treeview-menu">
                 <li class=""><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>
                 <li class=""><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>
+                <li class=""><a href="/listServices" ><i class="fa fa-circle-o"></i>Servicios</a></li>
                 <li class=""><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
                 <li><a href="/types"><i class="fa fa-circle-o"></i>Líneas </a></li>
                 <li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>

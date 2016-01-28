@@ -3,6 +3,20 @@
         .config(['$routeProvider','$locationProvider', function ($routeProvider,$locationProvider) {
             $routeProvider
             // ------------------------------------------------------
+            .when('/listServices', {
+                    templateUrl: '/js/app/listServices/views/index.html',
+                    controller: 'ListServiceController'
+                })
+                .when('/listServices/create',{
+                    templateUrl:'/listServices/form-create',
+                    controller: 'ListServiceController'
+                })
+                .when('/listServices/edit/:id',{
+                    templateUrl:'/listServices/form-edit',
+                    controller: 'ListServiceController'
+                })  
+                //--------------------------------------------------------
+            // ------------------------------------------------------
             .when('/atributes', {
                     templateUrl: '/js/app/atributes/views/index.html',
                     controller: 'AtributController'

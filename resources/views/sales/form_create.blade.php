@@ -1227,8 +1227,8 @@
 
 
 <div id="printx" style="display:none;">
-<body >
-    <div class="logotipo">
+<body class="documento_venta" style="margin-top:50px;">
+    <!--<div class="logotipo">
       <h1 class="log">KALUZ.EIRL</h1>
       <label>av. Pedro Ruiz #1020 - Chiclayo</label>
     </div>
@@ -1240,69 +1240,68 @@
     </div>
     <div class="headfac">
         <br>
-      <label class="fech">Chiclayo @{{diaFactura}} de @{{mesActual}} del @{{anoFactura}}</label><br>
-    <table class="tbhead" >
+      <label class="fech">Chiclayo @{{diaFactura}} de @{{mesActual}} del @{{anoFactura}}</label><br>-->
+    <table class="" >
       <tr>
-        <td><label>Señor(a):</label></td>
-        <td><input style="width:400px;" type="text" value="@{{headVoice.cliente}}"></td>
-        <td><label ng-if="headVoice.tipoDoc=='F'">RUC:</label><label ng-if="headVoice.tipoDoc=='B'">N° Doc:</label></td>
-        <td><input style="width:250px;" type="text" value="@{{headVoice.ruc}}"></td>
+        <td style="width:40px;"></td>
+        <td><label style="width:400px;" type="text" >@{{headVoice.cliente}}</label></td>
+        <!--<td><label ng-if="headVoice.tipoDoc=='F'">RUC:</label><label ng-if="headVoice.tipoDoc=='B'">N° Doc:</label></td>-->
+        
       </tr>
 
       <tr>
-        <td><label>Direccion:</label></td>
-        <td ><input style="width:400px;" type="text" value="@{{headVoice.direccion}}"></td>
-        <td><label>G. Remicion:</label></td>
-        <td><input style="width:250px;" type="text"></td>
+        <td style="width:40px;"></td>
+        <td ><label style="width:490px;" type="text" >@{{headVoice.direccion}}</label>
+        <td><label class="fech"> @{{diaFactura}} - @{{mesActual}} - @{{anoFactura}}</label></td>
+        
+        
+      </tr>
+      
+    </table>
+    <table>
+      <tr>
+      <td style="width:30px;"></td>
+        <td><label style="width:250px;" type="text" >@{{headVoice.ruc}}</label> </td>
+        <td><label style="width:100px;" type="text"></label> </td>
       </tr>
     </table>
       
     </div>
-    <div class="tbcontent">
-      <table class="table table-bordered">
-        <thead>
-          <th>CANTIDAD</th>
-          <th style="width: 400px;">DESCRIPCION</th>
-          <th>PRECIO<br>UNITARIO</th>
-          <th>VALOR DE<br>VENTA</th>
-        </thead>
-        <tbody>
+    
+
+    <div class="tbcontent" style="height:490px;">
+      <table class="" >
+        
+        <tbody >
           <tr ng-repeat="row in detVoices">
-            <td>@{{row.cantidad}}</td>
-            <td>@{{row.descripcion}}</td>
-            <td>S/.@{{row.PrecioUnit}}</td>
-            <td>S/.@{{row.PrecioVent}}</td>
+            <td style="width:40px;">@{{row.cantidad}}</td>
+            <td style="width:450px;">@{{row.descripcion}}</td>
+            <td style="width:60px;">S/.@{{row.PrecioUnit}}</td>
+            <td style="width:60px;">S/.@{{row.PrecioVent}}</td>
           </tr>
-          <tr ng-if="headVoice.tipoDoc=='F'">
-               <td colspan='2'><label>Son:</label><input class="descrResult" type="text" value="@{{DecripcionTotal}}"></td>
-               <td></td>
-               <td></td>
-          </tr>
+
         </tbody>
       </table>
       
        </div>
-      <div class="firma">
-          <label>______________</label><br>
-          <label>
-            CANCELADO
-          </label>
-        </div>
+       
+      
       <div class="result">
         
-        <table class="tbre">
+        <table class="">
         
           <tr ng-if="headVoice.tipoDoc=='F'">
-             <td><label>Sub Total:</label></td>
-             <td><input type="text"  value="S/.@{{headVoice.subTotal}}"></td>
+             <td ng-if="headVoice.tipoDoc=='F'"><label style="width:550px;"  class="" type="text" >@{{DecripcionTotal}}</label></td>
+             
+             <td><label type="text"  >S/.@{{headVoice.subTotal}}</label></td>
           </tr>
           <tr ng-if="headVoice.tipoDoc=='F'">
-              <td><label >IGV.18%:</label></td>
-              <td><input type="text"  value="S/.@{{headVoice.igv}}"></td>
+              <td style="width:550px;" ></td>
+              <td><label type="text"  >S/.@{{headVoice.igv}}</label></td>
           </tr>
           <tr>
-              <td><label >Total:</label></td>
-              <td><input type="text"  value="S/.@{{headVoice.Total}}"></td>
+              <td style="width:550px;" ></td>
+              <td><label type="text">S/.@{{headVoice.Total}}</label>
           </tr> 
         
          </table>
