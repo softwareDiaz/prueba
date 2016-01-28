@@ -725,9 +725,25 @@ Route::get('listServices',['as'=>'brand','uses'=>'ListServicesController@index']
  Route::get('api/listServices/find/{id}',['as'=>'brand_find', 'uses'=>'ListServicesController@find']);
 
  Route::get('api/listServices/validar/{text}',['as'=>'brand_find', 'uses'=>'ListServicesController@validaBrandname']);
-Route::get('api/services/numero',['as'=>'person_find', 'uses'=>'ServiceController@numeroServicio']);
+
+
+
+//-----------------------------Separate---------------------------
+Route::get('services',['as'=>'person','uses'=>'ServiceController@index']);
+Route::get('services/create',['as'=>'person_create','uses'=>'ServiceController@index']);
+Route::get('services/edit/{id?}', ['as' => 'person_edit', 'uses' => 'ServiceController@index']);
+Route::get('services/form-create',['as'=>'person_form_create','uses'=>'ServiceController@form_create']);
+Route::get('services/form-edit',['as'=>'person_form_edit','uses'=>'ServiceController@form_edit']);
+Route::get('api/services/all',['as'=>'person_all', 'uses'=>'ServiceController@all']);
+Route::get('api/services/paginate/',['as' => 'person_paginate', 'uses' => 'ServiceController@paginatep']);
+Route::post('api/services/create',['as'=>'person_create', 'uses'=>'ServiceController@create']);
+Route::put('api/services/edit',['as'=>'person_edit', 'uses'=>'ServiceController@edit']);
+Route::post('api/services/destroy',['as'=>'person_destroy', 'uses'=>'ServiceController@destroy']);
+Route::get('api/services/search/{q?}',['as'=>'person_search', 'uses'=>'ServiceController@search']);
+Route::get('api/services/find/{id}',['as'=>'person_find', 'uses'=>'ServiceController@find']);
 
 Route::get('services/editD/{id?}', ['as' => 'person_editD', 'uses' => 'ServiceController@index']);
 Route::get('services/form-editD',['as'=>'person_form_editD','uses'=>'ServiceController@form_editD']);
+Route::get('api/services/numero',['as'=>'person_find', 'uses'=>'ServiceController@numeroServicio']);
 //Route::put('api/services/editD',['as'=>'person_editD', 'uses'=>'ServiceController@edit']);
 
