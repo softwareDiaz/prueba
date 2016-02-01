@@ -27,14 +27,16 @@ class DetSaleRepo extends BaseRepo{
                     ->leftjoin("equiv","equiv.preFin_id","=","presentation.id")
                     ->leftjoin("stock","variants.id","=","stock.variant_id")
                     ->leftjoin("warehouses","warehouses.id","=","stock.warehouse_id")
+                    ->leftjoin('listServices','listServices.id','=','detSales.listService_id')
                     
-                    ->select(\DB::raw('detSales.*, products.nombre as nameProducto, presentation.nombre as presentacion ,variants.id as vari , warehouses.id as idAlmacen,
+                    ->select(\DB::raw('detSales.*, IF(detSales.detPre_id is NULL, listServices.nomServicio ,products.nombre) as nameProducto, 
+                        IF(detSales.detPre_id is NULL, "--" ,presentation.nombre) as presentacion ,variants.id as vari , warehouses.id as idAlmacen,
                         stock.id as idStock,
-                        (SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /") FROM variants
+                        IF(detSales.detPre_id is NULL, "--" ,(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /") FROM variants
                                 INNER JOIN detAtr ON detAtr.variant_id = variants.id
                                 INNER JOIN atributes ON atributes.id = detAtr.atribute_id
                                 where variants.id=vari
-                                GROUP BY variants.id) as NombreAtributos'))
+                                GROUP BY variants.id)) as NombreAtributos'))
 
                     ->where('sale_id','=', $id.'%')
                              

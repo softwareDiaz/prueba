@@ -12,7 +12,7 @@ class CreateDetServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('detService', function (Blueprint $table) {
+        Schema::create('detServices', function (Blueprint $table) {
             $table->increments('id');
             $table->decimal('precioProducto',10,2);
             $table->decimal('precioVenta',10,2);
@@ -25,6 +25,10 @@ class CreateDetServicesTable extends Migration
 
             $table->integer('detPre_id')->unsigned()->nullable();
             $table->foreign('detPre_id')->references('id')->on('detPres');
+
+            $table->integer('listService_id')->unsigned()->nullable();
+            $table->foreign('listService_id')->references('id')->on('listServices');
+
             $table->timestamps();
         });
     }

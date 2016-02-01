@@ -18,8 +18,11 @@ class CreateDetSalesTable extends Migration
             $table->integer('sale_id')->unsigned();
             $table->foreign('sale_id')->references('id')->on('sales');
 
-            $table->integer('detPre_id')->unsigned();
+            $table->integer('detPre_id')->unsigned()->nullable();
             $table->foreign('detPre_id')->references('id')->on('detPres');
+
+            $table->integer('listService_id')->unsigned()->nullable();
+            $table->foreign('listService_id')->references('id')->on('listServices');
             $table->timestamps();
         });
     }

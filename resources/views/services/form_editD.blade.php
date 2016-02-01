@@ -84,6 +84,16 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div  class="input-group">
+                          <label>Estado: </label>
+                          <spam>@{{'   '+service.estado==1? 'Por Revision': service.estado==2? 'Con Revision':
+                          service.estado==3? 'En Reparacion':service.estado==4? 'Por Entregar':'Entregado'}}</spam>
+                        </div>
+                      </div>
+                    </div>
+
                   
 
 
@@ -130,28 +140,43 @@
 
                               <div class="box box-primary">
                                 <div class="box-header with-border">
-                                <h3 class="box-title">Agregar Diagnostico</h3>
+                                <h3 class="box-title">Control Diagnostico</h3>
                               </div><!-- /.box-header -->
 
-                              <div class="form-group" >
+                              <div class="form-group">
                                 <label for="diagnostico">Diagnostico</label>
-                                <textarea type="diagnostico" class="form-control" name="diagnostico" placeholder="Diagnostico"
+                                <textarea ng-disabled="estBan" type="diagnostico" class="form-control" name="diagnostico" placeholder="Diagnostico"
                                           ng-model="service.diagnostico" rows="4" cols="50"></textarea>
                               </div>
 
                               <div class="form-group" >
                                 <label for="accionCorrectiva">Accion Correctiva</label>
-                                <textarea type="accionCorrectiva" class="form-control" name="accionCorrectiva" placeholder="Accion Correctiva"
+                                <textarea ng-disabled="estBan"  type="accionCorrectiva" class="form-control" name="accionCorrectiva" placeholder="Accion Correctiva"
                                           ng-model="service.accionCorrectiva" rows="4" cols="50"></textarea>
                               </div>
+                              <div class="row" ng-if="service.estado!=5">
+                                <div class="col-md-6">
+                                      <div class="form-group">
+                                            <label>Estado del Servicio</label>
+                                            <select name="estado" class="form-control ng-pristine ng-valid ng-touched" ng-model="service.estado">
+                                             <option value="1">Por Revision</option>
+                                             <option value="2">Con Revision</option>
+                                             <option value="3">En Reparacion</option>
+                                             <option value="4">Por Entregar</option>
 
+                                            </select>
+                                      </div>
+                                </div>
+                              </div>
+              <div ng-show="estBan1">
                             <div class="box box-primary">
                               <div class="box-header with-border">
-                              <h3 class="box-title">Agregar Productos y servicios</h3>
+                              <h3 class="box-title">Control Productos y servicios</h3>
                             </div><!-- /.box-header -->
 
+                        <div ng-show="service.estado!=5">
                             <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-4">
                               <div class="form-group" >
                                   <label for="year">Tienda</label>
                                   <select class="form-control" name="" ng-model="store.id" ng-options="item.id as item.nombreTienda for item in stores">
@@ -160,7 +185,7 @@
                                 </div>
                               </div>
 
-                              <div class="col-md-6">
+                              <div class="col-md-4" ng-if="tipoServicio==1">
                               <div class="form-group" >
                                   <label for="year">Almacen</label>
                                   <select class="form-control" name="" ng-model="warehouse.id" ng-options="item.id as item.nombre for item in warehouses">
@@ -168,11 +193,22 @@
                                   </select>
                                 </div>
                               </div>
+
+                              <div class="col-md-4">
+                                      <div class="form-group">
+                                            <label>Elija tipo de trabajo</label>
+                                            <select name="genero" class="form-control ng-pristine ng-valid ng-touched" ng-model="tipoServicio">
+                                             <option value="0">Servicio</option>
+                                             <option value="1">Producto</option>
+
+                                            </select>
+                                      </div>
+                              </div>
                             </div>
 
                             </br>
 
-                              <div class="row">
+                              <div class="row" ng-show="tipoServicio==1">
                                   <div class="col-md-9" ng-show="skuestado">
                                     <input type="text" ng-model="varianteSkuSelected" placeholder="Buscar por SKU" ng-enter="getvariantSKU()" class="form-control">
                                   </div>
@@ -190,20 +226,34 @@
                                       <label for="estado">SKU</label>                             
                                     </div>
                                   </div>
-     
                                 </div> 
+
+                                <div class="row" ng-show="tipoServicio==0">
+                                  <div class="col-md-9" ng-show="!skuestado">
+                                    <input  type="text" ng-model="serviceSelected" ng-enter="cargarservice()" placeholder="Buscar por Nombre Servicio" typeahead="atributo as atributo.NombreAtributos for atributo in getService($viewValue)" 
+                                    typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"/>
+                                  </div>
+                                  <div class="col-md-3" >
+                                  </div>
+                                </div> 
+                                <br>
+                            </div>
+
                                 <table class="table table-bordered">       
                                     <tr>
                                       <td>
-                                          <button data-toggle="popover" popover-template="dynamicPopover.templateUrl" type="button" class="btn btn-default">@{{compras[$index].cantidad}}</button>
+                                          <button ng-if="compra.cantidad!=undefined" data-toggle="popover" popover-template="dynamicPopover.templateUrl" type="button" class="btn btn-default">@{{compra.cantidad}}</button>
                                       </td>
-                                      <td><a popover-template="dynamicPopover5.templateUrl" popover-trigger="mouseenter">@{{compras[$index].NombreAtributos}}</a></td>
+                                      <td><a popover-template="dynamicPopover5.templateUrl" popover-trigger="mouseenter">@{{compra.NombreAtributos}}</a></td>
                                       <td>
-                                          <button data-toggle="popover" popover-template="dynamicPopover1.templateUrl" type="button" class="btn btn-default">@{{compras[$index].precioVenta| number:2}}</button>
+                                          <button ng-if="compra.cantidad!=undefined" data-toggle="popover" popover-template="dynamicPopover1.templateUrl" type="button" class="btn btn-default">@{{compra.precioVenta| number:2}}</button>
                                       </td>
-                                      <td>@{{compras[$index].subTotal | number:2}}</td>
-                                      <td><button type="button" class="btn btn-danger ng-binding"  ng-click="sacarRow($index,row.subTotal)">
+                                      <td>@{{compra.subTotal | number:2}}</td>
+                                      <td><a ng-if="compra.cantidad!=undefined" type="submit" class="btn btn-primary" ng-click="agregarTrabajo()">Add</a></td>
+                                      <td><button ng-if="compra.cantidad!=undefined" type="button" class="btn btn-danger ng-binding"  ng-click="sacarRow($index,row.subTotal)">
                                       <span class="glyphicon glyphicon-trash"></span>
+
+                                      
                                       </td>                    
                                     </tr>                                    
                                   </table> 
@@ -216,32 +266,29 @@
                                     <th>Precio Referencia</th>
                                     <th>Descuento</th>
                                     <th>Precio Venta</th>
-                                    <th>Stock</th>
-                                    <th>Pedido</th>
-                                    <th>Separados</th>
-                                    <th>Precio Referencia</th>
-                                    <th style="width: 40px">Eliminar</th>
+                                    <th>Sub Total</th>
+                                    <th style="width: 40px" ng-if="service.estado!=5">Eliminar</th>
                                   </tr>
                     
-                                  <tr ng-repeat="row in services">
+                                  <tr ng-repeat="row in detServices">
                                     <td>@{{$index + 1}}</td>
-                                    <td>@{{row.numeroServicio}}</td>
-                                    <td>@{{row.cliente}}</td>
-                                    <td>@{{row.modelo}}</td>
-                                    <td>@{{row.serie}}</td>
-                                    <td>@{{row.telefono}}</td>
-                                    <td>@{{row.tipo==0? 'Servicio':'Garantia'}}</td>
-                                    <td>@{{row.estado==1? 'Por Revision': row.estado==2? 'Con Revision':'Otro'}}</td>
-                                    <td><a ng-click="editService(row)" class="btn btn-warning btn-xs">Editar</a></td>
-                                    <td><a ng-click="editServiceDiagnostico(row)" class="btn btn-warning btn-xs">Diagnostico</a></td>
-                                    <td><a ng-click="deleteService(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
+                                    <td>@{{row.NombreAtributos}}</td>
+                                    <td>@{{row.cantidad}}</td>
+                                    <td>@{{row.precioProducto}}</td>
+                                    <td>@{{row.descuento}}</td>
+                                    <td>@{{row.precioVenta}}</td>
+                                    <td>@{{row.subTotal}}</td>
+                                    <td ng-if="service.estado!=5"><a ng-click="destroyDetService(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
                                   </tr>              
                                 </table>
 
+                              <a ng-if="service.estado!=5" ng-click="rutaMovimiento()" ng-href="@{{rutaSalesService}}"  target="_self" type="submit" class="btn btn-primary" >Pagar</a>
+
                 </div><!-- /.box-body -->
+        </div>  
 
                   <div class="box-footer">
-                    <a type="submit" class="btn btn-primary" ng-click="update1Service()">Modificar</a>
+                    <a type="submit" class="btn btn-primary" ng-click="update1Service()">Grabar</a>
                     <a href="/services" class="btn btn-danger">Cancelar</a>
                   </div>
                 </form>
@@ -250,5 +297,131 @@
               </div>
               </div><!-- /.row -->
               </section><!-- /.content -->
+
+
+
+
+
+
+              <script type="text/ng-template" id="myPopoverTemplate5.html">
+      <div class="form-group">
+          <label>@{{dynamicPopover5.title}}</label>
+        </div>
+
+        <div>
+        <label>Stock : </label>
+        <label>@{{compra.Stock}}</label>
+        </div>
+
+        <div>
+        <label>Pedidos : </label>
+        <label>@{{compra.stockPedidos}}</label>
+        </div>
+
+        <div>
+        <label>Separados : </label>
+        <label>@{{compra.stockSeparados}}</label>
+        </div>
+
+        <div>
+        <label>precio : </label>
+        <label>@{{compra.precioProducto}}</label>
+        </div>
+          
+                 
+    </script>
+
+
+
+
+     <script type="text/ng-template" id="myPopoverTemplate.html">
+        <div class="form-group">
+          <label>@{{dynamicPopover.title}}</label>
+          <div class="row" >
+          <div class="col-md-9">
+            <input type="number" min="0" ng-model="compra.cantidad" ng-change="calcularmontos($index)" class="form-control">
+            </div>
+            <button type="button" class="btn btn-xs" ng-click="aumentarCantidad($index)">
+            <span type="button" class="glyphicon glyphicon-plus"></span></button>
+            <button type="button" class="btn btn-xs" ng-click="disminuirCantidad($index)">
+            <span type="button" class="glyphicon glyphicon-minus"></span></button>
+
+          </div>
+        </div>
+    </script>
+    <hr />
+    <script type="text/ng-template" id="myPopoverTemplate1.html">
+        
+      <tabset justified="true">
+
+      <tab heading="Descuento">
+        <label>@{{dynamicPopover1.title1}}</label>
+            <div class="row" >
+            <div class="col-md-9">
+            <input type="number" ng-model="compra.descuento" ng-change="keyUpDescuento($index)"class="form-control">
+          </div>
+         <button type="button" class="btn btn-xs" ng-click="aumentarDescuento($index)">
+          <span type="button" class="glyphicon glyphicon-plus"></span></button>
+         <button type="button" class="btn btn-xs" ng-click="disminuirDescuento($index)">
+         <span type="button" class="glyphicon glyphicon-minus"></span></button>
+
+        </div>
+        </div>
+
+      </tab>
+      <tab heading="Precio Unidad"><div class="form-group">
+            <label>@{{dynamicPopover1.title}}</label>
+            <div class="row" >
+            <div class="col-md-9">
+            <input type="number" min="0" ng-change="calcularmontos($index)" ng-model="compra.precioVenta" class="form-control">
+          </div>
+         <button type="button" class="btn btn-xs" ng-click="aumentarPrecio($index)">
+          <span type="button" class="glyphicon glyphicon-plus"></span></button>
+         <button type="button" class="btn btn-xs" ng-click="disminuirPrecio($index)">
+         <span type="button" class="glyphicon glyphicon-minus"></span></button>
+
+        </div>
+        </div> 
+
+        </tab>
+      </tabset>
+              
+    </script>
+
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Presentaciones</h3>
+        </div>
+                  <table class="table table-bordered">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Nombre</th>
+                      <th>Precio</th>
+                      <th>Presentacion</th>
+                      <th>Equivalencia</th>
+                      <th>Producto Base</th>
+
+                      <th style="width: 40px">Enviar</th>
+                    </tr>
+                    
+                    <tr ng-repeat="row in presentations">
+                      <td>@{{$index + 1}}</td>
+                      <td ng-hide="true">@{{row.iddetalleP}}</td>
+                      <td >@{{row.NombreAtributos}}</td>
+                      <td>@{{row.precioProducto}}</td> 
+                      <td>@{{row.Presentacion}}</td>  
+                      <td>@{{row.equivalencia}} @{{row.nomBase}}</td>
+                      <td ng-if="row.base==0"><span class="badge bg-red">NO</span></td> 
+                      <td ng-if="row.base!=0"><span class="badge bg-green">SI</span></td> 
+                      <td><a ng-click="AsignarCompra(row)" class="btn btn-warning btn-xs" data-dismiss="modal">Enviar</a></td>
+
+                    </tr>                                       
+                  </table>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 
 

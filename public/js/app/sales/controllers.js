@@ -8,50 +8,11 @@
                 $scope.query = ''; 
                 $scope.promocion={};
                 $scope.promociones=[];
-                /*
-
-                $scope.orders = [];
-                $scope.order1={};
-                
-                $scope.detOrders=[];
-                    $scope.sale={};
-                    $scope.stores={};
-                    $scope.store={};
-                    $scope.warehouses={};
-                    $scope.warehouse={};
-                    $scope.warehouse.id='1';
-                    $scope.store.id='1';
-                    $scope.atributos={};
-                    $scope.compras=[];
-                    $scope.compra={};
-                    $scope.sale.montoBruto=0;
-                    $scope.sale.descuento=0;  
-                    $scope.sale.montoTotal=0;
-                    $scope.sale.montoTotalSinDescuento=0;
-                    $scope.sale.igv=0;
-                    $scope.bandera=false;
-                    $scope.acuenta;
-                    $scope.customer={};
-                    $scope.date = new Date();
-                    $scope.base=true;
-                    $scope.presentations=[];
-                    $scope.pago={};
-                    $scope.pago.tarjeta=0;
-                    $scope.pago.cash=0;
-                    $scope.radioModel;
-                    $scope.saledetPayments=[];
-                    $scope.saledetPayment={};
-                    $scope.salePayment={};
-                */
+                $scope.banService=false;
 
                 $scope.inicializar = function (){
                     $scope.orders = [];
                     $scope.sale={};
-                    //$scope.stores={};
-                    
-                    //$scope.warehouses={};
-                    
-                    
                     $scope.atributos={};
                     $scope.compras=[];
                     $scope.compra={};
@@ -87,18 +48,15 @@
                     $scope.sale.customer_id=undefined;
                     $scope.sale.employee_id=undefined;
                     $scope.sale.vuelto=0;
-                    $scope.exitCustumer=false;
-                    //$scope.cashHeaders={};
-                    
-                    
+                    $scope.exitCustumer=false;                  
                     $scope.cashes={};
                     $scope.cashfinal={};
                     $scope.banderaMostrarEntrega=false;
                     $scope.banderaModificar=false;
+                    $scope.banderaEstadoService=true;
 
                 }
                 
-
                 $scope.inicializar();
                 $scope.cash1={};
                 $scope.warehouse={};
@@ -135,22 +93,49 @@
                 var id = $routeParams.id;
 
                 if(id)
-                {
+                {   
+                    crudServiceOrders.search('detServices',id,1).then(function (data){
+                        $scope.deleteCompras=data;
+                    });
+                    crudServiceOrders.search('detServices',id,1).then(function (data){
+                        $scope.compras=data;
+                        for (var i = $scope.compras.length - 1; i >= 0; i--) {
+                            if ($scope.compras[i].service_id != undefined) {
+                                $scope.compras[i].cantidad=Number($scope.compras[i].cantidad);
+                                $scope.compras[i].descuento=Number($scope.compras[i].descuento);
+                                $scope.compras[i].precioVenta=Number($scope.compras[i].precioVenta);
+                                $scope.compras[i].subTotal=Number($scope.compras[i].subTotal);
 
+                                $scope.sale.montoTotal=$scope.sale.montoTotal+$scope.compras[i].subTotal;
+                                
+                            };
+                        };
+                        $scope.recalcularCompra();
+
+                        crudServiceOrders.byId(id,'services').then(function (data) {
+                            $scope.findService=data;
+                            if (data.estado==5) {
+                                $scope.banderaEstadoService=false;
+                            };
+                            crudServiceOrders.byId(data.customer_id,'customers').then(function (data) {
+                                $scope.sale.customer_id=data.id;
+                                $scope.sale.cliente=data.nombres+"-"+data.apellidos+"-"+data.empresa;
+                            });
+                        });
+
+                        
+                    });
                     crudServiceOrders.byId(id,'sales').then(function (data) {
                         $scope.order1 = data;
-                        $log.log($scope.order1);
                         $scope.estadoMostrarEntrega();
                         if ($scope.order1.estado==0) {$scope.cancelPedido=false}else if($scope.order1.estado==3){$scope.cancelPedido=true};
 
                         crudServiceOrders.search('DetSales',$scope.order1.id,1).then(function (data){
                             $scope.detOrders = data.data;
-                            //$log.log($scope.detOrders);
                         });
                         crudServiceOrders.search('salePayment',$scope.order1.id,1).then(function (data){
                             $scope.payment = data.data;
-                            $log.log("----");
-                            $log.log($scope.payment);
+
                             if($scope.payment.length!=0){
                             $scope.calcularPorcentaje();
 
@@ -171,12 +156,29 @@
                     });
                     crudServiceOrders.select('stores','select').then(function (data) {                        
                         $scope.stores = data;
-                        $log.log("*******");
-                        $log.log(data);
+                    });
+                    crudServiceOrders.search('warehousesStore',$scope.store.id,1).then(function (data){
+                        $scope.warehouses=data.data;
                     });
                     crudServiceOrders.search('searchHeaders',$scope.store.id,1).then(function (data){
                         $scope.cashHeaders=data;
-                        $log.log($scope.cashHeaders);
+                    });
+
+                    crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
+                        var canCashes=data.total;
+                        var pagActual=Math.ceil(canCashes/15);
+                        crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
+                            $scope.cashes = data.data;
+                            $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
+                            crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
+                            $scope.detCashes = data.data;
+                            $scope.maxSize1 = 5;
+                                $scope.totalItems1 = data.total;
+                                $scope.currentPage1 = data.current_page;
+                                $scope.itemsperPage1 = 15;
+
+                            });
+                        });
                     });
 
                 }else{
@@ -195,16 +197,13 @@
                     });
                     crudServiceOrders.search('warehousesStore',$scope.store.id,1).then(function (data){
                         $scope.warehouses=data.data;
-                        //$log.log($scope.warehouses);
                     });
                     crudServiceOrders.reportProWare('productsFavoritos',$scope.store.id,$scope.warehouse.id,'1').then(function(data){    
                         $scope.favoritos=data;
-                        //$log.log($scope.favoritos);
                     });
 
                     crudServiceOrders.search('searchHeaders',$scope.store.id,1).then(function (data){
                         $scope.cashHeaders=data;
-                        $log.log($scope.cashHeaders);
                     });
 
                     crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
@@ -213,7 +212,6 @@
                         crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                             $scope.cashes = data.data;
                             $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
-                            //$log.log($scope.cashfinal);
                             crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
                             $scope.detCashes = data.data;
                             $scope.maxSize1 = 5;
@@ -221,12 +219,27 @@
                                 $scope.currentPage1 = data.current_page;
                                 $scope.itemsperPage1 = 15;
 
-                                //$log.log($scope.detCashes);
                             });
                         });
                     });
                     //$scope.detCashes={};
                     
+                }
+
+                $scope.destroyDetService = function(row){
+                    $scope.detService = row;
+                    crudServiceOrders.destroy($scope.detService,'detServices').then(function(data)
+                    {
+                        if(data['estado'] == true){
+                            $scope.success = data['nombre'];
+                            $scope.detService = {};
+                            //alert('hola');
+                            $route.reload();
+
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
                 }
                 $scope.createmovCaja = function(tipo){
                     $scope.detCash={};
@@ -261,6 +274,11 @@
                  $scope.detVoices=[];
                  $scope.headVoice={};
                 $scope. createorder = function(tipo){
+                    //alert("Hola");
+                    if (id!=undefined) {
+                        $scope.banService=true;
+                        $log.log("Bandera");
+                    };
 
                     crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
                         var canCashes=data.total;
@@ -269,31 +287,45 @@
 
                             $scope.cashes = data.data;
                             $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
-
-                        
                             $scope.createmovCaja(tipo);
-                            //$log.log($scope.cashfinal);
-                        
-                            //$log.log($scope.sale);
 
                             for (var i = 0; i < $scope.sale.saledetPayments.length; i++) {
                                 $scope.sale.saledetPayments[i].numCaja=$scope.detCash.cash_id;
                             };
-                            
-                            $log.log($scope.sale);
+
+
+                                            if ($scope.banService==true) {
+                                                for (var i = $scope.deleteCompras.length - 1; i >= 0; i--) {
+                                                    $scope.destroyDetService($scope.deleteCompras[i]);
+                                                };
+
+                                            for (var i = $scope.sale.detOrders.length - 1; i >= 0; i--) {
+                                                $scope.sale.detOrders[i].service_id=id;
+                                                crudServiceOrders.create($scope.sale.detOrders[i], 'detServices').then(function (data) {
+                                                    if (data['estado'] == true) {
+                                                    } else {
+                                                        $scope.errors = data;
+                                                    }
+                                                });
+                                            };
+                                        };
+                                        $scope.sale.banseraServicio=$scope.banService;
+                                        $scope.sale.service=$scope.findService;
+                                        $log.log($scope.sale);
                              crudServiceOrders.create($scope.sale, 'sales').then(function (data) {
                            
                                     if (data['estado'] == true) {
                                         $scope.success = data['nombres'];
                                         $('#miventana1').modal('hide');
                                     alert('grabado correctamente');
-                                    
+                                       // $location.path('/services');
+                                       //$route.reload(); 
                                         $scope.datosFactura(data['codFactura']);
-                                        //$location.path('/orders');
+                                        $log.log(data);
+
 
                                         crudServiceOrders.reportProWare('productsFavoritos',$scope.store.id,$scope.warehouse.id,'1').then(function(data){    
                                             $scope.favoritos=data;
-                                            $log.log($scope.favoritos);
                                         });
                                 
 
@@ -306,7 +338,10 @@
                         })    
                     });
                 }
+
+
                 $scope.datosFactura=function(codigoFactu){
+                    alert("codigoFactu : "+codigoFactu);
                     crudServiceOrders.factura('detfactura',codigoFactu).then(function(data){    
                                             $scope.detVoices=data;
                                         });
@@ -378,7 +413,6 @@
                     }
                 }
                 $scope.actualizarCaja= function(){
-                    //$log.log($scope.cashfinal);
                     $scope.detCashes={};
                     if ($scope.cashfinal.estado == 0) {       
                         //alert("Caja Cerrada");
@@ -389,11 +423,11 @@
                             crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                                 $scope.cashes = data.data;
                                 $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
-                               */ //$log.log($scope.cashfinal);
+                               */
                                 crudServiceOrders.paginate('ver_ventas',1).then(function (data){
                                     //$scope.detCashes = data.data;
                                     //crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
-                                    //$log.log($scope.detCashes);
+                                    
                                     $scope.detCashes = data.data;
                                     $scope.maxSize1 = 5;
                                     $scope.totalItems1 = data.total;
@@ -443,8 +477,7 @@
 
                     $scope.cashfinal.ingresos=Number($scope.cashfinal.ingresos)+Number($scope.detCash.montoMovimiento); 
                     $scope.cashfinal.montoBruto=$scope.detCash.montoFinal;
-                    $log.log('-------------');
-                    $log.log($scope.detCash);
+
 
                 }*/
                 $scope.estadoNotas = function () {
@@ -466,9 +499,6 @@
                     //alert("fdfdfdfdf");
 
                     $scope.atributoSelected=crudServiceOrders.getPres();
-                    
-                        //alert("pase");
-                        $log.log($scope.atributoSelected);
 
                         var fecha1 = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                             if(fecha1>=$scope.atributoSelected.FechaInicioDescuento && fecha1<=$scope.atributoSelected.FechaFinDescuento){
@@ -508,7 +538,6 @@
                             }
                     
                     $scope.atributoSelected=undefined;
-                    //$log.log(crudServiceOrders.getPres());
                 }
 
                $scope.tipoDeDocumentoGenerado=function(tipo,idFactura){
@@ -527,6 +556,10 @@
                     }else{
                         $scope.calcularVuelto();      
                     }
+                }
+                $scope.pagar1 = function () {
+                    $scope.validaDocumento();
+                    $scope.calcularVuelto();      
                 }
                 $scope.calcularVuelto = function () {
                     if ($scope.pago.tarjeta+$scope.pago.cash>$scope.sale.montoTotal) {
@@ -549,7 +582,6 @@
                 }
 
                 $scope.realizarPago = function () {
-                //$log.log($scope.cashfinal.estado);
                 
                 crudServiceOrders.Comprueba_caj_for_user().then(function (data){
                       
@@ -561,7 +593,7 @@
                     $scope.salePayment.Acuenta=0;
                     $scope.salePayment.customer_id=$scope.sale.customer_id;
 
-                    if($scope.pago.tarjeta>0 || $scope.pago.cash>0){
+                    if($scope.pago.tarjeta>0 || $scope.pago.cash>=0){
                         if($scope.acuenta){
                             //Inicia Pago Credito 
                             //alert("credito");
@@ -607,6 +639,7 @@
                                     $scope.sale.saledetPayments=$scope.saledetPayments;
                                     $scope.sale.salePayment=$scope.salePayment;
                                     var tipo='credito';
+
                                     $scope.createorder(tipo);
 
                                 };
@@ -664,7 +697,7 @@
                                 //crear compra
                                 var tipo='contado';
                                 $scope.createorder(tipo);
-                                //$log.log($scope.sale);
+
                                 };
                                 $scope.banderaPagosTarjeta=true;
                             }
@@ -742,12 +775,9 @@
                     //}
                 };
                 $scope.Jalar = function(size) {
-                    $log.log($scope.varianteSkuSelected1.length);
                     if ($scope.varianteSkuSelected1.length>0) {
                         crudServiceOrders.reportProWare('productsVariantes',$scope.store.id,$scope.warehouse.id,$scope.varianteSkuSelected1[0].vari).then(function(data){    
                             $scope.presentations = data;
-
-                            $log.log($scope.presentations);
 
                             var fecha1 = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                             if($scope.oferta==true){
@@ -760,7 +790,6 @@
                                       $scope.varianteSkuSelected1[0].descuento=Number($scope.presentations[0].DescuentoSinFecha);
                                   }
                              }
-                            $log.log($scope.varianteSkuSelected1.descuento);
 
                             if($scope.base){                
                                     $scope.varianteSkuSelected1[0].cantidad=1;
@@ -835,14 +864,12 @@
                 $scope.getAtributos = function(val) {
                   return crudServiceOrders.reportProWare('products',$scope.store.id,$scope.warehouse.id,val).then(function(response){
                     return response.map(function(item){
-                        $log.log(item);
                       return item;
                     });
                   });
                 };
                 $scope.customersSelected=undefined;
                 $scope.getcustomers = function(val) {
-                    //$log.log(val);
                   return crudServiceOrders.search('customersVenta',val,1).then(function(response){
                     return response.data.map(function(item){ 
                       return item;
@@ -895,7 +922,6 @@
                          
                 }
                 $scope.selecionarCliente = function() {
-                    //$log.log($scope.customersSelected.busqueda);
                     if ($scope.customersSelected!=undefined) {
                         $scope.sale.customer_id=$scope.customersSelected.id;
                         $scope.sale.cliente=$scope.customersSelected.busqueda;
@@ -903,12 +929,6 @@
                     };
                 }
                 $scope.asd = function($item, $model, $label) {
-                    $log.log("item");
-                    $log.log($item);
-                    $log.log("model");
-                    $log.log($model);
-                    $log.log("label");
-                    $log.log($label);
                     if ($scope.customersSelected!=undefined) {
                         $scope.sale.customer_id=$scope.customersSelected.id;
                         $scope.sale.cliente=$scope.customersSelected.busqueda;
@@ -924,7 +944,6 @@
 
                 $scope.employeeSelected=undefined;
                 $scope.getemployee = function(val) {
-                    //$log.log(val);
                   return crudServiceOrders.search('employeesVenta',val,1).then(function(response){
                     return response.data.map(function(item){
                       return item;
@@ -933,7 +952,6 @@
                 };
 
                 $scope.selecionarVendedor = function() {
-                    //$log.log($scope.customersSelected.busqueda);
                     if ($scope.employeeSelected!=undefined) {
                         $scope.sale.employee_id=$scope.employeeSelected.id;
                         $scope.sale.vendedor=$scope.employeeSelected.busqueda;
@@ -1010,7 +1028,6 @@
                                                 $scope.saleCredito=data;
                                                 
                                                 $scope.pagoCredito.sale=$scope.saleCredito;
-                                                $log.log($scope.pagoCredito);
                                                 //---------------
                                             $scope.pagoCredito.tipo="sale";
                                             //---------------
@@ -1108,7 +1125,6 @@
 
                 $scope.aumentarCantidad= function(index){
                     if ($scope.compras[index].equivalencia!=undefined) {
-                        //$log.log($scope.compras);
                         $scope.compras[index].cantidad=$scope.compras[index].cantidad+1;
                         if($scope.compras[index].cantidad*$scope.compras[index].equivalencia>($scope.compras[index].Stock-$scope.compras[index].stockPedidos-$scope.compras[index].stockSeparados)){
                             alert("STOK INSUFICIENTE");
@@ -1118,10 +1134,8 @@
                             $scope.calcularmontos(index);    
                         }
                     }else{
-                        //$log.log($scope.compras);
                         $scope.compras[index].cantidad=$scope.compras[index].cantidad+1;
-                        $scope.calcularmontos(index); 
-                        //$log.log($scope.sale);   
+                        $scope.calcularmontos(index);   
                     }
                                 
                 };
@@ -1263,7 +1277,6 @@
                         crudServiceOrders.reportProWare('productsVariantes',$scope.store.id,$scope.warehouse.id,row.vari).then(function(data){    
                         $scope.atributoSelected=row;
                         $scope.presentations = data;
-                        $log.log($scope.presentations);
 
                             var fecha1 = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                             if(fecha1>=$scope.presentations[0].FechaInicioDescuento && fecha1<=$scope.presentations[0].FechaFinDescuento){
@@ -1338,7 +1351,6 @@
                                crudServiceOrders.byId($scope.atributoSelected.vari,'variants').then(function (data) {
                                     $scope.addFavorito=data;
                                     $scope.addFavorito.favorite=0;
-                                    //$log.log($scope.addFavorito);
                                     if ($scope.addFavorito!=null) {
                                         crudServiceOrders.editFavoritoId($scope.addFavorito,'variants').then(function (data) {
                                             $scope.estadoFavorito=data['estado'];
@@ -1364,8 +1376,7 @@
                             }
                             $scope.atributoSelected=undefined;                        
                         }
-                    }                  
-                       //$log.log($scope.atributoSelected);                    
+                    }                                  
                 }
                 
                 $scope.validaDocumento=function(){
@@ -1431,7 +1442,6 @@
                         crudServiceOrders.byId(row.vari,'variants').then(function (data) {
                             $scope.addFavorito=data;
                                 $scope.addFavorito.favorite=1;
-                            //$log.log($scope.addFavorito);
                             crudServiceOrders.editFavoritoId($scope.addFavorito,'variants');
 
                             $scope.addFavorito={};
@@ -1442,7 +1452,6 @@
                             });
                         });                 
                 }
-
                 $scope.cargarAtri = function(size){
                     crudServiceOrders.reportProWare('productsVariantes',$scope.store.id,$scope.warehouse.id,$scope.atributoSelected.vari).then(function(data){    
                         $scope.presentations = data;
@@ -1463,8 +1472,6 @@
                         if($scope.base){
                             if ($scope.atributoSelected.NombreAtributos!=undefined) {
                                 if (($scope.atributoSelected.Stock-$scope.atributoSelected.stockPedidos-$scope.atributoSelected.stockSeparados)>0) {       
-                                    
-                                    $log.log($scope.atributoSelected);
                     
                                     $scope.compras.push($scope.atributoSelected);
 
@@ -1509,8 +1516,7 @@
 
 
 
-                 $scope.open = function (size) {
-                    //$log.log($scope.atributoSelected+" open");                    
+                 $scope.open = function (size) {                   
                     $scope.cargarAtri(size);                   
                 };
 
@@ -1537,7 +1543,6 @@
                     //alert("Hola : "+$scope.store.id+$scope.warehouse.id);
                     crudServiceOrders.reportProWare('products',$scope.store.id,$scope.warehouse.id).then(function (data) {
                             $scope.atributos = data;
-                            //$log.log(data);
                         });
                 };
                 $('#myTabs2 a').click(function (e) {
@@ -1664,7 +1669,6 @@
                                 $scope.payment[0].montopayment=row.monto;
                                 
                                 $scope.payment[0].detCash_id=row.detCash_id;
-                                $log.log($scope.payment[0]);
                                 crudServiceOrders.destroy($scope.payment[0],'salePayment').then(function(data){
                                 if(data['estado'] == true){
                                         $scope.success = data['nombre'];
@@ -1774,7 +1778,6 @@
                     };
 
                 //});
-                    //$log.log($scope.detOrders);
                 }
     $scope.insertar=function(num){
         //alert(Math.floor(num));
@@ -1933,7 +1936,6 @@
                                     //////////////////////////////////////////////
                                     $scope.order1.movimiento=$scope.detCash;
                                     $scope.order1.caja=$scope.cashfinal;
-                                    $log.log($scope.order1);
 
                                     crudServiceOrders.update($scope.order1,'sales').then(function (data){
                                         $location.path('/sales');
@@ -1968,15 +1970,12 @@
                         $scope.totalItemsZ = data.total;
                         $scope.currentPageZ = data.current_page;
                         $scope.itemsperPageZ = 15;
-                        $log.log($scope.variants1);
                     }); 
                     crudServiceOrders.all('TraerModelos').then(function (data) {                        
                         $scope.types = data.data;
-                        //$log.log($scope.types);
                     });
                     crudServiceOrders.all('brands').then(function (data) {                        
                         $scope.brands = data.data;
-                       //$log.log($scope.types);
                     });      
                 }
                 $scope.cargarConsul= function(){

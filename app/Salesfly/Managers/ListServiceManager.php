@@ -8,6 +8,7 @@ class ListServiceManager extends BaseManager {
                             'descripcion'=>'required',
                             'tipo'=>'required',
                             'estado'=>'required',
-                            'costoAprox'=>'between:0,9999999999.00'];
+                            'costoAprox'=>'between:0,9999999999.00',
+                            'store_id'=>'required'];
         return $rules;
     }}

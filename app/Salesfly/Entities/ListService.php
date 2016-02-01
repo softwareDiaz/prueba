@@ -9,5 +9,6 @@ class ListService extends \Eloquent {
     						'descripcion',
     						'tipo',
     						'estado',
+    						'store_id',
     						'costoAprox'];
 }

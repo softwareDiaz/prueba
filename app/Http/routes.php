@@ -748,3 +748,23 @@ Route::get('services/form-editD',['as'=>'person_form_editD','uses'=>'ServiceCont
 Route::get('api/services/numero',['as'=>'person_find', 'uses'=>'ServiceController@numeroServicio']);
 //Route::put('api/services/editD',['as'=>'person_editD', 'uses'=>'ServiceController@edit']);
 
+//-----------------------------DetSeparate---------------------------
+Route::get('detServices',['as'=>'person','uses'=>'DetServicesController@index']);
+//Route::get('detServices/create',['as'=>'person_create','uses'=>'DetServicesController@index']);
+Route::get('detServices/edit/{id?}', ['as' => 'person_edit', 'uses' => 'DetServicesController@index']);
+//Route::get('detServices/form-create',['as'=>'person_form_create','uses'=>'DetServicesController@form_create']);
+Route::get('detServices/form-edit',['as'=>'person_form_edit','uses'=>'DetServicesController@form_edit']);
+Route::get('api/detServices/all',['as'=>'person_all', 'uses'=>'DetServicesController@all']);
+Route::get('api/detServices/paginate/',['as' => 'person_paginate', 'uses' => 'DetServicesController@paginatep']);
+Route::post('api/detServices/create',['as'=>'person_create', 'uses'=>'DetServicesController@create']);
+Route::put('api/detServices/edit',['as'=>'person_edit', 'uses'=>'DetServicesController@edit']);
+Route::post('api/detServices/destroy',['as'=>'person_destroy', 'uses'=>'DetServicesController@destroy']);
+Route::get('api/detServices/search/{q?}',['as'=>'person_search', 'uses'=>'DetServicesController@search']);
+Route::get('api/detServices/find/{id}',['as'=>'person_find', 'uses'=>'DetServicesController@find']);
+
+//-----------------------------------
+//-----------------------------------
+Route::get('sales/createS/{id?}', ['as' => 'person_createS', 'uses' => 'SalesController@index']);
+Route::get('sales/form-createS',['as'=>'person_form_createS','uses'=>'SalesController@form_createS']);
+
+Route::get('api/listServices/misDatos/{store?}/{q?}',['as'=>'person_find', 'uses'=>'ListServicesController@misDatos']);

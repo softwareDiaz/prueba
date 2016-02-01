@@ -1,16 +1,16 @@
 <?php
 namespace Salesfly\Salesfly\Entities;
 
-class DetSale extends \Eloquent {
+class DetServices extends \Eloquent {
 
-	protected $table = 'detSales';
+	protected $table = 'detServices';
     
     protected $fillable = ['precioProducto',
     						'precioVenta',
     						'cantidad',
     						'descuento',
     						'subTotal',
-    						'sale_id',
+    						'service_id',
     						'detPre_id',
     						'listService_id'];
 }

@@ -9,6 +9,9 @@
                 $scope.query = '';
                  $scope.listService.estado=true;
                  $scope.listService.tipo='Normal';
+                 $scope.store={};
+                $scope.store.id='1';
+
                 $scope.toggle = function () {
                     $scope.show = !$scope.show;
                 };
@@ -45,6 +48,9 @@
                         $scope.currentPage = data.current_page;
                         $scope.itemsperPage = 15;
 
+                    });
+                    crudService.select('stores','select').then(function (data) {                        
+                        $scope.stores = data;
                     });
                 }
 
@@ -84,6 +90,7 @@
 
                 $scope.createlistService = function(){
                     //$scope.atribut.estado = 1;
+                    $scope.listService.store_id=$scope.store.id
                     if ($scope.listServiceCreateForm.$valid) {
                         crudService.create($scope.listService, 'listServices').then(function (data) {
                           
