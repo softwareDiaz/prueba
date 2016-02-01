@@ -390,6 +390,10 @@
                     templateUrl:'/sales/form-edit',
                     controller: 'SaleController'
                 })
+                .when('/sales/createS/:id',{
+                    templateUrl:'/sales/form-createS',
+                    controller: 'SaleController'
+                })
                 //-------------------------------------------
                 //-----------------------------------------
                 .when('/orderSales', {

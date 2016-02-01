@@ -38,6 +38,9 @@ use Salesfly\Salesfly\Repositories\SalePaymentRepo;
 use Salesfly\Salesfly\Managers\DetCashManager;
 use Salesfly\Salesfly\Repositories\DetCashRepo;
 
+use Salesfly\Salesfly\Managers\ServiceManager;
+use Salesfly\Salesfly\Repositories\ServiceRepo;
+
 use Salesfly\Salesfly\Managers\HeadInputStockManager;
 use Salesfly\Salesfly\Repositories\HeadInputStockRepo;
 
@@ -110,6 +113,11 @@ class SalesController extends Controller
         return View('sales.form_edit');
     }
 
+    public function form_createS()
+    {
+        return View('sales.form_createS');
+    }
+
     public function create(Request $request) 
         {
         //var_dump($request->all());die();
@@ -117,10 +125,32 @@ class SalesController extends Controller
         $vuelto=$request->input("vuelto");
         $orderSale = $this->saleRepo->getModel();
         $var = $request->detOrders;
+        
         $payment = $request->salePayment;
         $saledetPayments = $request->saledetPayments;
         $cajaAct = $request->caja;
         //var_dump($cajaAct);die();
+        //-------------------------
+        //----------------
+        if($request->input("banseraServicio")==true){
+            $varService = $request->service;
+            $serviceRepo;
+            $varService['estado']=5;
+
+            $serviceRepo = new ServiceRepo;
+            $serviceSave=$serviceRepo->getModel();
+
+            $brand = $serviceSave->find($varService['id']);
+
+            
+        $manager = new ServiceManager($brand,$varService);
+        $manager->save();
+
+            //$insertService=new ServiceManager($serviceSave,$varService);
+            //$insertService->save();          
+            //$serviceSave->save();
+        }
+        
 
         //---create movimiento---
             $movimiento = $request->movimiento;
@@ -280,7 +310,7 @@ class SalesController extends Controller
            $detOrderrepox = null;
 
            //-------------------------------------
-           
+           if ($object['detPre_id']!=null) {
            $stockmodel = new StockRepo;
                   $object['warehouse_id']=$object['idAlmacen'];
                   $object["variant_id"]=$object['vari'];
@@ -331,6 +361,10 @@ class SalesController extends Controller
                 
             }
             $stockac=null;
+          }
+            //-----hasta aca-----
+
+
             //-----------------------------------------------------
             //Create det Documento Venta 
             //-------------------------------------------------------
@@ -357,6 +391,10 @@ class SalesController extends Controller
    }
        //-----------------Creacion de Cabecera Factura-------
        //$cajaPrueba=$request->saledetPayments;
+
+      //var_dump($codigoFactura);
+      //die();
+
        \DB::commit();
        if(!empty($codigoFactura)){
                 return response()->json(['estado'=>true,'codFactura'=>$codigoFactura,'nombres'=>$orderSale->nombres]);

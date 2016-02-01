@@ -30,8 +30,30 @@
                                               </ul>
                                             </div>
                    <div class="row">
+                              <div  class="col-md-1"></div>
+                              <div class="col-md-5">
+                              <div class="form-group" >
+                                  <label for="year">Tienda</label>
+                                  <select class="form-control" name="" ng-model="store.id" ng-options="item.id as item.nombreTienda for item in stores">
+                                    <option value="">--Elije Tienda--</option>
+                                  </select>
+                                </div>
+                              </div>
+
+                        <div  class="col-md-5">
+                          <div class="form-group" >
+                            <label for="tipo">Tipo Servicio</label>
+                            <select class="form-control" ng-model="listService.tipo" >
+                                    <option value="Garantia">Garantia</option>
+                                    <option value="Normal">Normal</option>
+                             </select>
+                          </div>
+                        </div>
+
+                    </div>
+                   <div class="row">
                    <div  class="col-md-1"></div>
-                   <div  class="col-md-6">
+                   <div  class="col-md-10">
                     <div class="form-group" ng-class="{true: 'has-error'}[ listServiceCreateForm.nombre.$error.required && listServiceCreateForm.$submitted || listServiceCreateForm.nombre.$dirty && listServiceCreateForm.nombre.$invalid]">
                       <label for="nombre">Nombre</label>
                       <input type="text" class="form-control" name="nombre" placeholder="Nombre" ng-model="listService.nomServicio" required>
@@ -40,15 +62,7 @@
                       </label>
                     </div>
                     </div>
-                    <div  class="col-md-4">
-                    <div class="form-group" >
-                            <label for="tipo">Tipo documento</label>
-                            <select class="form-control" ng-model="listService.tipo" >
-                                    <option value="Garantia">Garantia</option>
-                                    <option value="Normal">Normal</option>
-                             </select>
-                     </div>
-                     </div>
+                    
                   </div>
                   <div class="row">
                    <div  class="col-md-1"></div>

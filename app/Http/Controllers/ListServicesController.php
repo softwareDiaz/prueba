@@ -97,4 +97,9 @@ class ListServicesController extends Controller {
 
         return response()->json($listServices);
     }
+    public function misDatos($store,$q)
+    {
+        $listServices = $this->listServiceRepo->misDatos($store, $q);
+        return response()->json($listServices);
+    }
 }

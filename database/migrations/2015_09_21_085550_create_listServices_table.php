@@ -19,6 +19,10 @@ class CreateListServicesTable extends Migration
             $table->string('tipo');
             $table->tinyInteger('estado');
             $table->decimal('costoAprox',10,2);
+
+            $table->integer('store_id')->unsigned();
+            $table->foreign('store_id')->references('id')->on('stores');
+
             $table->timestamps();
         });
     }

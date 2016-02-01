@@ -25,4 +25,15 @@ class ListServiceRepo extends BaseRepo{
                     ->first();
         return $brands;
     }
+    public function misDatos($store,$q){
+      $datos = \DB::table('listServices')
+                            ->select(\DB::raw('nomServicio as NombreAtributos, costoAprox as precioProducto,
+                                id as listService_id'
+                                ))
+                            ->where('store_id','=',$store)  
+                            ->where('nomServicio','like',$q.'%')
+                                                 
+                            ->get();
+            return $datos;
+    }
 }

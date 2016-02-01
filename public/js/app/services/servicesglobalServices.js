@@ -50,6 +50,15 @@
                 ;
                 return deferred.promise;
             }
+            function getPres()
+            {
+                return $oPresentacion;
+            }
+
+            function setPres(oPres)
+            {
+                $oPresentacion = oPres;
+            }
 
             function update(area,uri)
             {
@@ -133,6 +142,15 @@
 
                 return deferred.promise;
             }
+            function buscarServicio(uri,idStore,val){
+                var deferred = $q.defer();
+                $http.get('/api/'+uri+'/misDatos/'+idStore+'/'+val)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
 
             function select(uri,select)
             {
@@ -205,9 +223,22 @@
                 return deferred.promise;
             }
 
+            function confirmarVariante(id,fecha){
+                var deferred = $q.defer();
+                //alert(val);
+                $http.get('/api/sales/confirmarVariante/'+id+'/'+fecha)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
+
             return {
                 all: all,
+                buscarServicio: buscarServicio,
                 numeracion: numeracion,
+                confirmarVariante:confirmarVariante,
                 paginate: paginate,
                 reportProWare: reportProWare,
                 create:create,
@@ -223,6 +254,7 @@
                 byforeingKey: byforeingKey,
                 searchMes,searchMes,
                 reportPro,reportPro,
+                getPres, setPres,
                 reportProWare,reportProWare,
                 deudasSupplier: deudasSupplier
             }

@@ -74,12 +74,9 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group" ng-class="{true: 'has-error'}[ serviceCreateForm.cliente.$error.required && serviceCreateForm.$submitted || serviceCreateForm.cliente.$dirty && serviceCreateForm.cliente.$invalid]">
+                        <div class="form-group" >
                             <label for="cliente">Cliente</label>
-                            <input type="text" class="form-control" name="cliente" placeholder="Nombre y apellidos" ng-model="service.cliente" required>
-                            <label ng-show="serviceCreateForm.$submitted || serviceCreateForm.cliente.$dirty && serviceCreateForm.cliente.$invalid">
-                              <span ng-show="serviceCreateForm.cliente.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
-                            </label>
+                            <input type="text" class="form-control" name="cliente" placeholder="Nombre y apellidos" ng-model="service.cliente" >
                           </div>
                     </div>
                     
@@ -87,21 +84,15 @@
 
                   <div class="row">
                     <div class="col-md-8">
-                        <div class="form-group" ng-class="{true: 'has-error'}[ serviceCreateForm.empresa.$error.required && serviceCreateForm.$submitted || serviceCreateForm.empresa.$dirty && serviceCreateForm.empresa.$invalid]">
+                        <div class="form-group" >
                           <label for="empresa">Empresa / Razón Social</label>
-                          <input type="text" class="form-control" name="empresa" placeholder="Empresa / Razón Social" ng-model="service.empresa" required>
-                          <label ng-show="serviceCreateForm.$submitted || serviceCreateForm.empresa.$dirty && serviceCreateForm.empresa.$invalid">
-                            <span ng-show="serviceCreateForm.empresa.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
-                          </label>
+                          <input type="text" class="form-control" name="empresa" placeholder="Empresa / Razón Social" ng-model="service.empresa" >
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group" ng-class="{true: 'has-error'}[ serviceCreateForm.ruc.$error.required && serviceCreateForm.$submitted || serviceCreateForm.ruc.$dirty && serviceCreateForm.ruc.$invalid]">
+                        <div class="form-group">
                           <label for="ruc">RUC</label>
-                          <input type="text" class="form-control" name="ruc" placeholder="ruc" ng-model="service.ruc" required>
-                          <label ng-show="serviceCreateForm.$submitted || serviceCreateForm.ruc.$dirty && serviceCreateForm.ruc.$invalid">
-                            <span ng-show="serviceCreateForm.ruc.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
-                          </label>
+                          <input type="text" class="form-control" name="ruc" placeholder="ruc" ng-model="service.ruc" >
                         </div>
                     </div>
                   </div> 
@@ -109,12 +100,9 @@
 
                   <div class="row">
                     <div class="col-md-8">
-                        <div class="form-group" ng-class="{true: 'has-error'}[ serviceCreateForm.direcion.$error.required && serviceCreateForm.$submitted || serviceCreateForm.direcion.$dirty && serviceCreateForm.direcion.$invalid]">
+                        <div class="form-group" >
                           <label for="direcion">Direccion</label>
-                          <input type="text" class="form-control" name="direcion" placeholder="Direccion" ng-model="service.direcion" required>
-                          <label ng-show="serviceCreateForm.$submitted || serviceCreateForm.direcion.$dirty && serviceCreateForm.direcion.$invalid">
-                            <span ng-show="serviceCreateForm.direcion.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
-                          </label>
+                          <input type="text" class="form-control" name="direcion" placeholder="Direccion" ng-model="service.direcion" >
                         </div>
                     </div>
                     <div class="col-md-4">
