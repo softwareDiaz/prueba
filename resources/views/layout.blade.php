@@ -163,7 +163,7 @@
               <ul class="treeview-menu">
                 <li class=""><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>
                 <li class=""><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>
-                <li class=""><a href="/listServices" ><i class="fa fa-circle-o"></i>Servicios</a></li>
+                <li class=""><a href="/listServices" ><i class="fa fa-circle-o"></i>Lista Servicios</a></li>
                 <li class=""><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
                 <li><a href="/types"><i class="fa fa-circle-o"></i>Líneas </a></li>
                 <li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>
@@ -175,6 +175,11 @@
             <li class="">
                           <a href="/sales/create" >
                             <i class="fa fa-shopping-cart" ></i> <span>Vender!</span>
+                          </a>
+             </li>
+              <li class="">
+                          <a href="/services/" >
+                            <i class="fa fa-shopping-cart" ></i> <span>Servicios!</span>
                           </a>
              </li>
             <li class="treeview">
