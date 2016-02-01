@@ -95,12 +95,15 @@ class ProductsController extends Controller
         $products = $this->productRepo->variantsAllInventary($store,$were,$q,$type,$brand,$product);
         return response()->json($products);
     } 
-
+    public function TraerModelos(){
+        $products = $this->productRepo->TraerModelos();
+        return response()->json($products);
+    }
     public function form_create()
     {
         return View('products.form_create');
     }
-
+   
     public function form_edit()
     {
         return View('products.form_edit');
@@ -108,9 +111,10 @@ class ProductsController extends Controller
 
     public function create(Request $request)
     {
+        //var_dump($request->input("presentations")); die();
     \DB::beginTransaction();
         //$request->merge(array('sdf' => 'hola'));
-        //var_dump($request->all()); die();
+        
         $product = $this->productRepo->getModel();
         $variant = $this->variantRepo->getModel();
         $detPres = $this->detPres->getModel();

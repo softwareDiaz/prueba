@@ -78,13 +78,13 @@
                             </select>
                         </div>
                         </div>
-
-                   <!-- <div class="col-md-4">
+                       
+                   <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Modelo</label>
                             <input class="form-control" type="text" ng-model="product.modelo">
                         </div>
-                      </div>-->
+                      </div>
                     </div>
                    <div class="row">
                     <div class="col-md-4">
@@ -148,50 +148,79 @@
                                         </div><!-- /.box -->
 <!--  =============================================================================PRESENTACIONES===============================================================-->
 <div class="box box-default" id="price" ng-hide="product.hasVariants">
-                                                                    <div class="box-header with-border">
-                                                                      <h3 class="box-title">Presentaciones del Producto     </h3>
-                                                                        <button class="btn btn-xs btn-info btn-flat" data-toggle="modal" data-target="#presentation" ng-click="traerPres(product.presentation_base)" ng-disabled="enabled_presentation_button" >Añadir Presentación</button>
-                                                                        <button class="btn btn-xs btn-warning btn-flat" data-toggle="modal" data-target="#createpresentation"  ng-disabled="enabled_createpresentation_button" >Crear Presentación</button>
-                                                                        <div class="box-tools pull-right">
-                                                                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                                                      </div><!-- /.box-tools -->
-                                                                      </div><!-- /.box-header -->
-                                                                      <div class="box-body">
+                                                                  <div class="box box-default" id="price">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Presentaciones del Producto     </h3>
+                                <button class="btn btn-xs btn-info btn-flat" data-toggle="modal" data-target="#presentation" ng-click="traerPres(variant.presentation_base)" ng-disabled="enabled_presentation_button" >Añadir Presentación</button>
+                                <button class="btn btn-xs btn-warning btn-flat" data-toggle="modal" data-target="#createpresentation"  ng-disabled="enabled_createpresentation_button" >Crear Presentación</button>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
 
-                                                                                  <div class="row">
+                                <div class="row">
 
-                                                                                        <div class="col-md-6 col-md-offset-3">
-                                                                                            <table class="table table-bordered">
-                                                                                                                <tbody><tr>
-                                                                                                                  <th>#</th>
-                                                                                                                  <th>Presentación</th>
-                                                                                                                  <th>Precio de Proveedor</th>
-                                                                                                                  <th>% de Utilidad</th>
-                                                                                                                  <th>Precio de Venta</th>
-                                                                                                                  <th>Opciones</th>
-                                                                                                                </tr>
-                                                                                                                <tr ng-repeat="row in product.presentations">
-                                                                                                                  <td>@{{$index + 1}}</td>
-                                                                                                                  <td>@{{row.nombre}}</td>
-                                                                                                                  <td>@{{row.suppPri}}</td>
-                                                                                                                  <td>@{{row.markup}}</td>
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <tbody><tr>
+                                                    <th>#</th>
+                                                    <th>Presentación</th>
+                                                    <th>Precio de Proveedor Soles</th>
+                                                    <th>Tipo de Cambio</th>
+                                                    <th>Precio de Proveedor Dólares</th>
+                                                    <th>% de Utilidad</th>
+                                                    <th>Cant. de Utilidad</th>
+                                                    <th>Precio de Venta</th>
+                                                    <th>% Descuento</th>
+                                                    <th>Cant de Descuento</th>
+                                                    <th>PVP</th>
+                                                    <th>Dscto Rango Activado</th>
+                                                    <th>Fecha Inicio</th>
+                                                    <th>Fecha Fin</th>
+                                                    <th>% Descuento</th>
+                                                    <th>Cant de Descuento</th>
+                                                    <th>PVP (Rango)</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                                <tr ng-repeat="row in product.presentations">
+                                                    <td>@{{$index + 1}}</td>
+                                                    <td>@{{row.nombre}}</td>
+                                                    <td>@{{row.suppPri}}</td>
+                                                    <td>@{{row.cambioDolar}}</td>
+                                                    <td>@{{row.suppPriDol}}</td>
+                                                    <td>@{{row.markup}}</td>
+                                                    <td>@{{row.markupCant}}</td>
+                                                    <td>@{{row.price}}</td>
+                                                    <td>@{{row.dscto}}</td>
+                                                    <td>@{{row.dsctoCant}}</td>
+                                                    <td>@{{row.pvp}}</td>
+                                                    <td ng-if="row.activateDsctoRange == '1'" style="color:red;">SI</td>
+                                                    <td ng-if="row.activateDsctoRange == '0'" style="color:red;">NO</td>
+                                                    <td>@{{row.fecIniDscto}}</td>
+                                                    <td>@{{row.fecFinDscto}}</td>
+                                                    <td>@{{row.dsctoRange}}</td>
+                                                    <td>@{{row.dsctoCantRange}}</td>
+                                                    <td>@{{row.pvpRange}}</td>
 
-                                                                                                                  <td>@{{row.price}}</td>
-                                                                                                                  <td><!--<a class="btn btn-warning btn-xs" href="" ng-click="editPres($index)"><i class="fa fa-fw fa-pencil"></i></a>-->
-                                                                                                                  <a href="" class="btn btn-danger btn-xs" ng-click="deletePres($index)"><i class="fa fa-fw fa-trash"></i></a>
-                                                                                                                  </td>
-                                                                                                                </tr>
+                                                    <td>
+                                                        <a href="" class="btn btn-warning btn-xs" ng-click="editPres(row, $index)"><i class="fa fa-fw fa-pencil"></i></a>
+                                                        <a href="" class="btn btn-danger btn-xs" ng-click="deletePres($index)"><i class="fa fa-fw fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
 
 
 
-                                                                                         </tbody></table>
-                                                                                     </div>
+                                                </tbody></table></div> <!--div responsive-->
+                                    </div>
 
 
-                                                                                 </div>
-                                                                    </div><!-- /.box-body -->
-                                                                    <div class="overlay" ng-class="{ 'hidden': !product.hasVariants}">
-                                                                    </div>
+                                </div>
+                            </div><!-- /.box-body -->
+
+
+                        </div><!-- /.box -->
 
                                                                   </div><!-- /.box -->
 
@@ -342,56 +371,125 @@
 
 
 
-             <!-- =============================Modal de Presentacion ================================ -->
+            <!-- =============================Modal de Presentacion ================================ -->
 
-             <div class="modal fade bs-example-modal-sm" id="presentation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                           <div class="modal-dialog modal-sm"  role="document">
-                             <div class="modal-content">
-                               <div class="modal-header">
-                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                 <h4 class="modal-title">Añadir Presentación</h4>
-                               </div>
-                               <div class="modal-body">
-                                <div class="row">
-                                <div class="col-md-12">
-                                <div class="form-group">
-                                 <select name="" ng-click="selectPres()" class="form-control" id="" ng-model="presentationSelect" ng-options="item as item.nombre+' / '+item.shortname+' / '+item.cant for item in presentations">
-                                        <option value="">-- Elige Presentación--</option>
-                                 </select>
+<div class="modal fade bs-example-modal-sm" id="presentation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-md"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Añadir Presentación</h4>
 
-                                </div>
-                                </div>
-                                </div>
-                                <div class="row">
-                                 <div class="col-md-4">
-                                 <input type="text" class="form-control hidden" name="presentation.nombre" ng-model="presentation.nombre" ng-disabled="product.hasVariants">
-                                 <div class="form-group" >
-                                  <label for="suppPric">Precio de Compra</label>
-                                  <input type="number" class="form-control" name="suppPric1" placeholder="0.00" ng-model="presentation.suppPri" ng-disabled="product.hasVariants"  ng-blur="calculateSuppPric()" step="0.1">
-                                   </div>
-                                    </div>
-                                     <div class="col-md-4">
-                                     <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input type="number" class="form-control" name="markup1" placeholder="0.00" ng-model="presentation.markup" ng-blur="calculateMarkup()" ng-disabled="product.hasVariants" step="0.1">
-                                     </div>
-                                     </div>
-                                     <div class="col-md-4">
-                                      <div class="form-group" >
-                                      <label for="suppPric">Precio de Venta</label>
-                                      <input type="number" class="form-control" name="price1" placeholder="0.00" ng-model="presentation.price" ng-blur="calculatePrice()" ng-disabled="product.hasVariants" step="0.1">
-                                      </div>
-                                      </div>
-                                      </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="suppPric">Elige Presentación(Unidades, paquetes, six pack.)</label>
+                            <select name="" ng-click="selectPres()" class="form-control" id="" ng-model="presentationSelect" ng-options="item as item.nombre+' / '+item.shortname+' / '+item.cant for item in presentations">
+                                <option value="">-- Elige Presentación--</option>
+                            </select>
 
-                               </div>
-                               <div class="modal-footer">
-                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                 <button type="button" class="btn btn-primary" ng-click="AddPres()" data-dismiss="modal">Grabar Cambios</button>
-                               </div>
-                             </div><!-- /.modal-content -->
-                           </div><!-- /.modal-dialog -->
-                         </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="suppPric">Cambio de Dolar</label>
+                        <input type="number" name="table_search" class="form-control pull-rigt" string-to-number ng-model="presentation.cambioDolar" ng-change="calculateCambioDolar()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control hidden" name="presentation.nombre" ng-model="presentation.nombre">
+                        <div class="form-group" >
+                            <label for="suppPric">Precio de Compra (S/.)</label>
+                            <input type="number" class="form-control" name="suppPric1" string-to-number placeholder="0.00" ng-model="presentation.suppPri" ng-change="calculateSuppPric()" step="0.1">
+                            <label for="suppPric">Precio de Compra ($USS)</label>
+                            <input type="number" class="form-control" name="suppPriDolar" string-to-number placeholder="0.00" ng-model="presentation.suppPriDol" ng-change="calculateSuppPricDol()" step="0.1">
 
-            <!-- ======================================================================================== -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup" ng-change="calculateMarkup()" step="0.1">
+                            <label for="suppPric">Cant. de Ganancia</label>
+                            <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markupCant" ng-change="calculateMarkupCant()" step="0.1">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label for="suppPric">Precio de Venta</label>
+                            <input type="number" class="form-control" name="price1" string-to-number placeholder="0.00" ng-model="presentation.price" ng-change="calculatePrice()" step="0.1">
+                        </div>
+                    </div>
+                </div>
+                <h3>Descuentos</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label for="suppPric">% Descuento</label>
+                            <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dscto" ng-change="calculateDscto()" step="0.1">
+                            <label for="suppPric">Cant Descuento</label>
+                            <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoCant" ng-change="calculateDsctoCant()" step="0.1">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="suppPric">% PVP</label>
+                        <input type="number" class="form-control" string-to-number  ng-model="presentation.pvp" step="0.1" ng-change="calculatePVP()">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Descuentos por Rango</h4></div> <div class="col-md-4"><h4><input type="checkbox" ng-model="presentation.activateDsctoRange"> Activar</h4></div>
+                </div>
+                <div class="row" ng-show="presentation.activateDsctoRange">
+                    <div class="col-md-4">
+
+                        <div class="form-group" >
+                            <label for="suppPric">Fecha de Inicio</label>
+                            <input type="date" class="form-control" ng-model="presentation.fecIniDscto" ng-change="">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label for="suppPric">Fecha de Fin</label>
+                            <input type="date" class="form-control" ng-model="presentation.fecFinDscto" ng-change="">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" ng-show="presentation.activateDsctoRange">
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label for="suppPric">% Descuento</label>
+                            <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoRange" ng-change="calculateDsctoRange()" step="0.1">
+                            <label for="suppPric">Cant Descuento</label>
+                            <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoCantRange" ng-change="calculateDsctoCantRange()" step="0.1">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" >
+                            <label for="suppPric">% PVP (Rango)</label>
+                            <input type="number" class="form-control" string-to-number ng-model="presentation.pvpRange" ng-change="calculatePVPRange()">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="AddPres1()" data-dismiss="modal" ng-hide="presentation.edit">Grabar Cambios</button>
+                <button type="button" class="btn btn-primary" ng-click="UpdatePres()" data-dismiss="modal" ng-show="presentation.edit">Editar Cambios</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<!-- ======================================================================================== -->
 
 
 <!-- =============================Modal CREATE de Presentacion ================================ -->

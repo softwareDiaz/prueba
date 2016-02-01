@@ -1970,7 +1970,7 @@
                         $scope.itemsperPageZ = 15;
                         $log.log($scope.variants1);
                     }); 
-                    crudServiceOrders.all('types').then(function (data) {                        
+                    crudServiceOrders.all('TraerModelos').then(function (data) {                        
                         $scope.types = data.data;
                         //$log.log($scope.types);
                     });

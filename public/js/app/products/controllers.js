@@ -1126,6 +1126,94 @@
                         }
                     }
                 }
+   $scope.AddPres1 = function(){
+                    if($location.path() != '/products/create' && $location.path() != '/products/edit/'+$routeParams.id ) {
+                             alert("hola");
+                        if (typeof ($scope.presentationSelect.preFin_id) !== 'undefined') {
+                            $scope.presentationSelect.id = $scope.presentationSelect.preFin_id;
+                        }
+
+                        var isYa = $.grep($scope.product.presentations, function (e) {
+                            return e.id == $scope.presentationSelect.id;
+                        });
+                        //$log.log($scope.presentationSelect);
+                        //$log.log($scope.product.presentations);
+                        //alert("hola")
+                        //$log.log("isYa");
+                        //$log.log(isYa.length);
+                        //if(isYa.length == 0 && $scope.presentationSelect!==null && $scope.presentationSelect.length!== 0) {
+                        if (isYa.length == 0 && !isEmpty($scope.presentationSelect)) {
+                            //alert(typeof($scope.presentationSelect.preFin_id));
+
+                            $scope.presentationSelect.suppPri = $scope.presentation.suppPri;
+                            $scope.presentationSelect.markup = $scope.presentation.markup;
+                            $scope.presentationSelect.price = $scope.presentation.price;
+                            $scope.product.presentations.push($scope.presentationSelect);
+                            //$log.log($scope.product.presentations);
+                            $scope.presentation = {};
+                            $scope.presentationSelect = {};
+                            $scope.presentation.suppPri = 0;
+                            $scope.presentation.markup = 0;
+                            $scope.presentation.price = 0;
+                        } else {
+                            alert('Item duplicado o vacío');
+                        }
+                    }
+                    if($location.path() == '/products/create' || $location.path() == '/products/edit/'+$routeParams.id){
+
+                        alert('hola2');
+
+                        if (typeof ($scope.presentationSelect.preFin_id) !== 'undefined') {
+                            $scope.presentationSelect.id = $scope.presentationSelect.preFin_id;
+                        }
+
+                        var isYa2 = $.grep($scope.variant.presentations, function (e) {
+                            return e.id == $scope.presentationSelect.id;
+                        });
+                        //$log.log($scope.presentationSelect);
+                        //$log.log($scope.product.presentations);
+                        //$log.log(isYa);
+                        //if(isYa.length == 0 && $scope.presentationSelect!==null && $scope.presentationSelect.length!== 0) {
+                        if (isYa2.length == 0 && !isEmpty($scope.presentationSelect)) {
+                            //alert(typeof($scope.presentationSelect.preFin_id));
+           
+                            $scope.presentationSelect.suppPri = $scope.presentation.suppPri;
+                            $scope.presentationSelect.markup = $scope.presentation.markup;
+                            $scope.presentationSelect.price = $scope.presentation.price;
+
+                            //new data
+                            $scope.presentationSelect.suppPriDol = $scope.presentation.suppPriDol;
+                            $scope.presentationSelect.markupCant = $scope.presentation.markupCant;
+                            $scope.presentationSelect.cambioDolar = $scope.presentation.cambioDolar;
+                            //descto normal
+                            $scope.presentationSelect.dscto = $scope.presentation.dscto;
+                            $scope.presentationSelect.dsctoCant = $scope.presentation.dsctoCant;
+                            $scope.presentationSelect.pvp = $scope.presentation.pvp;
+                            //dsctos por rango de fechas
+                            var monthFecIni = parseInt($scope.presentation.fecIniDscto.getMonth())+1;
+                            var monthFecFin = parseInt($scope.presentation.fecFinDscto.getMonth())+1;
+                            $scope.presentationSelect.fecIniDscto = $scope.presentation.fecIniDscto.getFullYear()+'-'+ monthFecIni+'-'+$scope.presentation.fecIniDscto.getDate();
+                            $scope.presentationSelect.fecFinDscto = $scope.presentation.fecFinDscto.getFullYear()+'-'+ monthFecFin+'-'+$scope.presentation.fecFinDscto.getDate();
+                            $scope.presentationSelect.dsctoRange = $scope.presentation.dsctoRange;
+                            $scope.presentationSelect.dsctoCantRange = $scope.presentation.dsctoCantRange;
+                            $scope.presentationSelect.pvpRange = $scope.presentation.pvpRange;
+                            $scope.presentationSelect.activateDsctoRange = $scope.presentation.activateDsctoRange;
+                            //
+                            $scope.product.presentations.push($scope.presentationSelect);
+
+                            $log.log($scope.variant.presentations);
+                            $scope.presentation = {};
+                            $scope.presentationSelect = {};
+                            $scope.presentation.suppPri = 0;
+                            $scope.presentation.markup = 0;
+                            $scope.presentation.price = 0;
+                            //alert('hola');
+                            //$scope.presentation.activateDsctoRange= false;
+                        } else {
+                            alert('Item duplicado o vacío');
+                        }
+                    }
+                }
 
                 $scope.editPres = function(row,$index){
                     //alert('hola');
@@ -1202,13 +1290,43 @@
                         $scope.variant.presentations[$scope.presentation.identificador].activateDsctoRange =$scope.presentation.activateDsctoRange;
                     }
                 }
+                $scope.UpdatePres1 = function(){
+                    if($location.path() == '/products/create/'+$routeParams.product_id || $location.path() == '/products/edit/'+$routeParams.id){
+                        $scope.product.presentations[$scope.presentation.identificador].suppPri = $scope.presentation.suppPri;
+                        $scope.product.presentations[$scope.presentation.identificador].markup = $scope.presentation.markup;
+                        $scope.product.presentations[$scope.presentation.identificador].price = $scope.presentation.price;
 
+                        //new data
+                        $scope.product.presentations[$scope.presentation.identificador].suppPriDol = $scope.presentation.suppPriDol;
+                        $scope.product.presentations[$scope.presentation.identificador].markupCant = $scope.presentation.markupCant;
+                        $scope.product.presentations[$scope.presentation.identificador].cambioDolar = $scope.presentation.cambioDolar;
+                        //descto normal
+                        $scope.product.presentations[$scope.presentation.identificador].dscto = $scope.presentation.dscto;
+                        $scope.product.presentations[$scope.presentation.identificador].dsctoCant = $scope.presentation.dsctoCant;
+                        $scope.product.presentations[$scope.presentation.identificador].pvp = $scope.presentation.pvp;
+                        //dsctos por rango de fechas
+                        var monthFecIni = parseInt($scope.presentation.fecIniDscto.getMonth())+1;
+                        var monthFecFin = parseInt($scope.presentation.fecFinDscto.getMonth())+1;
+                        $scope.product.presentations[$scope.presentation.identificador].fecIniDscto = $scope.presentation.fecIniDscto.getFullYear()+'-'+ monthFecIni+'-'+$scope.presentation.fecIniDscto.getDate();
+                        $scope.product.presentations[$scope.presentation.identificador].fecFinDscto = $scope.presentation.fecFinDscto.getFullYear()+'-'+ monthFecFin+'-'+$scope.presentation.fecFinDscto.getDate();
+                        $scope.product.presentations[$scope.presentation.identificador].dsctoRange = $scope.presentation.dsctoRange;
+                        $scope.product.presentations[$scope.presentation.identificador].dsctoCantRange = $scope.presentation.dsctoCantRange;
+                        $scope.product.presentations[$scope.presentation.identificador].pvpRange = $scope.presentation.pvpRange;
+                        $scope.product.presentations[$scope.presentation.identificador].activateDsctoRange =$scope.presentation.activateDsctoRange;
+                    }
+                }
                 $scope.deletePres = function($index){
                     if($location.path() != '/variants/create/'+$routeParams.product_id && $location.path() != '/variants/edit/'+$routeParams.id) {
                         $scope.product.presentations.splice($index, 1);
                     }
                     if($location.path() == '/variants/create/'+$routeParams.product_id || $location.path() == '/variants/edit/'+$routeParams.id) {
                         $scope.variant.presentations.splice($index, 1);
+                    }
+                    if($location.path() != '/products/create/' && $location.path() != '/products/edit/'+$routeParams.id) {
+                        $scope.product.presentations.splice($index, 1);
+                    }
+                    if($location.path() == '/products/create/' || $location.path() == '/products/edit/'+$routeParams.id) {
+                        $scope.product.presentations.splice($index, 1);
                     }
                 }
 

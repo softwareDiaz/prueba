@@ -1,5 +1,7 @@
 .documento_venta{
 	position: absolute;
+	z-index: 2000;
+	
 	//width: px;
 	margin-top: 50px;
 	margin-left: 0px;

@@ -262,7 +262,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->where('T2.base','=','1')
                             /////--------------------
                             ->where('products.estado','=','1')
-                            ->where('variants.estado','=','1')
+                            //->where('variants.estado','=','1')
                             /////--------------------
                             //->where('variants.estado','=','1')
                             //->where('products.estado','=','1')
@@ -283,7 +283,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
     }
     public function searchsku($store,$were,$q){
       $datos = \DB::table('products')->leftjoin('materials','products.material_id','=','materials.id')
-                           ->leftjoin('variants','products.id','=','variants.product_id')
+                           ->join('variants','products.id','=','variants.product_id')
                             ->leftjoin('stock','variants.id','=','stock.variant_id')
                             ->leftjoin('warehouses','warehouses.id','=','stock.warehouse_id')
                             ->leftjoin('stores','stores.id','=','warehouses.store_id')
@@ -320,7 +320,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->where('variants.sku','=', $q)
                             /////--------------------
                             ->where('products.estado','=','1')
-                            ->where('variants.estado','=','1')
+                            //->where('variants.estado','=','0')
                             /////--------------------
                             //->where('variants.codigo','like', $q.'%')
                             ->where('T2.base','=','1')
@@ -424,15 +424,15 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
       $datos = \DB::table('products')->leftjoin('materials','products.material_id','=','materials.id')
                            ->join('variants as T6','products.id','=','T6.product_id')
                             ->join('stock as T7','T6.id','=','T7.variant_id')
-                            ->join ('types as T10','T10.id','=', 'products.type_id')
-                            ->join ('brands as T12','T12.id','=', 'products.brand_id')
+                            ->leftjoin ('types as T10','T10.id','=', 'products.type_id')
+                            ->leftjoin ('brands as T12','T12.id','=', 'products.brand_id')
 
                             ->join ('detPres as T13','T6.id','=', 'T13.variant_id')
 
                             ->join ('warehouses as T8','T8.id','=', 'T7.warehouse_id')
                             ->join ('stores as T9', 'T9.id', '=', 'T8.store_id')  
 
-                            ->select(\DB::raw('products.nombre as Producto,T6.sku as codigo,T6.id as vari ,T7.stockActual as stock,T10.nombre as Linea,T12.nombre as Mate,
+                            ->select(\DB::raw('products.nombre as Producto,products.modelo,T6.sku as codigo,T6.id as vari ,T7.stockActual as stock,T10.nombre as Linea,T12.nombre as Mate,
                                                 T13.price as Precio,T13.dsctoRange,
 
                                                 IF( T13.fecIniDscto<="'.$q.'" and T13.fecFinDscto>="'.$q.'",T13.dsctoRange,T13.dscto) as Descuento ,
@@ -445,6 +445,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                                               (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=2) as Tallas'))
                              
                             ->where('products.nombre','like',$product.'%')
+                            //->orWhere('products.modelo','like',$product.'%')
                             ->where('T9.id','like',$store.'%')
                             ->where('T8.id','like',$were.'%')
                             ->where('T10.id','like',$type.'%')
@@ -459,4 +460,13 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                     ->first();
         return $products;
     }
+     public function TraerModelos(){
+        $products =product::select('id','modelo')
+                    //->with(['customer','employee'])
+                    ->where('modelo','<>','null')
+                    ->groupBy('modelo')
+                    ->get();
+        return $products;
+    }
+
 }

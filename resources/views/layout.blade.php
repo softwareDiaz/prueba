@@ -173,8 +173,8 @@
               </ul>
             </li>
             <li class="">
-                          <a href="/sales/create">
-                            <i class="fa fa-shopping-cart"></i> <span>Vender!</span>
+                          <a href="/sales/create" >
+                            <i class="fa fa-shopping-cart" ></i> <span>Vender!</span>
                           </a>
              </li>
             <li class="treeview">

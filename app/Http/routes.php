@@ -144,6 +144,7 @@ Route::get('api/variantname/search/{q?}',['as' => 'variant_byproduct_id', 'uses'
 
 //END VARIANTS ROUTES
 
+Route::get('api/TraerModelos/all',['as'=>'presentation_all', 'uses'=>'ProductsController@TraerModelos']);
 //Presentations routes
 Route::get('api/presentations/findVariant/{id}','PresentationsController@findVariant');
 Route::get('api/presentations/all',['as'=>'presentation_all', 'uses'=>'PresentationsController@all']);

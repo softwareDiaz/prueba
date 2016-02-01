@@ -442,7 +442,7 @@
                       <th>SKU</th>
                       <th><select class="form-control" name="" ng-model="materialId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in brands">
                           <option value="">Material - Todos</option>
-                      <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
+                      <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.modelo for item in types">
                           <option value="">Linea - Todos</option>
                           </select></th>
                       <th>Sabor</th>
@@ -456,7 +456,7 @@
                     
                     <tr ng-repeat="row in variants1 track by $index">
                       <td>@{{$index + 1}}</td>
-                      <td>@{{row.Producto}}</td>
+                      <td>@{{row.Producto}}/@{{row.modelo}}</td>
                       <td>@{{row.codigo}}</td>
                       <td>@{{row.Mate}}</td>
                       <td>@{{row.Linea}}</td>
@@ -1177,7 +1177,7 @@
 
                         <!--================================================-->
                         <div class="modal-footer" >
-                          <button type="submit" class="btn btn-primary" ng-click="realizarPago()">Cobrar</button>
+                          <button type="submit" class="btn btn-primary" ng-click="realizarPago()" >Cobrar</button>
                           <a  class="btn btn-danger" data-dismiss="modal" aria-hidden="ngenabled">Salir</a>
                       </div>
                     </form>
@@ -1226,37 +1226,20 @@
 </section>
 
 
-<div id="printx" style="display:none;">
-<body class="documento_venta" style="margin-top:50px;">
-    <!--<div class="logotipo">
-      <h1 class="log">KALUZ.EIRL</h1>
-      <label>av. Pedro Ruiz #1020 - Chiclayo</label>
-    </div>
-    <div class="cuadroNume">
-      <label>R.U.C.:12548963002</label>
-      <h1 ng-if="headVoice.tipoDoc=='F'" class="fac">FACTURA</h1>
-      <h1 ng-if="headVoice.tipoDoc=='B'" class="fac">BOLETA DE VENTA</h1>
-      <label>N° @{{numCaja}}-@{{numeroDocumento}}</label>
-    </div>
-    <div class="headfac">
-        <br>
-      <label class="fech">Chiclayo @{{diaFactura}} de @{{mesActual}} del @{{anoFactura}}</label><br>-->
-    <table class="" >
+<div  id="printx" style="display:none;">
+<body  class="documento_venta" style="margin-top:50px;">
+ <div ng-if="headVoice.tipoDoc=='F'" >
+   <table class="" >
       <tr>
         <td style="width:40px;"></td>
         <td><label style="width:400px;" type="text" >@{{headVoice.cliente}}</label></td>
-        <!--<td><label ng-if="headVoice.tipoDoc=='F'">RUC:</label><label ng-if="headVoice.tipoDoc=='B'">N° Doc:</label></td>-->
-        
       </tr>
 
       <tr>
         <td style="width:40px;"></td>
         <td ><label style="width:490px;" type="text" >@{{headVoice.direccion}}</label>
         <td><label class="fech"> @{{diaFactura}} - @{{mesActual}} - @{{anoFactura}}</label></td>
-        
-        
       </tr>
-      
     </table>
     <table>
       <tr>
@@ -1267,9 +1250,7 @@
     </table>
       
     </div>
-    
-
-    <div class="tbcontent" style="height:490px;">
+   <div ng-if="headVoice.tipoDoc=='F'" class="tbcontent" style="height:490px;">
       <table class="" >
         
         <tbody >
@@ -1286,7 +1267,7 @@
        </div>
        
       
-      <div class="result">
+      <div ng-if="headVoice.tipoDoc=='F'" class="result">
         
         <table class="">
         
@@ -1306,26 +1287,59 @@
         
          </table>
       </div>
+    </div>
+    <div ng-if="headVoice.tipoDoc=='B'" >
+            <tr>
+        <td style="width:80px;"></td>
+        <td><label style="width:360px;" type="text" >@{{headVoice.cliente}}</label></td>
+        <!--<td><label ng-if="headVoice.tipoDoc=='F'">RUC:</label><label ng-if="headVoice.tipoDoc=='B'">N° Doc:</label></td>-->
+        <td><label style="" type="text" >@{{headVoice.dni}}</label> </td>
+      </tr>
+
+      <tr>
+        <td style="width:80px;"></td>
+        <td ><label style="width:380px;" type="text" >@{{headVoice.direccion}}</label>
+        <td><label class="fech"> @{{diaFactura}} - @{{mesActual}} - @{{anoFactura}}</label></td>
+        
+        
+      </tr>
+      
+    </table>
     
+      
+    </div>
+    
+
+    <div ng-if="headVoice.tipoDoc=='B'" class="tbcontent" style="height:220px;">
+      <table class="" >
+        
+        <tbody >
+          <tr ng-repeat="row in detVoices">
+            <td style="width:40px;">@{{row.cantidad}}</td>
+            <td style="width:450px;">@{{row.descripcion}}</td>
+            <td style="width:60px;">S/.@{{row.PrecioUnit}}</td>
+            <td style="width:60px;">S/.@{{row.PrecioVent}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+      
+       </div>
+       
+      
+      <div ng-if="headVoice.tipoDoc=='B'" >
+        
+        <table class="">
+        
+          <tbody >
+          <tr >
+            <td style="width:40px;"></td>
+            <td style="width:450px;"></td>
+            <td style="width:60px;"></td>
+            <td style="width:60px;">S/.@{{headVoice.Total}}</td>
+          </tr>
+        </tbody>
+         </table>
+    </div>
 </body>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
-               
