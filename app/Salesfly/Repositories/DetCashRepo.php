@@ -12,18 +12,18 @@ class DetCashRepo extends BaseRepo{
 
     public function search($q)
     {
-        $detCashs =DetCash::join('cashMotives','cashMotives.id','=','detCash.cashMotive_id')
-                           ->join('cashes','cashes.id','=','detCash.cash_id')
-                           ->join('users','users.id','=','cashes.user_id')
-                           ->join('sales','sales.detCash_id','=','detCash.id')
-                           ->join('cashHeaders','cashHeaders.id','=','cashes.cashHeader_id')
+        $detCashs =DetCash::leftjoin('cashMotives','cashMotives.id','=','detCash.cashMotive_id')
+                           ->leftjoin('cashes','cashes.id','=','detCash.cash_id')
+                           ->leftjoin('users','users.id','=','cashes.user_id')
+                           ->leftjoin('sales','sales.detCash_id','=','detCash.id')
+                           ->leftjoin('cashHeaders','cashHeaders.id','=','cashes.cashHeader_id')
                            ->leftjoin('headInvoices as hi','hi.venta_id','=','sales.id')
                            ->select(\DB::raw("detCash.id as idCajaDiaria,sales.id,cashHeaders.nombre,users.name,
                             (SELECT detCash.montoMovimientoEfectivo from detCash where detCash.id=idCajaDiaria)as efectivo2,
                             hi.tipoDoc,hi.id as idDocu,cashMotives.nombre as Motivo,detCash.montoMovimientoTarjeta as tarjeta,
-                            detCash.montoMovimientoEfectivo as efectivo,cashMotives.id as cashMotive_id,CONCAT((SUBSTRING(sales.fechaPedido,9,2)),'-',
+                            detCash.montoMovimientoEfectivo as efectivo,cashMotives.id as cashMotive_id,IF(detCash.cashMotive_id=1, CONCAT((SUBSTRING(sales.fechaPedido,9,2)),'-',
                                 (SUBSTRING(sales.fechaPedido,6,2)),'-',
-                                (SUBSTRING(sales.fechaPedido,1,4)))as fecha,SUBSTRING(sales.fechaPedido,12) as hora,
+                                (SUBSTRING(sales.fechaPedido,1,4))),detCash.fecha)as fecha,IF(detCash.cashMotive_id=1,SUBSTRING(sales.fechaPedido,12),detCash.hora) as hora,
                             IF(hi.numero<10,CONCAT('000000',hi.numero),
                              IF(hi.numero<100,CONCAT('00000',hi.numero),
                              IF(hi.numero<1000,CONCAT('0000',hi.numero),

@@ -441,12 +441,12 @@
                       </th>
                       <th>SKU</th>
                       <th><select class="form-control" name="" ng-model="materialId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in brands">
-                          <option value="">Material - Todos</option>
-                      <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.modelo for item in types">
+                          <option value="">Marca - Todos</option>
+                      <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
                           <option value="">Linea - Todos</option>
                           </select></th>
-                      <th>Sabor</th>
-                      <th>Cantidad</th>
+                      <th>Categoria</th>
+                      <th>Color</th>
                       <th>Stock</th>
                       <th>Descuento</th>
                       <th>Descuento Rango</th>

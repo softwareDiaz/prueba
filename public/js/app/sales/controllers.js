@@ -54,7 +54,7 @@
                     $scope.banderaMostrarEntrega=false;
                     $scope.banderaModificar=false;
                     $scope.banderaEstadoService=true;
-
+                    $scope.customer.autogenerado=true;
                 }
                 
                 $scope.inicializar();
@@ -1972,7 +1972,7 @@
                         $scope.currentPageZ = data.current_page;
                         $scope.itemsperPageZ = 15;
                     }); 
-                    crudServiceOrders.all('TraerModelos').then(function (data) {                        
+                    crudServiceOrders.all('types').then(function (data) {                        
                         $scope.types = data.data;
                     });
                     crudServiceOrders.all('brands').then(function (data) {                        

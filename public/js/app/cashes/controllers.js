@@ -15,13 +15,14 @@
                 $scope.stores={};
                 $scope.bandera=true;
                 $scope.banderaAbrirCaja=false;
+                $scope.banderaestado=false;
                 $scope.mostrarCajas = function () {
 
                     crudService.search('searchHeaders',$scope.stores.id,1).then(function (data){
                         $scope.cashHeaders=data;
                     });
                     if ($scope.stores.id==undefined) {
-                    crudService.search('cashes',0,1).then(function (data){
+                    crudService.search('cashes1',0,1).then(function (data){
                         $scope.cashes = data.data;
                         $scope.maxSize = 5;
                         $scope.totalItems = data.total;
@@ -30,6 +31,7 @@
                         $scope.verCaja();
                         });
                         $scope.banderaAbrirCaja=false;
+                        $scope.cash.cashHeader_id=undefined;
                     }
                     
                 };
@@ -37,9 +39,9 @@
                     //if (true) {};
                     //alert($scope.cash.cashHeader_id);
                     if ($scope.cash.cashHeader_id!=undefined) {
-                   crudService.search('cashes',$scope.cash.cashHeader_id,1).then(function (data){
+                   crudService.search('cashes1',$scope.cash.cashHeader_id,1).then(function (data){
                         $scope.cashes = data.data;
-                        $scope.maxSize = 5;
+                        $scope.maxSize = 5; 
                         $scope.totalItems = data.total;
                         $scope.currentPage = data.current_page;
                         $scope.itemsperPage = 15;
@@ -47,7 +49,7 @@
                     });
                     $scope.banderaAbrirCaja=true;
                     }else{
-                        crudService.search('cashes',$scope.cash.cashHeader_id,1).then(function (data){
+                        crudService.search('cashes1',$scope.cash.cashHeader_id,1).then(function (data){
                         $scope.cashes = data.data;
                         $scope.maxSize = 5;
                         $scope.totalItems = data.total;
@@ -78,15 +80,15 @@
                     }else{
                         var canpag=Math.ceil($scope.totalItems/15);
 
-                        crudService.search('cashes',$scope.cash.cashHeader_id,canpag).then(function (data){
+                        crudService.search('cashes1',$scope.cash.cashHeader_id,canpag).then(function (data){
                             $scope.cashesedit = data.data;
-                            $scope.cash1=$scope.cashesedit[$scope.cashesedit.length-1];
+                            $scope.cash1=$scope.cashesedit[0];
                             if ($scope.cash1.estado=='0') {
-                                alert("Caja Cerrada");
+                                //alert("Caja Cerrada");
                                 $scope.bandera=true;
 
                             }else{
-                                alert("Caja Abierta");
+                                //alert("Caja Abierta");
                                 $scope.ruta='/cashes/edit/'+$scope.cash1.id;
                                 $scope.bandera=false;
                             }
@@ -95,9 +97,12 @@
 
                 };
                 $scope.cerrarCaja = function () {
-                    if($scope.cash.montoReal=='0.00'){
+                    //alert($scope.cash.montoReal);
+                    if($scope.cash.montoReal<'0.00' || $scope.cash.montoReal==undefined){
+                        
                         alert("Ingrese Monto Real");
                     }else{
+                        $scope.calculardescuadre();
                         //7alert($scope.date.getDate());
                         $scope.cash.fechaFin=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate()+' '+$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
                             $scope.cash.estado='0';
@@ -283,11 +288,13 @@
                     crudService.Comprueba_caj_for_user1(row.id).then(function (data){
                         if(data.id!=undefined){
                              if (row.estado=='0') {
-                                 alert("La caja esta Cerrada");
+                                 //alert("La caja esta Cerrada");
+                                 $scope.banderaestado=false;
                              }
                              else{
-                                 $location.path('/cashes/edit/'+row.id);      
+                                $scope.banderaestado=true; 
                              }
+                             $location.path('/cashes/edit/'+row.id); 
                         }else{
                             alert("usted no tiene permisos para editar esta caja");
                         }
