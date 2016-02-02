@@ -41,6 +41,12 @@ class CashesController extends Controller
 
         return response()->json($cashes);
     }
+    public function search1($q)
+    {
+        $cashes = $this->cashRepo->search1($q);
+
+        return response()->json($cashes);
+    }
 
     public function index()
     {

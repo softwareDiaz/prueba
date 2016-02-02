@@ -51,25 +51,25 @@
 
 
                     <div class="row">
-                      <div class="col-md-6" >
+                      <div class="col-md-6">
                       <div class="box box-solid">
                         <div class="box-header with-border" style="background-color: #D7EAE3; border-style: solid;
                               border-width: 2px; border-color: #C8D9F7; border-radius: 10px 10px 0px 0px;">
                           <div class="row">
                             <div class="col-md-9" ng-show="skuestado">
-                              <input type="text" ng-model="varianteSkuSelected" placeholder="Buscar por SKU" ng-enter="getvariantSKU()" class="form-control">
+                              <input ng-disabled="!banderaEstadoService"  type="text" ng-model="varianteSkuSelected" placeholder="Buscar por SKU" ng-enter="getvariantSKU()" class="form-control">
                             </div>
 
                             <div class="col-md-9" ng-show="!skuestado">
-                              <input  type="text" ng-model="atributoSelected" ng-enter="open()" placeholder="Buscar por codigo" typeahead="atributo as atributo.NombreAtributos for atributo in getAtributos($viewValue)" 
+                              <input  ng-disabled="!banderaEstadoService"  type="text" ng-model="atributoSelected" ng-enter="open()" placeholder="Buscar por codigo" typeahead="atributo as atributo.NombreAtributos for atributo in getAtributos($viewValue)" 
                                     typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"/>
                             </div>
                             <div class="col-md-3" >
                             <div class="form-group">
-                                <input type="checkbox" name="estado" ng-model="base" ng-checked="base" class="ng-valid ng-dirty ng-valid-parse ng-touched" ng-click="baseestado()">
+                                <input ng-disabled="!banderaEstadoService" type="checkbox" name="estado" ng-model="base" ng-checked="base" class="ng-valid ng-dirty ng-valid-parse ng-touched" ng-click="baseestado()">
                                 <label for="estado">Base</label>                             
                               
-                                <input type="checkbox" name="skuestado" ng-model="skuestado" ng-checked="skuestado" class="ng-valid ng-dirty ng-valid-parse ng-touched">
+                                <input ng-disabled="!banderaEstadoService" type="checkbox" name="skuestado" ng-model="skuestado" ng-checked="skuestado" class="ng-valid ng-dirty ng-valid-parse ng-touched">
                                 <label for="estado">SKU</label>                             
                               </div>
                             </div>
@@ -87,14 +87,14 @@
                                              
                             <tr ng-repeat="row in compras track by $index">
                               <td>
-                                  <button data-toggle="popover" popover-template="dynamicPopover.templateUrl" type="button" class="btn btn-default">@{{compras[$index].cantidad}}</button>
+                                  <button ng-disabled="!banderaEstadoService" data-toggle="popover" popover-template="dynamicPopover.templateUrl" type="button" class="btn btn-default">@{{compras[$index].cantidad}}</button>
                               </td>
                               <td><a popover-template="dynamicPopover5.templateUrl" popover-trigger="mouseenter">@{{compras[$index].NombreAtributos}}</a></td>
                               <td>
-                                  <button data-toggle="popover" popover-template="dynamicPopover1.templateUrl" type="button" class="btn btn-default">@{{compras[$index].precioVenta| number:2}}</button>
+                                  <button  ng-disabled="!banderaEstadoService" data-toggle="popover" popover-template="dynamicPopover1.templateUrl" type="button" class="btn btn-default">@{{compras[$index].precioVenta| number:2}}</button>
                               </td>
                               <td>@{{compras[$index].subTotal | number:2}}</td>
-                              <td><button type="button" class="btn btn-danger ng-binding"  ng-click="sacarRow($index,row.subTotal)">
+                              <td><button ng-disabled="!banderaEstadoService" type="button" class="btn btn-danger ng-binding"  ng-click="sacarRow($index,row.subTotal)">
                               <span class="glyphicon glyphicon-trash"></span>
                               </td>                    
                             </tr>                                    
@@ -111,42 +111,42 @@
                                 <tr>
                                   <div class="row">
                                     <div class="col-md-10" >
-                                      <input type="text" ng-model="customersSelected" placeholder="Buscar Cliente" typeahead="atributo as atributo.busqueda for atributo in getcustomers($viewValue)" 
+                                      <input ng-disabled="!banderaEstadoService" type="text" ng-model="customersSelected" placeholder="Buscar Cliente" typeahead="atributo as atributo.busqueda for atributo in getcustomers($viewValue)" 
                                             typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" typeahead-on-select="selecionarCliente()"/>
                                     </div>
                                     <div>
-                                      <a class="btn btn-default ng-binding" data-toggle="modal" data-target="#miventana2"><span class="glyphicon glyphicon-plus"></span></a>
+                                      <a ng-disabled="!banderaEstadoService" class="btn btn-default ng-binding" data-toggle="modal" data-target="#miventana2"><span class="glyphicon glyphicon-plus"></span></a>
                                     </div>
                                 </tr>
                                 <tr>
                                   <div>
-                                    <a ng-if="sale.cliente!=undefined"type="button" class="glyphicon glyphicon-remove-sign " ng-click="deleteCliente()"></a>
+                                    <a ng-disabled="!banderaEstadoService" ng-if="sale.cliente!=undefined"type="button" class="glyphicon glyphicon-remove-sign " ng-click="deleteCliente()"></a>
                                     @{{sale.cliente!=undefined? sale.cliente:'--No hay cliente seleccionado--'}}
                                   </div>
                                 </tr>
                                 <tr>
                                   <div>
-                                    <input type="text" ng-model="employeeSelected" placeholder="Buscar Vendedor" typeahead="atributo as atributo.busqueda for atributo in getemployee($viewValue)" 
+                                    <input ng-disabled="!banderaEstadoService" type="text" ng-model="employeeSelected" placeholder="Buscar Vendedor" typeahead="atributo as atributo.busqueda for atributo in getemployee($viewValue)" 
                                             typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" typeahead-on-select="selecionarVendedor()"/>
                                   </div>
                                 </tr>
                                <tr>
                                   <div>
-                                    <a ng-if="sale.vendedor!=undefined"type="button" class="glyphicon glyphicon-remove-sign " ng-click="deleteVendedor()"></a>
+                                    <a ng-disabled="!banderaEstadoService" ng-if="sale.vendedor!=undefined"type="button" class="glyphicon glyphicon-remove-sign " ng-click="deleteVendedor()"></a>
                                     @{{sale.vendedor!=undefined? sale.vendedor:'--No hay vendedor seleccionado--'}}
                                   </div>
                                 </tr>
                                 <tr>
                                   <div class="row">
                                     <div class="col-md-7" >
-                                      <button ng-click="estadoNotas()" ng-if="banderaNotas" data-toggle="popover" popover-template="dynamicPopover6.templateUrl" type="button" class="btn btn-default">ADD NOTAS</a>
-                                      <button ng-click="estadoNotas()" ng-if="!banderaNotas" data-toggle="popover" popover-template="dynamicPopover6.templateUrl" type="button" class="btn btn-danger">ADD NOTAS</a>
+                                      <button ng-disabled="!banderaEstadoService" ng-click="estadoNotas()" ng-if="banderaNotas" data-toggle="popover" popover-template="dynamicPopover6.templateUrl" type="button" class="btn btn-default">ADD NOTAS</a>
+                                      <button ng-disabled="!banderaEstadoService" ng-click="estadoNotas()" ng-if="!banderaNotas" data-toggle="popover" popover-template="dynamicPopover6.templateUrl" type="button" class="btn btn-danger">ADD NOTAS</a>
                                       
                                     
                                     </div>
                                     <div class="col-md-5" >
-                                      <a ng-if="sale.montoTotal>0" class="btn btn-default ng-binding" data-toggle="modal" data-target="#miventana1" ng-click="pagar()">PAGAR</a>
-                                      <a ng-if="sale.montoTotal==0"class="btn btn-default ng-binding" ng-click="pagar()">PAGAR</a>
+                                      <a ng-disabled="!banderaEstadoService" ng-if="sale.montoTotal>0" class="btn btn-default ng-binding" data-toggle="modal" data-target="#miventana1" ng-click="pagar()">PAGAR</a>
+                                      <a ng-disabled="!banderaEstadoService" ng-if="sale.montoTotal==0"class="btn btn-default ng-binding" ng-click="pagar()">PAGAR</a>
                                     </div>
                                   </div>
                                 </tr>
@@ -168,7 +168,7 @@
                                 <tr style="border-bottom: solid; border-width: medium;">
                                 <td>Descuento</td>
                                 <td>
-                                  <button popover-template="dynamicPopover2.templateUrl" type="button" class="btn btn-default">@{{sale.descuento | number:2}}</button>
+                                  <button ng-disabled="!banderaEstadoService"  popover-template="dynamicPopover2.templateUrl" type="button" class="btn btn-default">@{{sale.descuento | number:2}}</button>
                                 </td>                    
                                 </tr> 
                                 <tr>
@@ -441,12 +441,12 @@
                       </th>
                       <th>SKU</th>
                       <th><select class="form-control" name="" ng-model="materialId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in brands">
-                          <option value="">Material - Todos</option>
-                      <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.modelo for item in types">
+                          <option value="">Marca - Todos</option>
+                      <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
                           <option value="">Linea - Todos</option>
                           </select></th>
-                      <th>Sabor</th>
-                      <th>Cantidad</th>
+                      <th>Categoria</th>
+                      <th>Color</th>
                       <th>Stock</th>
                       <th>Descuento</th>
                       <th>Descuento Rango</th>

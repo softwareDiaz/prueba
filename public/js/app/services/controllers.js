@@ -17,6 +17,8 @@
                 $scope.warehouse.id='1';
                 $scope.store.id='1';
                 $scope.base=true;
+                $scope.customer={};
+                $scope.customer.autogenerado=true;
 
                 $scope.tipoServicio=0;
 
@@ -44,12 +46,13 @@
 
                 if(id)
                 {
+                    //alert("Hola");
                     crudServiceServices.byId(id,'services').then(function (data) {
                         $scope.service = data;
                         $scope.service.fechaServicio=new Date(data.fechaServicio);
                         $scope.numeracionMostrar(Number(data.numeroServicio)-1);
                         if ($scope.service.estado==5) {$scope.estBan=true;}else{$scope.estBan=false;};
-                        if ($scope.service.estado>1 && $scope.service.estado<5) {$scope.estBan1=true;}else{$scope.estBan1=false;};
+                        if ($scope.service.estado>1 && $scope.service.estado<=5) {$scope.estBan1=true;}else{$scope.estBan1=false;};
                     });
 
 
@@ -65,6 +68,7 @@
                         $scope.detServices=data;
                     });
                 }else{
+                    //alert("Hola");
                     crudServiceServices.paginate('services',1).then(function (data) {
                         $scope.services = data.data;
                         $scope.maxSize = 5;
@@ -308,14 +312,21 @@
                   });
                 };
                 $scope.cargarservice = function(size){
-                    $log.log($scope.serviceSelected);
-                    $scope.serviceSelected.cantidad=1;
-                    $scope.serviceSelected.descuento=0;
-                    $scope.serviceSelected.subTotal=$scope.serviceSelected.cantidad*Number($scope.serviceSelected.precioProducto);
-                    $scope.serviceSelected.precioVenta=Number($scope.serviceSelected.precioProducto);
-
-                    $scope.compra=$scope.serviceSelected;
-                    $log.log($scope.compra);
+                    //$log.log($scope.serviceSelected);
+                    if ($scope.serviceSelected.NombreAtributos==undefined) {
+                        alert("Ingrese servicio correctamente");
+                    }else{
+                        $scope.serviceSelected.cantidad=1;
+                        if($scope.service.tipo==1){$scope.serviceSelected.descuento=100;}else{
+                        $scope.serviceSelected.descuento=0;
+                        }
+                        $scope.serviceSelected.precioVenta=Number($scope.serviceSelected.precioProducto)-(Number($scope.serviceSelected.precioProducto)*$scope.serviceSelected.descuento/100);
+                        $scope.serviceSelected.subTotal=$scope.serviceSelected.cantidad*Number($scope.serviceSelected.precioVenta);
+                        
+                        $scope.compra=$scope.serviceSelected;
+                        //$log.log($scope.compra);
+                        $scope.serviceSelected=undefined;
+                    }
                 }
                 $scope.open = function (size) {                  
                     $scope.cargarAtri(size);                   

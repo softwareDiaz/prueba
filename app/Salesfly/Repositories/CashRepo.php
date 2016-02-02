@@ -17,10 +17,29 @@ class CashRepo extends BaseRepo{
         }
         $cashes =Cash::join("users","cashes.user_id","=","users.id")
                     ->select("cashes.*","users.name")
+
                     ->where('cashes.cashHeader_id','like', $q)
                     ->orWhere('users.name','like', $q)
                     ->orWhere('cashes.fechaInicio','like','%'.$q.'%')
-                    
+
+                    //->orderBy('id', 'desc')
+                    //with(['customer','employee'])
+                    ->paginate(15);
+        return $cashes;
+    }
+    public function search1($q)
+    {
+        if($q==0){
+            $q='%%';
+        }
+        $cashes =Cash::join("users","cashes.user_id","=","users.id")
+                    ->select("cashes.*","users.name")
+
+                    ->where('cashes.cashHeader_id','like', $q)
+                    ->orWhere('users.name','like', $q)
+                    ->orWhere('cashes.fechaInicio','like','%'.$q.'%')
+
+                    ->orderBy('id', 'desc')
                     //with(['customer','employee'])
                     ->paginate(15);
         return $cashes;
@@ -44,6 +63,14 @@ class CashRepo extends BaseRepo{
     public function paginarCashes($q){
            $cashes =Cash::join("users","cashes.user_id","=","users.id")
                     ->select("cashes.*","users.name")
+                    ->orderBy('id', 'desc')
+                    ->paginate($q);
+        return $cashes;
+    }
+    public function paginar1($q){
+           $cashes =Cash::join("users","cashes.user_id","=","users.id")
+                    ->select("cashes.*","users.name")
+                    ->orderBy('id', 'desc')
                     ->paginate($q);
         return $cashes;
     }

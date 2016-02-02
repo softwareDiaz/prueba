@@ -13,4 +13,19 @@ class ServiceRepo extends BaseRepo{
                     ->first();
         return $brands;
     }
+    public function paginate($q){
+           $cashes =Service::orderBy('id', 'desc')
+                    ->paginate($q);
+        return $cashes;
+    }
+    public function search($q)
+    {
+        $brands =Service::where('numeroServicio','like', $q.'%')
+                    ->orWhere('cliente','like',$q.'%')
+                    ->orWhere('empresa','like',$q.'%')
+                    ->orderBy('id', 'desc')
+                    //->with(['customer','employee'])
+                    ->paginate(15);
+        return $brands;
+    }
 }

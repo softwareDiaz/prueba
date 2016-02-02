@@ -154,7 +154,7 @@
                                 <textarea ng-disabled="estBan"  type="accionCorrectiva" class="form-control" name="accionCorrectiva" placeholder="Accion Correctiva"
                                           ng-model="service.accionCorrectiva" rows="4" cols="50"></textarea>
                               </div>
-                              <div class="row" ng-if="service.estado!=5">
+                              <div class="row" ng-if="!estBan">
                                 <div class="col-md-6">
                                       <div class="form-group">
                                             <label>Estado del Servicio</label>
@@ -163,6 +163,7 @@
                                              <option value="2">Con Revision</option>
                                              <option value="3">En Reparacion</option>
                                              <option value="4">Por Entregar</option>
+                                             <option value="5" ng-show="service.tipo==1">Entregar</option>
 
                                             </select>
                                       </div>
@@ -238,6 +239,8 @@
                                 </div> 
                                 <br>
                             </div>
+                      </div>
+
 
                                 <table class="table table-bordered">       
                                     <tr>
@@ -282,14 +285,15 @@
                                   </tr>              
                                 </table>
 
-                              <a ng-if="service.estado!=5" ng-click="rutaMovimiento()" ng-href="@{{rutaSalesService}}"  target="_self" type="submit" class="btn btn-primary" >Pagar</a>
+                              <a ng-if="(service.estado!=5 && service.tipo!=1)" ng-click="rutaMovimiento()" ng-href="@{{rutaSalesService}}"  target="_self" type="submit" class="btn btn-primary" >Pagar</a>
 
                 </div><!-- /.box-body -->
         </div>  
 
                   <div class="box-footer">
-                    <a type="submit" class="btn btn-primary" ng-click="update1Service()">Grabar</a>
-                    <a href="/services" class="btn btn-danger">Cancelar</a>
+                    <a ng-show="!estBan" type="submit" class="btn btn-primary" ng-click="update1Service()">Grabar</a>
+                    <a ng-show="!estBan" href="/services" class="btn btn-danger">Cancelar</a>
+                    <a ng-show="estBan" href="/services" class="btn btn-danger">Regresar</a>
                   </div>
                 </form>
               </div><!-- /.box -->

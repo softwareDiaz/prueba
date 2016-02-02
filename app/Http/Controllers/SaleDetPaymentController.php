@@ -62,20 +62,15 @@ class SaleDetPaymentController extends Controller {
             
             $var1=$request->sale;
             
-
             $saleTemporal=$var1["id"];
-
             $salerepo;
-
             $salerepo = new OrderSaleRepo;
             $saleSave=$salerepo->getModel();
-
             $saleEdit = $saleSave->find($saleTemporal);
             //var_dump($saleEdit);die();
             if($saldo=='0'){$var1['estado']='0';}
             $manager = new OrderSaleManager($saleEdit,$var1);
             $manager->save();
-
             $temporal=$request->input("orderSale_id");
             }else if ($request->input("tipo")=='sale') {
                 $var2=$request->sale;
@@ -92,7 +87,6 @@ class SaleDetPaymentController extends Controller {
                 if($saldo=='0'){$var2['estado']='0';}
                 $manager = new SaleManager($orderEdit,$var2);
                 $manager->save();   
-
                 $temporal=$request->input("sale_id");
             }else if ($request->input("tipo")=='separate') {
                 $var3=$request->sale;
@@ -109,7 +103,6 @@ class SaleDetPaymentController extends Controller {
                 if($saldo=='0'){$var3['estado']='0';}
                 $manager = new SeparateSaleManager($orderEdit,$var3);
                 $manager->save();   
-
                 $temporal=$request->input("separateSale_id");
             }
         
@@ -138,27 +131,19 @@ class SaleDetPaymentController extends Controller {
         $var=$request->detPayments;
         
         $temporal=$var["salePayment_id"];
-
         $salePaymentrepo;
-
         $salePaymentrepo = new SalePaymentRepo;
         $paymentSave=$salePaymentrepo->getModel();
-
         $payment1 = $paymentSave->find($temporal);
         //if($saldo=='0'){$request->input("estado")='0';}
         $manager = new SalePaymentManager($payment1,$request->all());
         $manager->save();
-
         //------------------------------------
         //var_dump($grabar);die();
         
-
         //------------------------------------
-
-
         $detPayment = $this->saleDetPaymentRepo->getModel();
         $detPayment['numCaja']=$temporal2;
-
         $grabar=$request->detPayments;
         $detPayment['detCash_id']=$detCash_id;
         $manager = new SaleDetPaymentManager($detPayment,$grabar);
