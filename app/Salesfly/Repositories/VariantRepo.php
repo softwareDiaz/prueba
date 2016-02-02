@@ -172,7 +172,7 @@ class VariantRepo extends BaseRepo{
                         ->where('variants.sku','=',$sku)
                             //->leftjoin('variants','products.id','=','variants.product_id')
                             //->leftjoin("atributes","atributes.id","=","detAtr.atribute_id")
-                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,
+                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,products.modelo as modelo,
                               variants.id as varid,variants.sku as varcode,variants.suppPri as varPrice,variants.price as precioProducto,
                                products.hasVariants as TieneVariante,products.created_at as proCreado,brands.id as BraID,materials.id as MId
                               ,materials.nombre as Mnombre,variants.codigo as varCodigo,detAtr.descripcion as descripcion,products.quantVar as proQuantvar,(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR "/") FROM variants
@@ -201,7 +201,7 @@ class VariantRepo extends BaseRepo{
                         //->where('variants.sku','=',$sku)
                             //->leftjoin('variants','products.id','=','variants.product_id')
                             //->leftjoin("atributes","atributes.id","=","detAtr.atribute_id")
-                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,
+                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,products.modelo as modelo,
                               variants.id as varid,variants.sku as varcode,variants.suppPri as varPrice,variants.price as precioProducto,
                                products.hasVariants as TieneVariante,products.created_at as proCreado,brands.id as BraID,materials.id as MId
                               ,materials.nombre as Mnombre,variants.codigo as varCodigo,detAtr.descripcion as descripcion,products.quantVar as proQuantvar,(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR "/") FROM variants

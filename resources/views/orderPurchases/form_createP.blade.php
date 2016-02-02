@@ -140,11 +140,11 @@
           <div class="row">
              <div class="col-md-1"></div>
             <div class="col-md-4">
-          <div class="input-group" style="width: 100%;">
+          <div class="input-group" style="width: 100%;"> 
               <label>Producto</label>
             
              <input  ng-disabled="activarBusca || check" typeahead-on-select="asignarProduc1()" type="text" ng-model="product.proId" placeholder="Locations loaded1 via $http" 
-          typeahead="variant as variant.proNombre+'('+(variant.BraName==null ? '': variant.BraName+'/')+(variant.TName==null ? '' : variant.TName+'/')+(variant.Mnombre==null ? '':variant.Mnombre+'/')+(variant.NombreAtributos==null ? '':variant.NombreAtributos)+')' for variant in variants1 | filter:$viewValue | limitTo:8" 
+          typeahead="variant as variant.proNombre+(variant.modelo==null ? '': '-'+variant.modelo)+'('+(variant.BraName==null ? '': variant.BraName+'/')+(variant.TName==null ? '' : variant.TName+'/')+(variant.Mnombre==null ? '':variant.Mnombre+'/')+(variant.NombreAtributos==null ? '':variant.NombreAtributos)+')' for variant in variants1 | filter:$viewValue | limitTo:8" 
           typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
            tooltip="Ingrese caracteres para busacar producto por codigo unico"
             >

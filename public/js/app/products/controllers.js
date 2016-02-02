@@ -1128,7 +1128,7 @@
                 }
    $scope.AddPres1 = function(){
                     if($location.path() != '/products/create' && $location.path() != '/products/edit/'+$routeParams.id ) {
-                             alert("hola");
+                             //alert("hola");
                         if (typeof ($scope.presentationSelect.preFin_id) !== 'undefined') {
                             $scope.presentationSelect.id = $scope.presentationSelect.preFin_id;
                         }
@@ -1161,7 +1161,7 @@
                     }
                     if($location.path() == '/products/create' || $location.path() == '/products/edit/'+$routeParams.id){
 
-                        alert('hola2');
+                        //alert('hola2');
 
                         if (typeof ($scope.presentationSelect.preFin_id) !== 'undefined') {
                             $scope.presentationSelect.id = $scope.presentationSelect.preFin_id;
