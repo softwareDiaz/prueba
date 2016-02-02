@@ -125,7 +125,7 @@ class SalesController extends Controller
         $vuelto=$request->input("vuelto");
         $orderSale = $this->saleRepo->getModel();
         $var = $request->detOrders;
-        
+        //var_dump($var);die();
         $payment = $request->salePayment;
         $saledetPayments = $request->saledetPayments;
         $cajaAct = $request->caja;
@@ -370,7 +370,11 @@ class SalesController extends Controller
             //-------------------------------------------------------
             
             if(!empty($codigoFactura)){
+              if(!empty($object["NombreProducto"])){
                   $object["descripcion"]=$object["NombreProducto"];
+                }else{
+                  $object["descripcion"]=$object["NombreAtributos"];
+                }
                   $object["PrecioUnit"]=$object["precioVenta"];
                   $object["PrecioVent"]=$object["subTotal"];
                   $object["headInvoice_id"]=$codigoFactura;

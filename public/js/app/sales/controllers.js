@@ -315,12 +315,13 @@
                              crudServiceOrders.create($scope.sale, 'sales').then(function (data) {
                            
                                     if (data['estado'] == true) {
+                                        $scope.datosFactura(data['codFactura']);
                                         $scope.success = data['nombres'];
                                         $('#miventana1').modal('hide');
                                     alert('grabado correctamente');
                                        // $location.path('/services');
                                        //$route.reload(); 
-                                        $scope.datosFactura(data['codFactura']);
+                                        
                                         $log.log(data);
 
 
@@ -341,13 +342,13 @@
 
 
                 $scope.datosFactura=function(codigoFactu){
-                    alert("codigoFactu : "+codigoFactu);
+                   // alert("codigoFactu : "+codigoFactu);
                     crudServiceOrders.factura('detfactura',codigoFactu).then(function(data){    
                                             $scope.detVoices=data;
                                         });
                                         crudServiceOrders.factura('sales',codigoFactu).then(function(data){    
                                             $scope.headVoice=data;
-                                            //alert(data.created_at);
+                                            alert(data.created_at);
                                             $scope.FechaCreado=new Date(data.created_at);
                                             $scope.anoFactura=""+$scope.FechaCreado.getFullYear();
                                             //$scope.diaFactura=""+$scope.FechaCreado.getDate();

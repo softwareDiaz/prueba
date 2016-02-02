@@ -152,7 +152,7 @@
                         var r = new FileReader();
                         r.onloadend = function(e) {
                             $scope.employee.imagen = e.target.result;
-                                //alert("aqui estoy");
+                                //alert(e.target.result);
                            crudService.create($scope.employee, 'employees').then(function (data) {
                            
                             if (data['estado'] == true) {
