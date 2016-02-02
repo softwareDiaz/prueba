@@ -25,6 +25,18 @@
                 return deferred.promise;
             }
 
+            function Document_venta_Factura(descr,id)
+            {
+            
+                var deferred = $q.defer();
+                $http.post( '/api/Factura/'+descr+'/'+id)
+                    .success(function (data)
+                    {
+                        deferred.resolve(data);
+                    })
+                ;
+                return deferred.promise;
+            }
             function create(area,uri)
             {
                 var deferred = $q.defer();
@@ -258,6 +270,7 @@
                 editFavoritoId,editFavoritoId,
                 reportcliente,reportcliente,
                 buquedarapida,buquedarapida,
+                Document_venta_Factura: Document_venta_Factura,
                 confirmarVariante:confirmarVariante,
                 imprimir_factura: imprimir_factura
             }

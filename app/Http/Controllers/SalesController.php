@@ -991,6 +991,27 @@ class SalesController extends Controller
            $orders = $headIvoiceRepo->numeracion($tipo,$id);
         return response()->json($orders);
     }
+    public function reporteFactura($son,$id){
+        //var_dump($id);die();
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_Boleta';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            base_path() . '/report/Boleta.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['payments_id'=>intval($id)],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+         return '/report/'.$time.'_Boleta.'.$ext;
+    }
     public function reportCliente($fi,$ff){
             //var_dump($fi);
             //var_dump($ff);

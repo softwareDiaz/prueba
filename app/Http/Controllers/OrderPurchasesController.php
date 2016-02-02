@@ -465,7 +465,7 @@ class OrderPurchasesController extends Controller {
         $ext = "pdf";
         
         \JasperPHP::process(
-            base_path() . '/resources/report/reporteOrderPurchases.jasper', 
+            base_path() . '/report/reporteOrderPurchases.jasper', 
             $output, 
             array($ext),
             //array(),

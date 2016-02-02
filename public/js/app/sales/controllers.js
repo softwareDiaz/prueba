@@ -342,7 +342,7 @@
 
 
                 $scope.datosFactura=function(codigoFactu){
-                   // alert("codigoFactu : "+codigoFactu);
+                   // alert("codigoFactu : "+codigoFactu);Document_venta_Factura
                     crudServiceOrders.factura('detfactura',codigoFactu).then(function(data){    
                                             $scope.detVoices=data;
                                         });
@@ -353,7 +353,11 @@
                                             $scope.anoFactura=""+$scope.FechaCreado.getFullYear();
                                             //$scope.diaFactura=""+$scope.FechaCreado.getDate();
                                             //$scope.convertirMes($scope.FechaCreado.getMonth()+1);
-                                            $scope.insertar(Number(data.Total));
+                                            $scope.decriNum=$scope.insertar(Number(data.Total));
+                                            //crudServiceOrders.Document_venta_Factura('son',codigoFactu).then(function(data){  
+                                           // crudServiceOrders.Document_venta_Factura('son',codigoFactu).then(function (data) {  
+                                           //            alert(data);
+                                            //});
                                             if($scope.FechaCreado.getDate()<10){
                                                 $scope.diaFactura="0"+$scope.FechaCreado.getDate();
                                             }else{

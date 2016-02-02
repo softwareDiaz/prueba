@@ -768,3 +768,6 @@ Route::get('sales/createS/{id?}', ['as' => 'person_createS', 'uses' => 'SalesCon
 Route::get('sales/form-createS',['as'=>'person_form_createS','uses'=>'SalesController@form_createS']);
 
 Route::get('api/listServices/misDatos/{store?}/{q?}',['as'=>'person_find', 'uses'=>'ListServicesController@misDatos']);
+
+Route::post('api/Factura/{descri}/{id}','SalesController@reporteFactura');
+
