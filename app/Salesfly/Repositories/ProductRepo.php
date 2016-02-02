@@ -138,7 +138,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->leftjoin('materials','materials.id','=','products.material_id')
                             //->leftjoin('variants','products.id','=','variants.product_id')
                             //->leftjoin("atributes","atributes.id","=","detAtr.atribute_id")
-                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,
+                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,products.modelo as modelo,
                               variants.id as varid,variants.sku as varcode,variants.suppPri as varPrice,variants.price as precioProducto,
                                products.hasVariants as TieneVariante,products.created_at as proCreado,brands.id as BraID,materials.id as MId
                               ,(SELECT (detAtr.descripcion ) FROM variants
@@ -170,7 +170,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->leftjoin('materials','materials.id','=','products.material_id')
                             //->leftjoin('variants','products.id','=','variants.product_id')
                             //->leftjoin("atributes","atributes.id","=","detAtr.atribute_id")
-                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,
+                            ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,products.modelo as modelo,
                               variants.id as varid,variants.sku as varcode,variants.suppPri as varPrice,variants.price as precioProducto,
                                products.hasVariants as TieneVariante,products.created_at as proCreado,brands.id as BraID,materials.id as MId
                               ,materials.nombre as Mnombre,variants.codigo as varCodigo,detAtr.descripcion as descripcion,products.quantVar as proQuantvar,(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR "/") FROM variants
@@ -252,7 +252,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                                 LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                 LEFT JOIN atributes ON atributes.id = detAtr.atribute_id
                                 where variants.id=vari
-                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen,
+                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre, IF(products.modelo is null ," ", CONCAT(" - ",products.modelo) ) ) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen,
                             equiv.cant as equivalencia, variants.favorite as favorite, variants.codigo as NombreAtributo'))
                              
                               //'T1.nombre as Base')
@@ -311,7 +311,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                                 LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                 LEFT JOIN atributes ON atributes.id = detAtr.atribute_id
                                 where variants.id=vari
-                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen,
+                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre , IF(products.modelo is null ," ", CONCAT(" - ",products.modelo) )) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen,
                             equiv.cant as equivalencia, variants.favorite as favorite, variants.codigo as NombreAtributo'))
                              
                               //'T1.nombre as Base')
@@ -351,7 +351,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                                 LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                 LEFT JOIN atributes ON atributes.id = detAtr.atribute_id
                                 where variants.id=vari
-                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen
+                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre, IF(products.modelo is null ," ", CONCAT(" - ",products.modelo) )) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen
                               ,T2.base as base, equiv.cant as equivalencia, variants.favorite as favorite ,variants.codigo as NombreAtributo'))
                              
                               //'T1.nombre as Base')
@@ -396,7 +396,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                                 LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                 LEFT JOIN atributes ON atributes.id = detAtr.atribute_id
                                 where variants.id=vari
-                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen
+                                GROUP BY variants.id)),  CONCAT(variants.codigo," - ",products.nombre, IF(products.modelo is null ," ", CONCAT(" - ",products.modelo) ) ) ) as NombreAtributos , T1.nombre as Base, T2.nombre as Presentacion, products.presentation_base, warehouses.id as idAlmacen
                               ,T2.base as base, equiv.cant as equivalencia, variants.favorite as favorite,variants.codigo as NombreAtributo '))
                              
                               //'T1.nombre as Base')
