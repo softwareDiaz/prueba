@@ -9,14 +9,17 @@ class SalePaymentRepo extends BaseRepo{
         
         return new SalePayment;
     }
-
+    public function paymentById($id){
+       $payment=SalePayment::Where('salePayments.sale_id','=',$id)->first();
+       return $payment;
+   }
     public function search($q)
     {
         $salePayment =SalePayment::where('tipo','=', $q)
                     //with(['customer','employee'])
                     ->paginate(15);
         return $salePayment;
-    }
+    } 
 
     public function searchPayment($id)
     {

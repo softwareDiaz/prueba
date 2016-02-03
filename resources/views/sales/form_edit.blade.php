@@ -152,158 +152,192 @@
         <div class="row" >
         <div class="col-md-12">
 
+          <!-- ===================Pagos creditos=======================  -->
           <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Detalle de Pagos</h3>
+                  <h3 class="box-title">Detalle Pagos</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
-                <form name="TtypeCreateForm" role="form" novalidate>
+                <form name="paymentCreateForm" role="form" novalidate>
                   <div class="box-body">
-                  
-                   
+                  <div class="callout callout-danger" ng-show="errors">
+                                                  <ul>
+                                              <li ng-repeat="row in errors track by $index"><strong >@{{row}}</strong></li>
+                                              </ul>
+                                            </div>
+                    <div class="box-body table-responsive no-padding">
                     <table class="table table-striped">
                     <tr>
-                      <th>Numero Factura</th>
+                      
                       <th>Monto Total</th>
                       <th>Monto Adelantado</th>
                       <th>Saldo</th>
-                      <th>Numero de compra</th>
-
+                      <th>Numero de venta</th>
                       <th></th>
                     </tr>
                     
-                    <tr ng-repeat="row in payment">
-                      <td>@{{row.tipoDoc}}-@{{row.NumDocument}}</td>
-                      <td>@{{row.MontoTotal}}</td>
-                      <td>@{{row.Acuenta}}</td>
-                      <td>@{{row.Saldo}}</td>
-                      <td>@{{row.sale_id}}</td>  
-                      
-              <td><progressbar class="progress-striped active" value="row.PorPagado" type="@{{type}}">@{{row.PorPagado}}%</progressbar></td>
-
+                    <tr >
+                     
+                      <td>@{{payment1.MontoTotal}}</td>
+                      <td>@{{payment1.Acuenta}}</td>
+                      <td>@{{payment1.Saldo}}</td>
+                      <td>@{{sale1.id}}</td>
+              <td>
+                 <progressbar class="progress-striped active" value="payment1.PorPagado" type="@{{type}}">@{{payment1.PorPagado}}%</progressbar>
+              </td>
+              
+                    
                     </tr>
                     
                     
                   </table>
-                  
+                  </div>
                 </div><!-- /.box-body -->
       <div class="box-body">
-<div class="row" >
-      <div  class="col-md-6" align="center" ng-if="payment[0].Saldo<=0">
-      </div>
-     <div  class="col-md-6" align="center"ng-if="payment[0].Saldo>0">
+<div class="row">
+
+     <div ng-enabled="payment1.Saldo>0" class="col-md-6" align="center">
+     <div class="row">
+           <div class="col-md-12">
                  <div  class="form-group" >
                       <b>Agrega Pago</b>
                  </div>
+                  <div class="box-body table-responsive no-padding">
                  <table class="table table-striped" >
                     <tr>
-                      <th >Fecha</th>
+                      <th style="width: 100px">Fecha</th>
                       <th style="width: 200px">Metodo de Pago</th>
-                      <th style="width: 150px">Monto Pagado</th> 
+                      <th style="width: 150px" ng-disabled="detPayment.methodPayment_id>0 || detPayment.cashe_id>0 || payment.cajamensual==true">Monto Pagado</th>
                     </tr>
                 <tr >
                 <td >
 
                                <div  class="input-group">
-                                        <div class="input-group-addon"> 
+                                        <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                         </div>
-                                      <input  type="date"   class="form-control" name="fecha" ng-model="detPago.fecha" required>
+                                      <input  ng-disabled="payment1.Saldo==0 " type="date"   class="form-control" name="fecha" ng-model="detPayment1.fecha" required>
                                    </div>   
-                                  
+                                
                      
               </td>
               <td >
-               <div class="form-group" ng-class="{true: 'has-error'}[ orderPurchaseCreateForm.warehouse.$error.required && orderPurchaseCreateForm.$submitted || orderPurchaseCreateForm.warehouse.$dirty && orderPurchaseCreateForm.warehouse.$invalid]">
+               <div class="form-group" ng-class="{true: 'has-error'}[ paymentCreateForm.warehouse.$error.required && paymentCreateForm.$submitted || paymentCreateForm.warehouse.$dirty && paymentCreateForm.warehouse.$invalid]">
                        
-                       <select ng-hide="show" class="form-control" name="warehouse" ng-click="" ng-model="detPago.saleMethodPayment_id" ng-options="item.id as item.nombre for item in saleMethodPayments" required>
+                       <select ng-disabled="payment1.Saldo==0 " ng-hide="show" class="form-control" name="warehouse" ng-change="desseleccionarMethodP()" ng-model="detPayment1.saleMethodPayment_id" ng-options="item.id as item.nombre for item in saleMethodPayments" >
                        <option value="">--Elija Modo de Pago--</option>
                        </select>
-                       <label ng-show="orderPurchaseCreateForm.$submitted || orderPurchaseCreateForm.warehouse.$dirty && orderPurchaseCreateForm.warehouse.$invalid">
-                                <span ng-show="orderPurchaseCreateForm.warehouse.$invalid"><i class="fa fa-times-circle-o"></i>Requerido.</span>
-                      </label>
-                       
-                    </div>
+                       <label ng-show="paymentCreateForm.$submitted || paymentCreateForm.warehouse.$dirty && paymentCreateForm.warehouse.$invalid">
+                                <span ng-show="paymentCreateForm.warehouse.$invalid"><i class="fa fa-times-circle-o"></i>Requerido.</span>
+                </label>
+                </div>
+                 
               </td>
               <td>
-                     <div class="form-group" >
-                       <input type="number" class="form-control" ng-model='detPago.monto' ng-blur='recalPayments()' name="markup" placeholder="0.00"  step="0.1" min="0">
+                     <div  class="form-group" ng-class="{true: 'has-error'}[ paymentCreateForm.montoPagando.$error.required && paymentCreateForm.$submitted || paymentCreateForm.montoPagando.$dirty && paymentCreateForm.montoPagando.$invalid]" >
+                       <input  ng-disabled="payment1.Saldo==0 || detPayment1.cashe_id==undefined || detPayment1.saleMethodPayment_id==undefined || detPayment1.fecha==undefined" type="number" class="form-control" ng-model='detPayment1.monto' ng-blur='recalPayments()' name="montoPagando" placeholder="0.00"  min='0' step="0.1" required>
+                      <label ng-show="paymentCreateForm.$submitted || paymentCreateForm.montoPagando.$dirty && paymentCreateForm.montoPagando.$invalid">
+                                <span ng-show="paymentCreateForm.montoPagando.$invalid"><i class="fa fa-times-circle-o"></i>Requerido.</span>
+                      </label>
                      </div>
+
               </td>
               </tr>
             </table>
-
-            <div class="row" ng-if="!mostrarBtnGEd">
-                  <div class="col-md-4">
-                     <div class="form-group" >
-                        <label for="year">Tienda</label>
-                        <select ng-click="mostrarAlmacenCaja()" class="form-control" name="" ng-model="store.id" ng-options="item.id as item.nombreTienda for item in stores">
-                          <option value="">--Elije Tienda--</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group" >
-                          <label for="month">Caja</label>
-
-                          <select class="form-control" name="" ng-model="cash1.cashHeader_id" ng-options="item.id as item.nombre for item in cashHeaders">
-                          <option value="">--Elije Caja--</option>
-                          </select>
-                        </div>
-                      </div>
-                </div>
-
+            </div>
+          </div>
         </div>
+        <div class="row">
+             <div ng-hide="payment.cajamensual" class="col-md-5">
+                <div class="form-group" ng-class="{true: 'has-error'}[ paymentCreateForm.warehouse.$error.required && paymentCreateForm.$submitted || paymentCreateForm.warehouse.$dirty && paymentCreateForm.warehouse.$invalid]">
+                       <label>Pagar Con Caja</label>
+                       <select  ng-disabled="payment1.Saldo==0 " ng-change="TraerSales(detPayment1.cashe_id)" class="form-control" name="warehouse"  ng-model="detPayment1.cashe_id" ng-options="item.cashID as item.nombre for item in cashHeaders1" >
+                       <option value="">--Elija Caja--</option>
+                       </select>
+                       <label ng-show="paymentCreateForm.$submitted || paymentCreateForm.warehouse.$dirty && paymentCreateForm.warehouse.$invalid">
+                                <span ng-show="paymentCreateForm.warehouse.$invalid"><i class="fa fa-times-circle-o"></i>Requerido.</span>
+                </label>
+                </div>
+                <label>@{{cashes.montoBruto}}</label>
+            </div>
+            
+          <div class="col-md-3">
+                      
+          </div>
+          <div ng-show="detPayment.methodPayment_id==5"class="col-md-6">
+                      <div   class="form-group" >                            
+                            <select   class="form-control" name="numcuenta"  size="3" ng-model="detPayment.NumCuenta"  ng-change="validarCuenta2()" ng-options="item.NumCuenta as 'Cta. N°.-'+item.NumCuenta for item in counts" >
+                            
+                       </select>
+                      </div>
+          </div>
+         <!-- <div ng-show="payment.cajamensual" class="col-md-5">
+                   <em>Descripcion .</em>
+                   <div class="form-group" >
+                        <textarea ng-model="payment.descripcion" class="form-control input-lg">
+                         </textarea>
+                    </div>
+        </div>-->
+         
+        </div>
+      </div>
+        
+
         <div class="col-md-6" align="center">
             <div class="form-group">
               <b>Pagos Realizados</b>
               </div>
+            <div class="box-body table-responsive no-padding">
             <table class="table table-striped" >
+                <thead style="display: block;">
                     <tr>
-                      <th>Fecha</th>
+                      <th Style="width:26%;">Fecha</th>
                       <th>Tipo de Pago</th>
                       <th>Monto Pagado</th>
                       <th>Tipo Pago</th>
-                      <th>Caja</th>
-                      <th>Descartar</th> 
+                      <th>Descartar</th>
                     </tr>
-                    
-                    <tr ng-repeat="row in detPayments">
+                 </thead>
+                 <tbody style="display: block; width:auto; height: 200px; overflow-x: auto;">  
+                    <tr ng-repeat="row in detPayments1">
                       <td ng-hide="true">@{{row.id}}</td>
+                      <td ng-hide="true">@{{row.cashID}}</td>
+                      <td ng-hide="true">@{{row.Saldo_F}}</td>
                       <td>@{{row.fecha}}</td>
-                      <td>@{{row.sale_method_payment.nombre}}</td>
-                      <td>@{{row.monto}}</td>
-                      <td ng-if="row.tipoPago=='V'"><span class="badge bg-blue">@{{row.tipoPago}}</span></td> 
-                      <td ng-if="row.tipoPago=='C'"><span class="badge bg-green">@{{row.tipoPago}}</span></td> 
-                      <td><a href="/cashes/edit/@{{row.numCaja}}" target="_blank">@{{row.numCaja}}</a></td>
+                      <td Style="width:26%;">caja Mensual</td>
+                      <td Style="width:20%;">@{{row.monto}}</td>
+                      <td Style="width:15%;" ng-if="row.tipoPago=='V'"><span class="badge bg-blue">@{{row.tipoPago}}</span></td> 
+                      <td Style="width:15%;" ng-if="row.tipoPago=='P'"><span class="badge bg-green">@{{row.tipoPago}}</span></td> 
                      <td><button type="button" class="btn btn-danger btn-xs"  ng-click="destroyPay(row)">
                         <span class="glyphicon glyphicon-trash"></span></button>
-                        <a ng-Disabled="payment[0].Saldo<=0" ng-click="editDetpayment(row)" ng-model="checked" class="btn btn-warning btn-xs">Edit</a>
-                        </td>
+                     <a ng-show="false"ng-click="editDetpayment(row)" ng-model="checked" class="btn btn-warning btn-xs">Edit</a></td>
                     </tr>
-                    
-                    
-                  </table>
-                  <div class="box-footer clearfix">
-                  <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" 
-                  class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" 
-                  rotate="false" num-pages="numPages" ng-change="pagechan2()"></pagination>-->
-
-
-
-                </div>
+                
+                </tbody>
+                   </table>
+                   </div> 
             </div>
-
-            </div>
-                <div ng-hide="mostrarBtnGEd" class="form-group" >
-                    <button class=" label-default" type='submit' ng-click='createdetPayment()' >Registrar Pago</button>
-                    </div>
-                    <div ng-show="mostrarBtnGEd" class="form-group" >
-                      <button class=" label-default" type='submit' ng-click='editPayment()'>Edit Pago</button>  
-                      <button class=" label-default" type='submit' ng-click='cancel()'>Cancelar</button> 
-                    </div> 
       </div>
+            <div ng-hide="mostrarBtnGEd" class="form-group" >
+                    <button ng-disabled="desactivarCuentas" class=" label-default" type='submit' ng-click='createPayment()' >Registrar Pago</button>  
+                     <a ng-href="@{{pdf7}}" target="_blank" class="btn btn-primary btn-xs">@{{desscripctiondddd}}</a>
+            
+            </div> 
+            <div ng-show="mostrarBtnGEd" class="form-group" >
+                    <button class=" label-default" type='submit' ng-click='editPayment()'>Edit Pago</button>  
+                    <button class=" label-danger"  ng-click='cancelarEditPayment()'>Cancelar</button>  
+            
+            </div>
+        </div>
+     
+             
+                   <div class="box-footer">
+                    <a href="/orderPurchases" class="btn btn-danger">Salir</a>
+                  </div>
+                </form>
+              </div><!-- /.box -->
+          <!-- ========================================================  -->
+      
 
      
              
@@ -323,8 +357,8 @@
 
           
 
-                    <a class="btn btn-success btn-xs" ng-show="banderaModificar" ng-click="grabarCanPedido()">Modificar</a>
-                   <a href="/sales" class="btn btn-success btn-xs">Regresar</a>
+                    
+                   
                   </div>
                 </form>
               </div><!-- /.box -->

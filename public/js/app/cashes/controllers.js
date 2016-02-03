@@ -159,16 +159,14 @@
                 };
                 //---------------------------------------------
                 $scope.pageChanged1 = function() {
-                    if ($scope.cash.id != 0) {
-                        //alert("entre : "+$scope.cash.id)
-                        crudService.search('detCashes',$scope.buscar,$scope.currentPage1).then(function (data){
-                        $scope.detCashes = data.data;
-                    });
-                    }else{
-                        crudService.paginate('detCashes',$scope.currentPage).then(function (data) {
+                    crudService.search('detCashes',id,$scope.currentPage1).then(function (data) {
                             $scope.detCashes = data.data;
+                            $scope.maxSize1 = 5;
+                            $scope.totalItems1 = data.total;
+                            $scope.currentPage1 = data.current_page;
+                            $scope.itemsperPage1 = 15;
+                            //$log.log(data);
                         });
-                    }
                     //$log.log($scope.totalItems1);
                 };
                 //--------------------------------------------------
