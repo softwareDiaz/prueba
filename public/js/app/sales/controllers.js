@@ -29,6 +29,7 @@
                     $scope.banderadeleteFavorito=true;
                     $scope.banderaPagosTarjeta=true;
                     $scope.acuenta=false;
+                    //$scope.generateFact=true;
                     $scope.customer={};
                     $scope.date = new Date();
                     $scope.base=true;
@@ -371,19 +372,23 @@
                              crudServiceOrders.create($scope.sale, 'sales').then(function (data) {
                            
                                     if (data['estado'] == true) {
-                                         alert('grabado correctamente');
                                         
+                                         alert('grabado correctamente');
+                                        $scope.CodigoFactura=data['codFactura'];
                                         if (!$scope.banService){
-                                            if($scope.sale.comprobante==true){
+                                            if(data['codFactura']!=undefined){
+                                                $scope.success = data['nombres'];
+                                                $('#miventana1').modal('hide');
                                                 $scope.datosFactura(data['codFactura']);
                                             }else{
                                             $scope.success = data['nombres'];
-                                            $('#miventana1').modal('hide');}
+                                            $('#miventana1').modal('hide');
+                                           }
                                         }else{
-                                            alert($scope.sale.comprobante);
-                                               if($scope.sale.comprobante==false){
+                                            
+                                               if(data['codFactura']==undefined){
                                                 var url = "/services";
-                                                alert("ajajajja");
+                                                
                                        // //    $log.log(url);
                                                 $window.location.href = url;
                                               }else{
@@ -415,7 +420,7 @@
 
                 $scope.prueba=function(){
                     crudServiceOrders.Document_venta_Factura('Factura','hola',1).then(function (data) {  
-                                                      alert(data);
+                                                      $scope.CodigoFactura=undefined;
                                                       $window.open(data);
                                             });
                 }
@@ -440,8 +445,10 @@
                                                       //alert(data);
                                                        if (!$scope.banService){
                                                           $('#miventana1').modal('hide');
+                                                          $scope.CodigoFactura=undefined;
                                                            $window.open(data);
-                                                      }else{                                                        
+                                                      }else{
+
                                                             $window.open(data);
                                                             var url = "/services";                                       
                                                             $window.location.href = url;
@@ -1752,6 +1759,8 @@ $scope.Saldo1=0;
                 
                 $scope.validaDocumento=function(){
                     //$scope.sale.comprobante=!$scope.sale.comprobante;
+
+                    
                 $scope.estadoComoDocument=false;
                     if($scope.sale.comprobante==true )
                     {
@@ -2123,6 +2132,7 @@ $scope.Saldo1=0;
                                             crudServiceOrders.Document_venta_Factura('Factura',$scope.DecripcionTotal,cod).then(function (data) {  
                                                       //alert(data);
                                                       if (!$scope.banService){
+                                                           $scope.CodigoFactura=undefined;
                                                           $('#miventana1').modal('hide');
                                                            $window.open(data);
                                                       }else{                                                        
@@ -2137,6 +2147,7 @@ $scope.Saldo1=0;
                                             crudServiceOrders.Document_venta_Factura('Factura',$scope.DecripcionTotal,cod).then(function (data) {  
                                                       //alert(data);
                                                        if (!$scope.banService){
+                                                          $scope.CodigoFactura=undefined;
                                                           $('#miventana1').modal('hide');
                                                            $window.open(data);
                                                       }else{                                                        

@@ -10,10 +10,9 @@
             <li class="active">Crear</li>
           </ol>
 
-          
         </section>
 
-        <section class="content"> 
+        <section class="content "> 
         <div class="row">
         <div class="col-md-12">
 
@@ -32,10 +31,13 @@
 
 
 
-
-
-     <button ng-click="prueba()">probando joder</button>
-            <div class="nav-tabs-custom" id="myTabs">
+          
+              <div ng-show="CodigoFactura!=undefined" style="background:black; top=50%; color:#fff; position:relative;">
+              <br>
+              <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+              <h1>Generando Documento de Venta espere Por Favor <img src="/../images/cargando.gif"></h1>
+             </div>
+            <div ng-hide="CodigoFactura!=undefined" class="nav-tabs-custom "  id="myTabs">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Venta</a></li>
                   <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" ng-click="actualizarCaja()">Caja Venta</a></li>
@@ -575,6 +577,7 @@
                       </div>  
                       
           </div>
+          
           <div  class="col-md-4">
                        <div  class="form-group" ng-class="{true: 'has-error'}[ promocionCreateForm.fechaPrevista.$error.required && promocionCreateForm.$submitted || promocionCreateForm.fechaPrevista.$dirty && promocionCreateForm.fechaPrevista.$invalid]">
                             <label for="fechaPrevista">Fecha Fin Promocion: </label>
@@ -1068,11 +1071,14 @@
                       </div>
                     </form>
                   </div>
+
               </div>
+
             </div>
+                 
           </div>
 
-
+            
           <!-- =========================================Ventana Agregar Año=================================-->
          <div class="container"  style="margin-top: 60px;">
            <div  class="modal fade" id="miventana1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="ngenabled">
@@ -1223,6 +1229,7 @@
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
         </div>
     </script>
+
 </section>
 
 <!--
