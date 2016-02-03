@@ -130,13 +130,13 @@
                             if (data['estado'] == true) {
                                 $scope.success = data['nombres'];
                                 alert('grabado correctamente');
-                                //$location.path('/services');
-                                    crudServiceServices.reporteServicio('reporteServicio',data["id"]).then(function (data) { 
+                                 $location.path('/services');
+                                    /*crudServiceServices.reporteServicio('reporteServicio',data["id"]).then(function (data) { 
 
                                                       alert(data);
                                                        $window.open(data);
                                                        $location.path('/services');
-                                            });
+                                            });*/
                             } else {
                                 $scope.errors = data;
 
