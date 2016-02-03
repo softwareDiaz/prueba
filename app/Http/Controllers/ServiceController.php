@@ -114,11 +114,11 @@ class ServiceController extends Controller {
        // var_dump($id);die();
         $database = \Config::get('database.connections.mysql');
         $time=time();
-        $output = public_path() . '/report/'.$time.'_reportServicio';        
+        $output = public_path() . '/report/'.$time.'_reportServicio2';        
         $ext = "pdf";
         
         \JasperPHP::process(
-            public_path() . '/report/reportServicio.jasper', 
+            public_path() . '/report/reportServicio2.jasper', 
             $output, 
             array($ext),
             //array(),
@@ -129,6 +129,6 @@ class ServiceController extends Controller {
             false,
             false
         )->execute();
-        return '/report/'.$time.'_reportServicio.'.$ext;
+        return '/report/'.$time.'_reportServicio2.'.$ext;
     }
 }
