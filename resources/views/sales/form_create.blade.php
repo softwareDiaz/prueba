@@ -34,7 +34,7 @@
 
 
 
-
+     <button ng-click="prueba()">probando joder</button>
             <div class="nav-tabs-custom" id="myTabs">
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Venta</a></li>
@@ -1225,7 +1225,7 @@
     </script>
 </section>
 
-
+<!--
 <div  id="printx" style="display:none;">
 <body  class="documento_venta" style="margin-top:50px;">
  <div ng-if="headVoice.tipoDoc=='F'" >
@@ -1293,7 +1293,7 @@
         <td style="width:80px;"></td>
         <td><label style="width:360px;" type="text" >@{{headVoice.cliente}}</label></td>
         <!--<td><label ng-if="headVoice.tipoDoc=='F'">RUC:</label><label ng-if="headVoice.tipoDoc=='B'">N° Doc:</label></td>-->
-        <td><label style="" type="text" >@{{headVoice.dni}}</label> </td>
+       <!-- <td><label style="" type="text" >@{{headVoice.dni}}</label> </td>
       </tr>
 
       <tr>
@@ -1343,3 +1343,4 @@
     </div>
 </body>
 </div>
+-->

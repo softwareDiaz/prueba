@@ -22,7 +22,7 @@ class ServiceManager extends BaseManager {
                     'accionCorrectiva'=> '',
                     'estado'=> '',
                     'customer_id'=> 'required',
-                    'employee_id'=> 'required',
+                    'employee_id'=> '',
                     'ordenTrabajo'=> '',
                     'user_id'=> ''
                   ];

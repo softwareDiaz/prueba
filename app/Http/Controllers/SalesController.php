@@ -992,25 +992,46 @@ class SalesController extends Controller
         return response()->json($orders);
     }
     public function reporteFactura($son,$id){
-        //var_dump($id);die();
+       // var_dump($id);die();
         $database = \Config::get('database.connections.mysql');
         $time=time();
-        $output = public_path() . '/report/'.$time.'_Boleta';        
+        $output = public_path() . '/report/'.$time.'_proFactura';        
         $ext = "pdf";
         
         \JasperPHP::process(
-            base_path() . '/report/Boleta.jasper', 
+            public_path() . '/report/proFactura.jasper', 
             $output, 
             array($ext),
             //array(),
             //while($i<=3){};
-            ['payments_id'=>intval($id)],//Parametros
+            ['SUBREPORT_DIR'=>public_path() . '/report/','q' => $id,'descriNum'=>$son],//Parametros
               
             $database,
             false,
             false
         )->execute();
-         return '/report/'.$time.'_Boleta.'.$ext;
+        return '/report/'.$time.'_proFactura.'.$ext;
+    }
+    public function reporteBoleta($son,$id){
+       // var_dump($id);die();
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_proBoleta';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/proBoleta.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['SUBREPORT_DIR'=>public_path() . '/report/','q' => $id],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_proBoleta.'.$ext;
     }
     public function reportCliente($fi,$ff){
             //var_dump($fi);

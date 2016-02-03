@@ -48,7 +48,8 @@
                     $scope.sale.customer_id=undefined;
                     $scope.sale.employee_id=undefined;
                     $scope.sale.vuelto=0;
-                    $scope.exitCustumer=false;                  
+                    $scope.exitCustumer=false; 
+                    //$scope.sale.comprobante=true;                 
                     $scope.cashes={};
                     $scope.cashfinal={};
                     $scope.banderaMostrarEntrega=false;
@@ -318,14 +319,23 @@
                            
                                     if (data['estado'] == true) {
                                          alert('grabado correctamente');
-                                        $scope.datosFactura(data['codFactura']);
+                                        
                                         if (!$scope.banService){
+                                            if($scope.sale.comprobante==true){
+                                                $scope.datosFactura(data['codFactura']);
+                                            }else{
                                             $scope.success = data['nombres'];
-                                            $('#miventana1').modal('hide');
+                                            $('#miventana1').modal('hide');}
                                         }else{
-                                            var url = "/services";
-                                            $log.log(url);
-                                            $window.location.href = url;
+                                            alert($scope.sale.comprobante);
+                                               if($scope.sale.comprobante==false){
+                                                var url = "/services";
+                                                alert("ajajajja");
+                                       // //    $log.log(url);
+                                                $window.location.href = url;
+                                              }else{
+                                                 $scope.datosFactura(data['codFactura']);
+                                              }
                                         }
                                         
                                        
@@ -350,6 +360,12 @@
                     });
                 }
 
+                $scope.prueba=function(){
+                    crudServiceOrders.Document_venta_Factura('Factura','hola',1).then(function (data) {  
+                                                      alert(data);
+                                                      $window.open(data);
+                                            });
+                }
 
                 $scope.datosFactura=function(codigoFactu){
                    // alert("codigoFactu : "+codigoFactu);Document_venta_Factura
@@ -363,11 +379,25 @@
                                             $scope.anoFactura=""+$scope.FechaCreado.getFullYear();
                                             //$scope.diaFactura=""+$scope.FechaCreado.getDate();
                                             //$scope.convertirMes($scope.FechaCreado.getMonth()+1);
-                                            $scope.decriNum=$scope.insertar(Number(data.Total));
+                                           
+                                           // $scope.Descri="Hola como estas";
                                             //crudServiceOrders.Document_venta_Factura('son',codigoFactu).then(function(data){  
-                                           // crudServiceOrders.Document_venta_Factura('son',codigoFactu).then(function (data) {  
-                                           //            alert(data);
-                                            //});
+                                           if(data.tipoDoc=='B'){
+                                            crudServiceOrders.Document_venta_Factura('Boleta',"cccc",codigoFactu).then(function (data) {  
+                                                      //alert(data);
+                                                       if (!$scope.banService){
+                                                          $('#miventana1').modal('hide');
+                                                           $window.open(data);
+                                                      }else{                                                        
+                                                            $window.open(data);
+                                                            var url = "/services";                                       
+                                                            $window.location.href = url;
+                                                      }
+                                            });
+                                        }else{
+                                            
+                                             $scope.insertar(Number(data.Total),codigoFactu);
+                                        }
                                             if($scope.FechaCreado.getDate()<10){
                                                 $scope.diaFactura="0"+$scope.FechaCreado.getDate();
                                             }else{
@@ -410,6 +440,7 @@
                                             }else{
                                                $scope.numCaja=""+$scope.cash1.cashHeader_id;
                                             }}
+                                            
                 }
                 $scope.convertirMes=function(valor){
                     switch(valor){
@@ -1513,6 +1544,7 @@
                 }
                 
                 $scope.validaDocumento=function(){
+                    //$scope.sale.comprobante=!$scope.sale.comprobante;
                 $scope.estadoComoDocument=false;
                     if($scope.sale.comprobante==true )
                     {
@@ -1913,100 +1945,124 @@
 
                 //});
                 }
-    $scope.insertar=function(num){
+    $scope.insertar=function(num,cod){
         //alert(Math.floor(num));
         if((num-Math.floor(num))!=0){
             $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+" CON "+((num-Math.floor(num))*100).toFixed(0)+"/100 NUEVOS SOLES";
-            
+            //alert($scope.DecripcionTotal);
+                                            crudServiceOrders.Document_venta_Factura('Factura',$scope.DecripcionTotal,cod).then(function (data) {  
+                                                      //alert(data);
+                                                      if (!$scope.banService){
+                                                          $('#miventana1').modal('hide');
+                                                           $window.open(data);
+                                                      }else{                                                        
+                                                            $window.open(data);
+                                                            var url = "/services";                                       
+                                                            $window.location.href = url;
+                                                      }
+                                            });
         }else{
             $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+" ";
+            //alert($scope.DecripcionTotal);
+                                            crudServiceOrders.Document_venta_Factura('Factura',$scope.DecripcionTotal,cod).then(function (data) {  
+                                                      //alert(data);
+                                                       if (!$scope.banService){
+                                                          $('#miventana1').modal('hide');
+                                                           $window.open(data);
+                                                      }else{                                                        
+                                                            $window.open(data);
+                                                            var url = "/services";                                       
+                                                            $window.location.href = url;
+                                                      }
+                                            });
         }
+        
         
     }
     $scope.doThings=function(valor){
         //Limite
         if(valor >2000000)
-            {return "DOS MILLONES";}
+            {return "DOS-MILLONES";}
         
         switch(valor){
             case 0: return "CERO";
             case 1: return "UNO"; //UNO
-            case 2: return "DOS";
-            case 3: return "TRES";
-            case 4: return "CUATRO";
-            case 5: return "CINCO"; 
-            case 6: return "SEIS";
-            case 7: return "SIETE";
-            case 8: return "OCHO";
-            case 9: return "NUEVE";
-            case 10: return "DIEZ";
-            case 11: return "ONCE"; 
-            case 12: return "DOCE"; 
-            case 13: return "TRECE";
-            case 14: return "CATORCE";
-            case 15: return "QUINCE";
-            case 20: return "VEINTE";
-            case 30: return "TREINTA";
-            case 40: return "CUARENTA";
-            case 50: return "CINCUENTA";
-            case 60: return "SESENTA";
-            case 70: return "SETENTA";
-            case 80: return "OCHENTA";
-            case 90: return "NOVENTA";
-            case 100: return "CIEN";
+            case 2: return "DOS-";
+            case 3: return "TRES-";
+            case 4: return "CUATRO-";
+            case 5: return "CINCO-"; 
+            case 6: return "SEIS-";
+            case 7: return "SIETE-";
+            case 8: return "OCHO-";
+            case 9: return "NUEVE-";
+            case 10: return "DIEZ-";
+            case 11: return "ONCE-"; 
+            case 12: return "DOCE-"; 
+            case 13: return "TRECE-";
+            case 14: return "CATORCE-";
+            case 15: return "QUINCE-";
+            case 20: return "VEINTE-";
+            case 30: return "TREINTA-";
+            case 40: return "CUARENTA-";
+            case 50: return "CINCUENTA-";
+            case 60: return "SESENTA-";
+            case 70: return "SETENTA-";
+            case 80: return "OCHENTA-";
+            case 90: return "NOVENTA-";
+            case 100: return "CIEN-";
             
-            case 200: return "DOSCIENTOS";
-            case 300: return "TRESCIENTOS";
-            case 400: return "CUATROCIENTOS";
-            case 500: return "QUINIENTOS";
-            case 600: return "SEISCIENTOS";
-            case 700: return "SETECIENTOS";
-            case 800: return "OCHOCIENTOS";
-            case 900: return "NOVECIENTOS";
+            case 200: return "DOSCIENTOS-";
+            case 300: return "TRESCIENTOS-";
+            case 400: return "CUATROCIENTOS-";
+            case 500: return "QUINIENTOS-";
+            case 600: return "SEISCIENTOS-";
+            case 700: return "SETECIENTOS-";
+            case 800: return "OCHOCIENTOS-";
+            case 900: return "NOVECIENTOS-";
             
-            case 1000: return "MIL";
+            case 1000: return "MIL-";
             
-            case 1000000: return "UN MILLON";
-            case 2000000: return "DOS MILLONES";
+            case 1000000: return "UN-MILLON-";
+            case 2000000: return "DOS-MILLONES-";
         }
         if(valor<20){
             //System.out.println(">15");
-            return "DIECI"+ $scope.doThings(valor-10);
+            return "DIECI-"+ $scope.doThings(valor-10);
         }
         if(valor<30){
             //System.out.println(">20");
-            return "VEINTI" + $scope.doThings(valor-20);
+            return "VEINTI-" + $scope.doThings(valor-20);
         }
         if(valor<100){
             //System.out.println("<100"); 
             //alert((Math.floor(valor/10))*10);
-            return $scope.doThings((Math.floor(valor/10))*10) + " Y " + $scope.doThings(valor%10);
+            return $scope.doThings((Math.floor(valor/10))*10) + "Y-" + $scope.doThings(valor%10);
         }        
         if(valor<200){
             //System.out.println("<200"); 
-            return "CIENTO " + $scope.doThings( valor - 100 );
+            return "CIENTO-" + $scope.doThings( valor - 100 );
         }         
         if(valor<1000){
             //System.out.println("<1000");
-            return $scope.doThings((Math.floor(valor/100))*100) + " " + $scope.doThings(valor%100);
+            return $scope.doThings((Math.floor(valor/100))*100) + "-" + $scope.doThings(valor%100);
         } 
         if(valor<2000){
             //System.out.println("<2000");
-            return "MIL " + $scope.doThings( valor % 1000 );
+            return "MIL-" + $scope.doThings( valor % 1000 );
         } 
         if(valor<1000000){
             $scope.descri="";
             //System.out.println("<1000000");
-            $scope.descri = $scope.doThings(Math.floor(valor/1000)) + " MIL" ;
+            $scope.descri = $scope.doThings(Math.floor(valor/1000)) + "MIL-" ;
             if(valor % 1000!=0){
                 //System.out.println(var);
                // alert(valor % 1000);
-                $scope.descri += " " + $scope.doThings(valor % 1000);
+                $scope.descri += "-" + $scope.doThings(valor % 1000);
             }
             return $scope.descri;
         }
         if(valor<2000000){
-            return "UN MILLON " + $scope.doThings( valor % 1000000 );
+            return "UN-MILLON-" + $scope.doThings( valor % 1000000 );
         } 
         return "";
     }    

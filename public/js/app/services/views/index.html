@@ -55,6 +55,7 @@
                       <button type="button" class="btn btn-default" ng-click="cancelService()">No</button>
                     </p>
                   </div>
+                  <div class="box-body table-responsive no-padding">
                   <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -85,11 +86,13 @@
                       <td ng-if="row.estado>1 && row.estado<5"><a ng-click="editServiceDiagnostico(row)" class="btn btn-success btn-xs">Agregar Trabajo</a></td>
                       <td ng-if="row.estado==5"><a ng-click="editServiceDiagnostico(row)" class="btn btn-info btn-xs">Ver Detalle</a></td>
                       <td><a ng-disabled="row.estado==5" ng-click="deleteService(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
+                      <td><a  ng-click="printDocument(row.id)" class="btn btn-default btn-xs">{{variable}}</a></td>
                       
                     </tr>
                     
                     
                   </table>
+                  </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
                   <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
