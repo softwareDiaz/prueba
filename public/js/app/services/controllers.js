@@ -4,6 +4,7 @@
             function($scope, $routeParams,$location,crudServiceServices,socket,$filter,$route,$log,$modal){
                 $scope.services = [];
                 $scope.service = {};
+                $scope.service.fechaServicio=new Date();
                 $scope.errors = null;
                 $scope.success;
                 $scope.query = '';
@@ -49,6 +50,7 @@
                     //alert("Hola");
                     crudServiceServices.byId(id,'services').then(function (data) {
                         $scope.service = data;
+
                         //$scope.service.fechaServicio=new Date($scope.service.fechaServicio);
                         //$scope.service.fechaServicio = $scope.service.fechaServicio.getFullYear()+'-'+($scope.service.fechaServicio.getMonth())+'-'+$scope.service.fechaServicio.getDate();
                         $scope.numeracionMostrar(Number(data.numeroServicio)-1);
