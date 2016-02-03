@@ -111,24 +111,24 @@ class ServiceController extends Controller {
         return response()->json($services);
     }
      public function reporteServicio($id){
-       // var_dump($id);die();
+       //var_dump($id);die();
         $database = \Config::get('database.connections.mysql');
         $time=time();
-        $output = public_path() . '/report/'.$time.'_reportServicio2';        
+        $output = public_path() . '/report/'.$time.'_reportServicio';        
         $ext = "pdf";
         
         \JasperPHP::process(
-            public_path() . '/report/reportServicio2.jasper', 
+            public_path() . '/report/reportServicio.jasper', 
             $output, 
             array($ext),
             //array(),
             //while($i<=3){};
-            ['q' =>$id],//Parametros
+            ['q'=>$id],//Parametros
               
             $database,
             false,
             false
         )->execute();
-        return '/report/'.$time.'_reportServicio2.'.$ext;
+        return '/report/'.$time.'_reportServicio.'.$ext;
     }
 }
