@@ -18,7 +18,8 @@ class SaleManager extends BaseManager {
             'notas'=> '',
             'detCash_id'=>'required',
             'orderSale_id'=> '',
-            'separateSale_id'=> ''
+            'separateSale_id'=> '',
+            'service_id'=> ''
                   ];
         return $rules;
     }} 

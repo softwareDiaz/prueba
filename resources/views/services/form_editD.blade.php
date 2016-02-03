@@ -161,7 +161,7 @@
 
                               <div class="form-group">
                                 <label for="diagnostico">Diagnostico</label>
-                                <textarea ng-disabled="estBan" type="diagnostico" class="form-control" name="diagnostico" placeholder="Diagnostico"
+                                <textarea ng-disabled="true" type="diagnostico" class="form-control" name="diagnostico" placeholder="Diagnostico"
                                           ng-model="service.diagnostico" rows="4" cols="50"></textarea>
                               </div>
 

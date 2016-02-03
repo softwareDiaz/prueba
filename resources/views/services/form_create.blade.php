@@ -186,6 +186,11 @@
                       <textarea type="notas" class="form-control" name="notas" placeholder="Accesorios"
                       ng-model="service.accesorios" rows="4" cols="50"></textarea>
                      </div>
+                     <div class="form-group">
+                                <label for="diagnostico">Diagnostico</label>
+                                <textarea type="diagnostico" class="form-control" name="diagnostico" placeholder="Diagnostico"
+                                          ng-model="service.diagnostico" rows="4" cols="50"></textarea>
+                              </div>
 
                 </div><!-- /.box-body -->
 
