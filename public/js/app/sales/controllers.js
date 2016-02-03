@@ -389,12 +389,11 @@
                                         }else{
                                             
                                                if(data['codFactura']==undefined){
-                                                var url = "/services";
-<<<<<<< HEAD
+                                             var url = "/services";
                                                 
-=======
+
                                                 //alert("ajajajja");
->>>>>>> 9b2c9b2655a47f7304045fd30adc2b91f04c1e78
+
                                        // //    $log.log(url);
                                                 $window.location.href = url;
                                               }else{
