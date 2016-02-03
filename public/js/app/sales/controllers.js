@@ -351,6 +351,7 @@
 
 
                                             if ($scope.banService==true) {
+                                                $scope.sale.service_id=id;
                                                 for (var i = $scope.deleteCompras.length - 1; i >= 0; i--) {
                                                     $scope.destroyDetService($scope.deleteCompras[i]);
                                                 };
@@ -368,6 +369,7 @@
                                         $scope.sale.banseraServicio=$scope.banService;
                                         $scope.sale.service=$scope.findService;
                                         $log.log($scope.sale);
+                                        //sdsdds
                              crudServiceOrders.create($scope.sale, 'sales').then(function (data) {
                            
                                     if (data['estado'] == true) {
@@ -383,7 +385,7 @@
                                             alert($scope.sale.comprobante);
                                                if($scope.sale.comprobante==false){
                                                 var url = "/services";
-                                                alert("ajajajja");
+                                                //alert("ajajajja");
                                        // //    $log.log(url);
                                                 $window.location.href = url;
                                               }else{
