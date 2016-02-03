@@ -51,8 +51,8 @@ class ServiceController extends Controller {
 
     public function create(Request $request)
     {
-        $request->merge(array('employee_id' => auth()->user()->id));
-        
+        $request->merge(array('user_id' => auth()->user()->id));
+        //$request->merge
         $services = $this->serviceRepo->getModel();
         //var_dump($request->all());
         //die();
@@ -62,7 +62,7 @@ class ServiceController extends Controller {
         $manager->save();
         //Event::fire('update.brand',$brand->all());
 
-        return response()->json(['estado'=>true, 'nombre'=>$services->nombre]);
+        return response()->json(['estado'=>true, 'nombre'=>$services->nombre,'id'=>$services->id]);
     }
 
     public function find($id)
@@ -109,5 +109,26 @@ class ServiceController extends Controller {
     {
         $services = $this->serviceRepo->numeroServicio();
         return response()->json($services);
+    }
+     public function reporteServicio($id){
+       // var_dump($id);die();
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_reportServicio';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/reportServicio.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['q' => $id],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_reportServicio.'.$ext;
     }
 }

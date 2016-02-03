@@ -25,11 +25,11 @@
                 return deferred.promise;
             }
 
-            function Document_venta_Factura(descr,id)
+            function Document_venta_Factura(uri,descr,id)
             {
             
                 var deferred = $q.defer();
-                $http.post( '/api/Factura/'+descr+'/'+id)
+                $http.post( '/api/'+uri+'/'+descr+'/'+id)
                     .success(function (data)
                     {
                         deferred.resolve(data);

@@ -105,7 +105,18 @@
                 );
                 return deferred.promise;
             }
-
+            function reporteServicio(uri,id)
+            {
+            
+                var deferred = $q.defer();
+                $http.post( '/api/'+uri+'/'+id)
+                    .success(function (data)
+                    {
+                        deferred.resolve(data);
+                    })
+                ;
+                return deferred.promise;
+            }
             function search(uri,query,page){
                 var deferred = $q.defer();
                 var result = $http.get('/api/'+uri+'/search/'+query+'/?page='+page);
@@ -256,6 +267,7 @@
                 reportPro,reportPro,
                 getPres, setPres,
                 reportProWare,reportProWare,
+                reporteServicio: reporteServicio,
                 deudasSupplier: deudasSupplier
             }
         }])

@@ -1,7 +1,7 @@
 (function(){
     angular.module('services.controllers',[])
-        .controller('ServicesController',['$scope', '$routeParams','$location','crudServiceServices','socketService' ,'$filter','$route','$log','$modal',
-            function($scope, $routeParams,$location,crudServiceServices,socket,$filter,$route,$log,$modal){
+        .controller('ServicesController',['$scope', '$routeParams','$location','crudServiceServices','socketService' ,'$filter','$route','$log','$window','$modal',
+            function($scope, $routeParams,$location,crudServiceServices,socket,$filter,$route,$log,$window,$modal){
                 $scope.services = [];
                 $scope.service = {};
                 $scope.service.fechaServicio=new Date();
@@ -107,8 +107,21 @@
                     });
                 }
                     
-                };
+                };$scope.variable="Imprimir";
+                $scope.printDocument=function(id){
+                    $scope.variable="Imprimiendo";
+                    crudServiceServices.reporteServicio('reporteServicio',id).then(function (data) { 
+                                                      $scope.variable="Imprimiendo";
+                                                      if(data!=undefined){
+                                                        $scope.variable="Imprimir";
+                                                        $window.open(data);
 
+                                                      }else{
+                                                        alert("error de imprecion");
+                                                      }
+                                                       
+                                            });
+                }
                 $scope.createService = function(){
                     $scope.service.estado = 1;
                     if ($scope.serviceCreateForm.$valid) {
@@ -117,8 +130,13 @@
                             if (data['estado'] == true) {
                                 $scope.success = data['nombres'];
                                 alert('grabado correctamente');
-                                $location.path('/services');
+                                //$location.path('/services');
+                                    crudServiceServices.reporteServicio('reporteServicio',data["id"]).then(function (data) { 
 
+                                                      alert(data);
+                                                       $window.open(data);
+                                                       $location.path('/services');
+                                            });
                             } else {
                                 $scope.errors = data;
 
@@ -143,6 +161,7 @@
                                 $scope.success = data['nombres'];
                                 alert('editado correctamente');
                                 $location.path('/services');
+
                             }else{
                                 $scope.errors =data;
                             }
@@ -216,7 +235,7 @@
                 };
                 $scope.selecionarCliente = function() {
                     //$log.log($scope.customersSelected.busqueda);
-                    $log.log("entre");
+                    //$log.log("entre");
                     if ($scope.customerSelected!=undefined) {
                         $scope.service.customer_id=$scope.customerSelected.id;
                         $scope.service.cliente=$scope.customerSelected.nombres+" "+$scope.customerSelected.apellidos;
