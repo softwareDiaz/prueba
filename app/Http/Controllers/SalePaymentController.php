@@ -35,6 +35,11 @@ class SalePaymentController extends Controller {
         $detOrder = $this->salePaymentRepo->searchPayment($id);
 
         return response()->json($detOrder);
+    } 
+    public function find($id)
+    {
+        $payment = $this->salePaymentRepo->paymentById($id);
+        return response()->json($payment);
     }
     public function searchPaymentOrder($id)
     {
@@ -50,7 +55,7 @@ class SalePaymentController extends Controller {
 
         return response()->json($detOrder);
     }
-    public function edit(Request $request)
+    /*public function edit(Request $request)
     {
         //var_dump($request->all());die();
         $payment = $this->salePaymentRepo->find($request->id);
@@ -58,7 +63,109 @@ class SalePaymentController extends Controller {
         $manager->save();
 
         return response()->json(['estado'=>true, 'nombre'=>$payment->nombre]);
+    }*/
+
+    public function edit(Request $request)
+    {
+
+       // \DB::beginTransaction();
+        $var=$request->detPayments;
+        $detPayment= $this->SaleDetPaymentRepo->find($request->detpId);
+         $pagoTemporal=$detPayment->monto;
+        $detpay = new SaleDetPaymentManager($detPayment,$var);
+        $detpay->save();
+       
+       
+        $payment = $this->salePaymentRepo->find($request->id);
+             
+        $montoTotalPagado=0;
+    foreach($this->SaleDetPaymentRepo->consultDetpayments($request->id) as $object){
+        $montoTotalPagado=$montoTotalPagado+floatval($object["monto"]);
     }
+    $request->merge(["Acuenta"=>$montoTotalPagado]);
+    if(floatval($payment->MontoTotal)-$montoTotalPagado>=0){
+          $request->merge(["Saldo"=>floatval($payment->MontoTotal)-$montoTotalPagado]);
+    }else{
+          return response()->json('error');
+    }
+    $manager = new SalePaymentManager($payment,$request->only("Acuenta","Saldo"));
+    $manager->save();
+        /*if(intval($request->input('Saldo_F'))>0){
+                     $SaldosTemporales =$this->pendientAccountRepo->find2($detPayment['Saldo_F']);
+                     if($SaldosTemporales!=null){
+                     $request->merge(['Saldo'=>floatval($SaldosTemporales->Saldo)+floatval($pagoTemporal)]);
+                     $request->merge(['Saldo'=>floatval($request->input('Saldo'))-floatval($detPayment['montoPagado'])]);
+                     $request->merge(['orderPurchase_id'=>$SaldosTemporales->orderPurchase_id]);
+                      $request->merge(['supplier_id'=>$SaldosTemporales->supplier_id]);
+                     $request->merge(['estado'=>0]);
+                     $request->merge(["fecha"=>$SaldosTemporales->fecha]);
+                     $insercount=new PendientAccountManager($SaldosTemporales,$request->all());
+                     $insercount->save();
+                    }
+                 
+        } */   
+      //=====================================================================
+ //if(intval($request->input('detCash_id'))>0){
+      $detCash=$this->detCashRepo->find($request->input('detCash_id'));
+        $cash =$this->cashRepo->find($detCash["cash_id"]);
+        $request->merge(['montoCaja'=>floatval($cash->montoBruto)-floatval($pagoTemporal)]);
+        if (floatval($var["saleMethodPayment_id"])==1) {
+            $request->merge(['montoMovimientoEfectivo'=>floatval($var["monto"])]);
+            $totalCajaACtual=$request->input('montoMovimientoEfectivo');
+             $request->merge(['montoMovimientoTarjeta'=>0]);
+        }else{
+            $request->merge(['montoMovimientoTarjeta'=>floatval($var["monto"])]);
+            $totalCajaACtual=$request->input('montoMovimientoTarjeta');
+             $request->merge(['montoMovimientoEfectivo'=>0]);   
+        }  
+
+        $request->merge(['montoFinal'=>floatval($request->input('montoCaja'))-floatval($totalCajaACtual)]);
+        $request->merge(['montoBruto'=>floatval($request->input("montoFinal"))]);
+        $request->merge(["gastos"=>floatval($cash->gastos)-floatval($pagoTemporal)]);
+        $request->merge(["gastos"=>floatval($request->input("gastos")+floatval($var["montoPagado"]))]);
+             $request->merge(['fecha'=>$detCash->fecha]);
+             //$request->merge(['montoMovimientoTarjeta'=>0]);
+             $request->merge(['hora'=>$detCash->hora]);
+             $request->merge(['estado'=>1]);
+             $request->merge(['cashMotive_id'=>$detCash->cashMotive_id]);
+             if($cash->user_id==auth()->user()->id  && $cash->estado==1){
+              $request->merge(['user_id'=>$cash->user_id]);
+             }else{
+              return response()->json(['estado'=>'Usted no tiene permisos sobre esta caja o la caja esta cerrada??']);
+             }
+        $detcash = new DetCashManager($detCash,$request->all());
+        $detcash->save();
+            $request->merge(['fechaInicio'=>$cash->fechaInicio]);
+             $request->merge(['fechaFin'=>$cash->fechaFin]);
+             $request->merge(['montoInicial'=>$cash->montoInicial]);
+             $request->merge(['ingresos'=>$cash->ingresos]);
+             $request->merge(['montoReal'=>$cash->montoReal]);
+             $request->merge(['descuadre'=>$cash->descuadre]);
+             $request->merge(['estado'=>$cash->estado]);
+             $request->merge(['notas'=>$cash->notas]);
+             $request->merge(['cashHeader_id'=>$cash->cashHeader_id]);
+        $cashr = new CashManager($cash,$request->all());
+        $cashr->save();
+//}
+//if(intval($request->input('cashMonthly_id'))>0){
+        
+    $cashMontly=$this->cashMonthlyRepo->find($request->input("cashMonthly_id"));
+    $request->merge(["years_id"=>$cashMontly->years_id]);
+    $request->merge(["amount"=>$var["montoPagado"]]);
+    $request->merge(['descripcion'=>"Pago a Proveedores"]);
+    $request->merge(['expenseMonthlys_id'=>1]);
+    $request->merge(['fecha'=>$var["fecha"]]);
+    $request->merge(['months_id'=>$cashMontly->months_id]);
+
+    $cashMontl = new CashMonthlyManager($cashMontly,$request->all());
+    $cashMontl->save();
+
+//}
+//\DB::commit();
+        //==============================
+        return response()->json(['estado'=>true, 'nombre'=>$payment->nombre]); 
+    }
+
     public function editdetpatmentSale(Request $request)
     {
         $payment=$this->saleDetPaymentRepo->find($request->id);
@@ -97,6 +204,78 @@ class SalePaymentController extends Controller {
         return response()->json(['estado'=>true, 'nombre'=>$payment->nombre]);
 
     }
+    public function destroy(Request $request)
+    {
+        \DB::beginTransaction();
+        $detPayment=$this->saleDetPaymentRepo->find($request->detpId);
+        $pagoTemporal=$detPayment->montoPagado;
+        $detPayment->delete();
+        $MontotalTemp=$request->input('monto');
+        $AcuentaTemp=$request->input('Acuenta');
+        
+        $request->merge(['Acuenta'=>$AcuentaTemp-$pagoTemporal]);
+        $AcuentaTemp2=$request->input('Acuenta');
+        $request->merge(['Saldo'=>$MontotalTemp-$AcuentaTemp2]);
+        $payment = $this->salePaymentRepo->find($request->id);
+              $montoTotalPagado=0;
+    foreach($this->saleDetPaymentRepo->consultDetpayments($request->id) as $object){
+        $montoTotalPagado=$montoTotalPagado+floatval($object["monto"]);
+    }
+    $request->merge(["Acuenta"=>$montoTotalPagado]);
+    if(floatval($payment->MontoTotal)-$montoTotalPagado>=0){
+          $request->merge(["Saldo"=>floatval($payment->MontoTotal)-$montoTotalPagado]);
+    }else{
+          return response()->json('error');
+    }
+        $manager = new SalePaymentManager($payment,$request->only("Acuenta","Saldo"));
+        $manager->save();
+        /*if(intval($request->input('Saldo_F'))>0){
+                     $SaldosTemporales =$this->pendientAccountRepo->find2($request->input('Saldo_F'));
+                     if($SaldosTemporales!=null){
+                     $request->merge(['Saldo'=>floatval($SaldosTemporales->Saldo)+floatval($pagoTemporal)]);
+                     $request->merge(['orderPurchase_id'=>$SaldosTemporales->orderPurchase_id]);
+                      //$request->merge(['supplier_id'=>$SaldosTemporales->supplier_id]);
+                     $request->merge(['estado'=>0]);
+                     $request->merge(["fecha"=>$SaldosTemporales->fecha]);
+                     $insercount=new PendientAccountManager($SaldosTemporales,$request->all());
+                     $insercount->save();
+                    }
+                 
+        }+*/
+        //if(intval($request->input('detCash_id'))==true){
+            
+            $detcash=$this->detCashRepo->find($request->input("detCash_id"));
+            $cash=$this->cashRepo->find($detcash->cash_id);
+            
+             $request->merge(["ingresos"=>floatval($cash->ingresos)-floatval($pagoTemporal)]);
+             $request->merge(['montoBruto'=>floatval($cash->montoBruto)-floatval($pagoTemporal)]);
+             $request->merge(['fechaInicio'=>$cash->fechaInicio]);
+             $request->merge(['fechaFin'=>$cash->fechaFin]);
+             $request->merge(['montoInicial'=>$cash->montoInicial]);
+             $request->merge(['gastos'=>$cash->gastos]);
+             $request->merge(['montoReal'=>$cash->montoReal]);
+             $request->merge(['descuadre'=>$cash->descuadre]);
+             $request->merge(['estado'=>$cash->estado]);
+             $request->merge(['notas'=>$cash->notas]);
+             $request->merge(['cashHeader_id'=>$cash->cashHeader_id]);
+             if($cash->user_id==auth()->user()->id  && $cash->estado==1){
+              $request->merge(['user_id'=>$cash->user_id]);
+             }else{
+              return response()->json(['estado'=>'Usted no tiene permisos sobre esta caja o la caja esta cerrada??']);
+             }
+            $cashr = new CashManager($cash,$request->all());
+            $cashr->save();
+            $detcash->delete();
+        //}
+            //no se
+        //if(intval($request->input("cashMonthly_id"))>0){
+          //   $cashMontl =$this->cashMonthlyRepo->find($request->input("cashMonthly_id"));
+            // $cashMontl->delete();
+       // }
+       \DB::commit();
+        return response()->json(['estado'=>true, 'nombre'=>$payment->nombre]);
+    }
+    /*
     public function destroy(Request $request) 
     {
         //var_dump($request->all());die();
@@ -154,5 +333,5 @@ class SalePaymentController extends Controller {
         }
        
         return response()->json(['estado'=>true, 'nombre'=>$payment->nombre]);
-    }
+    }*/
 }

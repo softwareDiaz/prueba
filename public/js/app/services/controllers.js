@@ -39,7 +39,7 @@
                             $scope.services = data.data;
                         });
                     }
-                };
+                }; 
 
 
                 var id = $routeParams.id;
@@ -49,7 +49,8 @@
                     //alert("Hola");
                     crudServiceServices.byId(id,'services').then(function (data) {
                         $scope.service = data;
-                        $scope.service.fechaServicio=new Date(data.fechaServicio);
+                        //$scope.service.fechaServicio=new Date($scope.service.fechaServicio);
+                        //$scope.service.fechaServicio = $scope.service.fechaServicio.getFullYear()+'-'+($scope.service.fechaServicio.getMonth())+'-'+$scope.service.fechaServicio.getDate();
                         $scope.numeracionMostrar(Number(data.numeroServicio)-1);
                         if ($scope.service.estado==5) {$scope.estBan=true;}else{$scope.estBan=false;};
                         if ($scope.service.estado>1 && $scope.service.estado<=5) {$scope.estBan1=true;}else{$scope.estBan1=false;};

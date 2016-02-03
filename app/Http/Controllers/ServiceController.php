@@ -67,7 +67,7 @@ class ServiceController extends Controller {
 
     public function find($id)
     {
-        $brand = $this->serviceRepo->find($id);
+        $brand = $this->serviceRepo->find2($id);
         return response()->json($brand);
     }
 

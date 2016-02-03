@@ -647,6 +647,7 @@ Route::get('api/salePaymentOrder/search/{id?}',['as'=>'person_search', 'uses'=>'
 Route::get('api/salePaymentSeparate/search/{id?}',['as'=>'person_search', 'uses'=>'SalePaymentController@searchPaymentSeparate']);
 Route::get('api/SaleDetPayment/search/{id?}',['as'=>'person_search', 'uses'=>'SaleDetPaymentController@searchDetalle']);
 Route::post('api/salePayment/destroy','SalePaymentController@destroy'); 
+Route::get('api/salePayment/find/{id}',['as'=>'person_find', 'uses'=>'SalePaymentController@find']);
 
 Route::get('api/saleMethodPayments/select','SaleMethodPaymentController@select');
 Route::post('api/saledetPayments/create',['as'=>'person_create', 'uses'=>'SaleDetPaymentController@create']);

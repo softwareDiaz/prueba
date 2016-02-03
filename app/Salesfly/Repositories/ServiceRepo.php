@@ -28,4 +28,15 @@ class ServiceRepo extends BaseRepo{
                     ->paginate(15);
         return $brands;
     }
+    public function find2($id)
+    {
+        $brands =Service::select(\DB::raw("services.*,  CONCAT((SUBSTRING(services.fechaServicio,9,2)),'-',
+                                (SUBSTRING(services.fechaServicio,6,2)),'-',
+                                (SUBSTRING(services.fechaServicio,1,4))) as fechaServicio2"))
+                    ->where('id','=', $id)
+                    ->first();
+        return $brands;
+    }
+
+   
 }

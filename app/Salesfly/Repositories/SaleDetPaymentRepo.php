@@ -16,7 +16,7 @@ class SaleDetPaymentRepo extends BaseRepo{
                     //with(['customer','employee'])
                     ->paginate(5);
         return $saleDetPayment;
-    }
+    } 
     public function searchDetalle($id)
     {
         $salePayment =SaleDetPayment::leftjoin("detCash","detCash.id","=","saledetPayments.detCash_id")
@@ -30,16 +30,16 @@ class SaleDetPaymentRepo extends BaseRepo{
                     
         return $salePayment->paginate(500);
     }
-    public function mostrarDetPayment($id)
-    {
-        $saleDetPayment =SaleDetPayment::with('saleMethodPayment')
-                        ->leftjoin("detCash","detCash.id","=","saledetPayments.detCash_id")
-                        ->leftjoin("cashHeaders","cashHeaders.id","=","detCash.cash_id")
-                        ->select('saledetPayments.*','cashHeaders.id as ddd')
-                        ->where('salePayment_id','=', $id)
-                    //with(['customer','employee'])
-                    ->paginate(5);
-        return $saleDetPayment;
+    function mostrarDetPayment($id){
+        $detPayment=SaleDetPayment::leftjoin("detCash","detCash.id","=","saledetPayments.detCash_id")
+            ->leftjoin("cashes","cashes.id","=","detCash.cash_id")
+            ->leftjoin("cashHeaders","cashes.cashHeader_id","=","cashHeaders.id")
+            ->leftjoin("methodPayments","methodPayments.id","=",
+            "saledetPayments.saleMethodPayment_id")
+            ->select("cashes.cashHeader_id as cashID","cashHeaders.nombre","saledetPayments.*",
+            "methodPayments.nombre as nameMethod")->where('saledetPayments.salePayment_id','=',$id)
+            ->get();
+        return $detPayment;
     }
     public function paginate($count){
         $cashMonthlys = SaleDetPayment::with('saleMethodPayment')
@@ -48,6 +48,12 @@ class SaleDetPaymentRepo extends BaseRepo{
                         ->select('saledetPayments.*','cashHeaders.id as ddd');
                             //->where('salePayment_id','=', '6');
         return $cashMonthlys->paginate($count);
+    }
+    function consultDetpayments($id){
+        $detPayment=SaleDetPayment::where("saledetPayments.salePayment_id","=",$id)
+                              ->get();
+
+        return $detPayment;
     }
     
 

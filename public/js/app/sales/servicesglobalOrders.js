@@ -13,7 +13,7 @@
                     });
 
                 return deferred.promise;
-            }
+            } 
 
             function paginate(uri,page)
             {
@@ -249,8 +249,27 @@
 
                 return deferred.promise;
             }
+            function listaCashes(uri,alm)
+            {
+                var deferred = $q.defer();
+                $http.get('/api/cashHeaders/cajasActivas/'+alm)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
+            function comprovarCaja(id){
+                 var deferred = $q.defer();
+                $http.get('api/detCashes/compCajaActiva/'+id).success(function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+            }
             return {
                 all: all,
+                comprovarCaja:comprovarCaja,
+                listaCashes:listaCashes,
                 paginate: paginate,
                 numeracion: numeracion,
                 Comprueba_caj_for_user: Comprueba_caj_for_user,

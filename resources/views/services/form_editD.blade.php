@@ -34,7 +34,7 @@
                       <div class="col-md-6">
                         <div  class="input-group">
                           <label>Fecha: </label>
-                          <spam>@{{'   '+service.fechaServicio}}</spam>
+                          <spam>@{{'   '+service.fechaServicio2}}</spam>
                         </div>
                       </div>
 
@@ -42,6 +42,22 @@
                         <div  class="input-group">
                           <label>N° Orden: </label>
                           <spam>@{{'   '+service.numeroServicio}}</spam>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div  class="input-group">
+                          <label>Cliente: </label>
+                          <spam>@{{'   '+service.cliente}}</spam>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div  class="input-group">
+                          <label>Empresa : </label>
+                          <spam>@{{'   '+service.empresa}}</spam>
                         </div>
                       </div>
                     </div>

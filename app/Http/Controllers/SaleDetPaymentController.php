@@ -30,10 +30,21 @@ class SaleDetPaymentController extends Controller {
     protected $saleDetPaymentRepo;
     //protected $salePaymentRepo;
 
-    public function __construct(SaleDetPaymentRepo $saleDetPaymentRepo)
+    //public function __construct(SaleDetPaymentRepo $saleDetPaymentRepo)
+    //{
+      //  $this->saleDetPaymentRepo = $saleDetPaymentRepo;
+        //$this->salePaymentRepo = $salePaymentRepo;
+    //}
+
+    public function __construct(CashRepo $cashRepo,DetCashRepo $detCashRepo,SaleDetPaymentRepo $saleDetPaymentRepo,SalePaymentRepo $salePaymentRepo)
     {
         $this->saleDetPaymentRepo = $saleDetPaymentRepo;
-        //$this->salePaymentRepo = $salePaymentRepo;
+        $this->salePaymentRepo=$salePaymentRepo;
+        $this->detCashRepo=$detCashRepo;
+        $this->cashRepo=$cashRepo;
+        //$this->cashMonthlyRepo=$cashMonthlyRepo;
+        //$this->yearRepo=$yearRepo;
+        //$this->pendientAccountRepo=$pendientAccountRepo;
     }
 
 
@@ -52,112 +63,83 @@ class SaleDetPaymentController extends Controller {
         return response()->json($saleDetPayment);
     }
 
-    //------------------------------------------------------
-    public function create(Request $request)
+     public function create(Request $request)
     {
-        //var_dump($request->detPayments);die();
-        \DB::beginTransaction();
-        $saldo=$request->input("Saldo");
-        if ($request->input("tipo")=='order') {
-            
-            $var1=$request->sale;
-            
-            $saleTemporal=$var1["id"];
-            $salerepo;
-            $salerepo = new OrderSaleRepo;
-            $saleSave=$salerepo->getModel();
-            $saleEdit = $saleSave->find($saleTemporal);
-            //var_dump($saleEdit);die();
-            if($saldo=='0'){$var1['estado']='0';}
-            $manager = new OrderSaleManager($saleEdit,$var1);
-            $manager->save();
-            $temporal=$request->input("orderSale_id");
-            }else if ($request->input("tipo")=='sale') {
-                $var2=$request->sale;
-                
-                $saleTemporal1=$var2["id"];
-    
-                $order;
-    
-                $order = new  SaleRepo;
-                $orderSave=$order->getModel();
-    
-                $orderEdit = $orderSave->find($saleTemporal1);
-                //var_dump($orderEdit);die();
-                if($saldo=='0'){$var2['estado']='0';}
-                $manager = new SaleManager($orderEdit,$var2);
-                $manager->save();   
-                $temporal=$request->input("sale_id");
-            }else if ($request->input("tipo")=='separate') {
-                $var3=$request->sale;
-                
-                $saleTemporal2=$var3["id"];
-    
-                $separate;
-    
-                $separate = new  SeparateSaleRepo;
-                $separateSave=$separate->getModel();
-    
-                $orderEdit = $separateSave->find($saleTemporal2);
-                //var_dump($var2);die();
-                if($saldo=='0'){$var3['estado']='0';}
-                $manager = new SeparateSaleManager($orderEdit,$var3);
-                $manager->save();   
-                $temporal=$request->input("separateSale_id");
-            }
-        
-        //---create movimiento---
-            $movimiento = $request->movimiento;
-            $detCashrepo;
-            $movimiento['observacion']=$temporal;
-            $detCashrepo = new DetCashRepo;
-            $movimientoSave=$detCashrepo->getModel();
-        
-            $insertarMovimiento=new DetCashManager($movimientoSave,$movimiento);
-            $insertarMovimiento->save();
-            
-            $detCash_id=$movimientoSave->id;
-    //---Autualizar Caja---   
-            $cajaAct = $request->caja;
-            $temporal2=$cajaAct['id'];
-            $cashrepo;
-            $cashrepo = new CashRepo;
-            $cajaSave=$cashrepo->getModel();
-            $cash1 = $cashrepo->find($cajaAct["id"]);
-            $manager1 = new CashManager($cash1,$cajaAct);
-            $manager1->save();
-        //----------------
-        
+     
+      \DB::beginTransaction();
+
         $var=$request->detPayments;
-        
-        $temporal=$var["salePayment_id"];
-        $salePaymentrepo;
-        $salePaymentrepo = new SalePaymentRepo;
-        $paymentSave=$salePaymentrepo->getModel();
-        $payment1 = $paymentSave->find($temporal);
-        //if($saldo=='0'){$request->input("estado")='0';}
-        $manager = new SalePaymentManager($payment1,$request->all());
-        $manager->save();
-        //------------------------------------
-        //var_dump($grabar);die();
-        
-        //------------------------------------
+        //var_dump("Hola"); die();
         $detPayment = $this->saleDetPaymentRepo->getModel();
-        $detPayment['numCaja']=$temporal2;
-        $grabar=$request->detPayments;
-        $detPayment['detCash_id']=$detCash_id;
-        $manager = new SaleDetPaymentManager($detPayment,$grabar);
-        $manager->save();
-       /* if($this->detPaymentRepo->validateDate(substr($request->exedetPayments['fecha'],0,10))){
-            $request->detPayments['fecha'] = substr($request->detPayments['fecha'],0,10);
-        }else{
-           
-            $request->detPayments['fecha'] = null;
-        }*/
-       // $detPayment->save();
-        \DB::commit();
-        return response()->json(['estado'=>true, 'montoP'=>$detPayment->Acuenta]);
+        //$cashMonthly=$this->cashMonthlyRepo->getModel();
+        $detCash=$this->detCashRepo->getModel();
+
+        $cash =$this->cashRepo->find($request->cash_id);
+        $payment = $this->salePaymentRepo->find($request->id);
+        $update = new SalePaymentManager($payment,$request->only("Acuenta","Saldo"));
+        $update->save();
+        $var['tipoPago']='P';
+        //$verDeudas=$this->pendientAccountRepo->verSaldos($request->input("supplier_id"));
+
+        
+     //if(intval($request->input('cash_id'))>0){
+
+        $detcash = new DetCashManager($detCash,$request->all());
+        $detcash->save();
+        $var['detCash_id']=$detCash->id;
+             $request->merge(["ingresos"=>floatval($cash->ingresos)+floatval($var["monto"])]);
+             $request->merge(['fechaInicio'=>$cash->fechaInicio]);
+             $request->merge(['fechaFin'=>$cash->fechaFin]);
+             $request->merge(['montoInicial'=>$cash->montoInicial]);
+             $request->merge(['gastos'=>$cash->gastos]);
+             $request->merge(['montoBruto'=>floatval($cash->montoBruto)+floatval($var["monto"])]);
+             $request->merge(['montoReal'=>$cash->montoReal]);
+             $request->merge(['descuadre'=>$cash->descuadre]);
+             $request->merge(['estado'=>$cash->estado]);
+             $request->merge(['notas'=>$cash->notas]);
+             $request->merge(['cashHeader_id'=>$cash->cashHeader_id]);
+             if($cash->user_id==auth()->user()->id  && $cash->estado==1){
+              $request->merge(['user_id'=>$cash->user_id]);
+             }else{
+              return response()->json(['estado'=>'Usted no tiene permisos sobre esta caja o la caja esta cerrada??']);
+             }
+        $cashr = new CashManager($cash,$request->all());
+        $cashr->save();
+    //}
+    /*if($request->input('cajamensual')==true){
+
+    $request->merge(["amount"=>$var["montoPagado"]]);
+    $request->merge(['descripcion'=>"Pago a Proveedores"]);
+    $request->merge(['expenseMonthlys_id'=>1]);
+
+    $request->merge(['fecha'=>$request->detPayments["fecha"]]);
+    $cashMontl = new CashMonthlyManager($cashMonthly,$request->all());
+    $cashMontl->save();
+    $var['cashMonthly_id']=$cashMonthly->id;
+}*/
+    $manager = new SaleDetPaymentManager($detPayment,$var);
+    $manager->save();
+    $idpago=$detPayment->id;
+
+    $monto=0;
+    foreach($this->saleDetPaymentRepo->consultDetpayments($request->id) as $object){
+        $monto=$monto+floatval($object["monto"]);
     }
+    $payment1 = $this->salePaymentRepo->find($request->id);
+    $request->merge(["Acuenta"=>$monto]);
+    if(floatval($payment1->MontoTotal)-$monto>=0){
+          $request->merge(["Saldo"=>floatval($payment1->MontoTotal)-$monto]);
+    }else{
+          return response()->json('error');
+    }
+    $manager = new SalePaymentManager($payment1,$request->only("Acuenta","Saldo"));
+    $manager->save();
+        \DB::commit();
+        return response()->json(['estado'=>true,'id'=>$idpago,'montoP'=>$detPayment->Acuenta]);
+    }
+
+    //------------------------------------------------------
+    
     public function find($id)
     {
         $detPayment = $this->saleDetPaymentRepo->mostrarDetPayment($id);
