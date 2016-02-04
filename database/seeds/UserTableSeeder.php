@@ -54,11 +54,32 @@ class UserTableSeeder extends Seeder
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ]);*/
-
+            DB::table('users')->insert([
+                'name' => 'admin',
+                'email' => 'admin@computel.pe',
+                'password' => bcrypt('123456'),
+                'estado' => 1,
+                'role_id' => 1,
+                'store_id' => 1,
+                'image' => '/images/users/default.jpg',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
+            DB::table('users')->insert([
+                'name' => 'Amelia Torres',
+                'email' => 'amelia@computel.pe',
+                'password' => bcrypt('123456'),
+                'estado' => 1,
+                'role_id' => 1,
+                'store_id' => 1,
+                'image' => '/images/users/default.jpg',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ]);
             DB::table('users')->insert([
                 'name' => 'soporte',
-                'email' => 'soporte@honeysoft.pe',
-                'password' => bcrypt('soporte'),
+                'email' => 'soporte@computelperu.pe',
+                'password' => bcrypt('123456'),
                 'estado' => 1,
                 'role_id' => 1,
                 'store_id' => 1,
