@@ -110,7 +110,7 @@
                 };
                 $scope.variable=[];
                 $scope.llenarxd=function(index){
-                    alert('hola');
+                    
                     $scope.variable.push("Imprimir");
                 }
                 $scope.printDocument=function(id,index){
