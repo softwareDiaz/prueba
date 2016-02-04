@@ -129,6 +129,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{rucTienda}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="10" y="10" width="232" height="50" uuid="1fc8fd0d-eb3f-40ad-b968-b1f46ca323c0"/>
+				<imageExpression><![CDATA["/var/www/html/prueba/public/images/logotipo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
