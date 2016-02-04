@@ -68,13 +68,18 @@
                                   <input type="text" class="form-control" name="website" placeholder="Website"
                                          ng-model="store.website">
                               </div>
+                               <div class="form-group" >
+                      <label for="apellidos">Telefonos Movil</label>
+                      <input type="text" class="form-control" name="provincia" placeholder="Telefono Movil"
+                      ng-model="store.TelefonoMovil">
+                     </div>
 
                           </div>
                           <div class="col-md-6">
 
                               <div class="form-group" ng-class="{true: 'has-error'}[ storeCreateForm.direccion.$error.required && storeCreateForm.$submitted || storeCreateForm.direccion.$dirty && storeCreateForm.direccion.$invalid]">
                                   <label for="ruc">Direccion</label>
-                                  <input type="text" class="form-control" name="direccion" placeholder="RUC" ng-model="store.direccion" required>
+                                  <input type="text" class="form-control" name="direccion" placeholder="Direccion" ng-model="store.direccion" required>
                                   <label ng-show="storeCreateForm.$submitted || storeCreateForm.direccion.$dirty && storeCreateForm.direccion.$invalid">
                                       <span ng-show="storeCreateForm.direccion.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
                                   </label>
@@ -100,7 +105,11 @@
                                   <input type="text" class="form-control" name="departamento" placeholder="País"
                                          ng-model="store.pais">
                               </div>
-
+                             <div class="form-group" >
+                      <label for="apellidos">Telefonos Fijos</label>
+                      <input type="text" class="form-control" name="provincia" placeholder="Telefono Fijo"
+                      ng-model="store.TelefonoFijo">
+                     </div>
 
 
                           </div>

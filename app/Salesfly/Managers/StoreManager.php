@@ -15,6 +15,8 @@ class StoreManager extends BaseManager {
                     'departamento'=>'',
                     'pais' => '',
                     'email'=>'',
+                    'TelefonoMovil'=>'',
+                    'TelefonoFijo'=>'',
                     'website'=>''                    
                   ];
         return $rules;

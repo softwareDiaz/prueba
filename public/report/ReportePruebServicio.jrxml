@@ -2,11 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="191"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="q" class="java.lang.String"/>
 	<parameter name="Ruta_img" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select s.*,st.nombreTienda,st.ruc as rucTienda, st.direccion as direcTienda, st.distrito,st.provincia,st.departamento from services s inner join users u on u.id=s.user_id inner join stores st on st.id=u.store_id where s.id=$P{q} group by s.id;]]>
+		<![CDATA[select s.*,st.nombreTienda,st.ruc as rucTienda, st.direccion as direcTienda, st.distrito,st.provincia,st.departamento,st.TelefonoMovil,st.TelefonoFijo from services s inner join users u on u.id=s.user_id inner join stores st on st.id=u.store_id where s.id=$P{q} group by s.id;]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -88,6 +88,12 @@
 	<field name="departamento" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="TelefonoMovil" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TelefonoFijo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band/>
 	</background>
@@ -121,9 +127,9 @@
 				<textFieldExpression><![CDATA[$F{numeroServicio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="61" width="232" height="20" uuid="20ae13dc-0213-4b82-8d23-5c95a41c8329"/>
+				<reportElement x="11" y="52" width="231" height="20" uuid="20ae13dc-0213-4b82-8d23-5c95a41c8329"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{direcTienda}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{direcTienda}+" "+$F{TelefonoFijo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="406" y="17" width="100" height="20" uuid="9eda37c1-ef5f-47e4-b0cc-970cddb0cdad"/>
@@ -131,9 +137,14 @@
 				<textFieldExpression><![CDATA[$F{rucTienda}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="11" y="11" width="231" height="50" uuid="f528b864-e37f-4c1d-946c-8c9277eba43b"/>
+				<reportElement x="11" y="8" width="231" height="50" uuid="f528b864-e37f-4c1d-946c-8c9277eba43b"/>
 				<imageExpression><![CDATA[""+$P{Ruta_img}+""]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="11" y="72" width="231" height="20" uuid="b280845f-29a2-434f-888d-4a3b87e401b0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TelefonoMovil}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
