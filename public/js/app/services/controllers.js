@@ -107,13 +107,18 @@
                     });
                 }
                     
-                };$scope.variable="Imprimir";
-                $scope.printDocument=function(id){
-                    $scope.variable="Imprimiendo";
+                };
+                $scope.variable=[];
+                $scope.llenarxd=function(index){
+                    alert('hola');
+                    $scope.variable.push("Imprimir");
+                }
+                $scope.printDocument=function(id,index){
+                    $scope.variable.splice(index,1,"Imprimiendo");
                     crudServiceServices.reporteServicio('reporteServicio',id).then(function (data) { 
-                                                      $scope.variable="Imprimiendo";
+                                                      //$scope.variable[index]="Imprimiendo";
                                                       if(data!=undefined){
-                                                        $scope.variable="Imprimir";
+                                                        $scope.variable[index]="Imprimir";
                                                         $window.open(data);
 
                                                       }else{

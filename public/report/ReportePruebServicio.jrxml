@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="191"/>
 	<parameter name="q" class="java.lang.String"/>
 	<parameter name="Ruta_img" class="java.lang.String"/>
 	<queryString>
@@ -305,11 +305,11 @@
 			<textField>
 				<reportElement x="101" y="175" width="243" height="20" uuid="0c2e27ff-d54f-48d0-9c98-93cf1351d556"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descripcion}+"/"+$F{modelo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="101" y="207" width="413" height="60" uuid="1f63e441-f778-4bf4-8f56-664c44ab88ad"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{accesorios}]]></textFieldExpression>
 			</textField>
 			<textField>
