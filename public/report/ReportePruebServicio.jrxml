@@ -4,6 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="q" class="java.lang.String"/>
+	<parameter name="Ruta_img" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select s.*,st.nombreTienda,st.ruc as rucTienda, st.direccion as direcTienda, st.distrito,st.provincia,st.departamento from services s inner join users u on u.id=s.user_id inner join stores st on st.id=u.store_id where s.id=$P{q} group by s.id;]]>
 	</queryString>
@@ -129,6 +130,10 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{rucTienda}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="11" y="11" width="231" height="50" uuid="f528b864-e37f-4c1d-946c-8c9277eba43b"/>
+				<imageExpression><![CDATA[""+$P{Ruta_img}+""]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

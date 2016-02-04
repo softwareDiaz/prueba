@@ -123,7 +123,7 @@ class ServiceController extends Controller {
             array($ext),
             //array(),
             //while($i<=3){};
-            ['q'=>$id],//Parametros
+            ['Ruta_img'=>public_path() . '/images/logotipo.png','q'=>$id],//Parametros
               
             $database,
             false,
