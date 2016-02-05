@@ -28,7 +28,7 @@
                 $scope.generos = [{name:'Masculino'},{name:'Femenino'}];
                 $scope.errors;
                 $scope.success;
-                $scope.query = '';
+                $scope.query = ''; 
                 $scope.brands = {};
                 $scope.materials = {};
                 $scope.types = {};
@@ -156,6 +156,9 @@
                         $scope.presentation.price = parseFloat($scope.presentation.price).toFixed(2);
                         $scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPri) / parseFloat($scope.presentation.cambioDolar);
                         $scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPriDol).toFixed(2);
+                        
+                        $scope.presentation.sinIgv = (parseFloat($scope.presentation.suppPriDol) / 1.18);
+                        $scope.presentation.sinIgv = parseFloat($scope.presentation.sinIgv).toFixed(2);
                     $scope.calculatePrice();
                     //alert('holi');
                     //}
