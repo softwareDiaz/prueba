@@ -1297,6 +1297,8 @@
                     //dsctos por rango de fechas
                     //if(row.fecIniDscto instanceof Date) {
                         //alert('holaxx');
+                    $scope.presentation.sinIgv = (parseFloat($scope.presentation.suppPriDol) / 1.18);
+                        $scope.presentation.sinIgv = parseFloat($scope.presentation.sinIgv).toFixed(2);
                     var fecIniDscto = new Date(row.fecIniDscto);
                     fecIniDscto.setDate(fecIniDscto.getDate()+1);
 

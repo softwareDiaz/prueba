@@ -433,7 +433,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->join ('stores as T9', 'T9.id', '=', 'T8.store_id')  
 
                             ->select(\DB::raw('products.nombre as Producto,products.modelo,T6.sku as codigo,T6.id as vari ,T7.stockActual as stock,T10.nombre as Linea,T12.nombre as Mate,
-                                                T13.price as Precio,T13.dsctoRange,
+                                                T13.price as Precio,T13.dsctoRange,T13.suppPriDol as preDol,T13.suppPri as preCompSol,T13.price as preVenSol,T13.cambioDolar as camDol,
                                                 IF(products.hasVariants=1 , CONCAT(T6.codigo," - ",products.nombre,"/ ",(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /") FROM variants
                                                     LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                                     LEFT JOIN atributes ON atributes.id = detAtr.atribute_id

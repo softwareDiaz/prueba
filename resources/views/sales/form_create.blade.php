@@ -461,12 +461,10 @@
                       <td>@{{row.Mate}}</td>
                       <td>@{{row.Linea}}</td>
                       <td>@{{row.stock}}</td>
-
-                      <td>@{{row.Descuento}}%</td>
-                      <td>@{{row.dsctoRange}}%</td>
-                      <td>@{{row.Precio}}</td>
-                      <td ng-if="row.Estado=='SI'" style="color:blue">@{{row.PrecioVenta}}</td>
-                      <td ng-if="row.Estado=='NO'">@{{row.PrecioVenta}}</td>
+                      <td>@{{row.preDol}}</td>
+                      <td>@{{row.preVenSol/row.camDol | number:2}}</td>
+                      <td>@{{row.preCompSol}}</td>
+                      <td>@{{row.preVenSol}}</td> 
                       
                     </tr>
                     
