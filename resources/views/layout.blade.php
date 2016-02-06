@@ -163,30 +163,27 @@
               <ul class="treeview-menu">
                 <li class=""><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>
                 <li class=""><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>
-                <li class=""><a href="/listServices" ><i class="fa fa-circle-o"></i>Lista Servicios</a></li>
                 <li class=""><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
                 <li><a href="/types"><i class="fa fa-circle-o"></i>Líneas </a></li>
-                <li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>
-                <li><a href="/stations"><i class="fa fa-circle-o"></i>Estaciones </a></li>
-                <li><a href="/atributes"><i class="fa fa-circle-o"></i>Atributos </a></li>
                 <li><a href="/suppliers"><i class="fa fa-circle-o"></i>Proveedores </a></li>
               </ul>
             </li>
-            <li class="">
-                          <a href="/sales/create" >
-                            <i class="fa fa-shopping-cart" ></i> <span>Vender!</span>
-                          </a>
-             </li>
-              <li class="">
-                          <a href="/services/" >
-                            <i class="fa fa-shopping-cart" ></i> <span>Servicios!</span>
-                          </a>
-             </li>
-             <li class="">
-                          <a href="/sales" >
-                            <i class="fa fa-circle-o" ></i> <span>Lista de Ventas!</span>
-                          </a>
-             </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Movimientos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class=""><a href="/sales/create" ><i class="fa fa-circle-o"></i>Vender!</a></li>
+                <li class=""><a href="/sales" ><i class="fa fa-circle-o"></i>Lista de Ventas</a></li>
+                <li class=""><a href="/services/" ><i class="fa fa-circle-o"></i>Servicios!</a></li>
+                <li class=""><a href="/listServices" ><i class="fa fa-circle-o"></i>Lista Servicios</a></li>
+              </ul>
+            </li>
+
+
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-calculator"></i>
