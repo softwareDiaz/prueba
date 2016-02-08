@@ -86,6 +86,26 @@ class ProductsController extends Controller
         $products = $this->productRepo->searchsku($store, $were, $q);
         return response()->json($products);
     }
+     public function reports($cant){
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_Tiket';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/Tiket.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['idVariante' => intval($cant)],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_Tiket.'.$ext;
+    }
     public function favoritos($store,$were,$q){
         $products = $this->productRepo->favoritos($store,$were,$q);
         return response()->json($products);

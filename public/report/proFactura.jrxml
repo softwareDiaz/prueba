@@ -77,7 +77,7 @@
 	<detail>
 		<band height="481">
 			<subreport>
-				<reportElement x="7" y="85" width="543" height="336" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="34" y="85" width="498" height="336" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>

@@ -1,7 +1,7 @@
 (function(){
     angular.module('products.controllers',[])
-        .controller('ProductController',['$scope', '$routeParams','$location','crudService','socketService' ,'$filter','$route','$log','ngProgressFactory','$rootScope','trouble','$modal',
-            function($scope, $routeParams,$location,crudService,socket,$filter,$route,$log,ngProgressFactory,$rootScope,trouble,$modal){
+        .controller('ProductController',['$scope', '$routeParams','$location','crudService','socketService' ,'$filter','$route','$log','ngProgressFactory','$rootScope','trouble','$window','$modal',
+            function($scope, $routeParams,$location,crudService,socket,$filter,$route,$log,ngProgressFactory,$rootScope,trouble,$window,$modal){
                 $scope.progressbar = ngProgressFactory.createInstance();
                 /*$rootScope.$on('$routeChangeStart', function(ev,data) {
                     $scope.progressbar.start();
@@ -1517,6 +1517,14 @@
 
                     });
                 };
+                $scope.GenerarCodigoBarras=function(cant){
+                        
+                         crudService.reportCod('reports1', cant).then(function (data) {
+                            alert(data);
+                            $window.open(data);
+                        });
+
+                }
                 $scope.ArrayTallas =[];
                 $scope.ArrayTalla ={};
                 $scope.variants1=[];
