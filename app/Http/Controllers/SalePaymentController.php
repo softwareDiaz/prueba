@@ -208,7 +208,8 @@ class SalePaymentController extends Controller {
     {
         \DB::beginTransaction();
         $detPayment=$this->saleDetPaymentRepo->find($request->detpId);
-        $pagoTemporal=$detPayment->montoPagado;
+        $pagoTemporal=$detPayment->monto;
+        //$monto=$detPayment->montoPagado;
         $detPayment->delete();
         $MontotalTemp=$request->input('monto');
         $AcuentaTemp=$request->input('Acuenta');
@@ -228,7 +229,7 @@ class SalePaymentController extends Controller {
           return response()->json('error');
     }
         $manager = new SalePaymentManager($payment,$request->only("Acuenta","Saldo"));
-        $manager->save();
+        $manager->save(); 
         /*if(intval($request->input('Saldo_F'))>0){
                      $SaldosTemporales =$this->pendientAccountRepo->find2($request->input('Saldo_F'));
                      if($SaldosTemporales!=null){

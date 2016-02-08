@@ -327,21 +327,26 @@
                         <div class="form-group" >
                             <label for="suppPric">Precio de Compra (S/.)</label>
                             <input type="number" class="form-control" name="suppPric1" string-to-number placeholder="0.00" ng-model="presentation.suppPri" ng-change="calculateSuppPric()" step="0.1">
-                            <label for="suppPric">Precio de Compra ($USS)</label>
-                            <input type="number" class="form-control" name="suppPriDolar" string-to-number placeholder="0.00" ng-model="presentation.suppPriDol" ng-change="calculateSuppPricDol()" step="0.1">
+                            <label for="suppPriDolar">Precio de Compra + IGV ($USS)</label>
+                            <input type="number" class="form-control" name="suppPriDolar" string-to-number placeholder="0.00" ng-model="presentation.suppPriDol" ng-change="calculateSuppPricDol1()" step="0.1">
 
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup" ng-change="calculateMarkup()" step="0.1">
-                            <label for="suppPric">Cant. de Ganancia</label>
-                            <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markupCant" ng-change="calculateMarkupCant()" step="0.1">
+                        <div class="form-group" > 
+                            <label for="suppPric">% de Ganancia</label> 
+                            <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup" ng-change="calculateMarkup()" step="0.1">
+                            <label for="suppPric">Precio de Compra Sin IGV ($USS)</label>
+                            <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.sinIgv" ng-change="calcularigv()" step="0.1">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group" >
                             <label for="suppPric">Precio de Venta</label>
                             <input type="number" class="form-control" name="price1" string-to-number placeholder="0.00" ng-model="presentation.price" ng-change="calculatePrice()" step="0.1">
+                            <label for="suppPric">Cant. de Ganancia</label>
+                            <input type="number" class="form-control" name="suppPriDolar" string-to-number placeholder="0.00" ng-model="presentation.markupCant" ng-change="calculateMarkupCant()" step="0.1">
+
                         </div>
                     </div>
                 </div>

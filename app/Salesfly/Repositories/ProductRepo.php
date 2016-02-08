@@ -422,8 +422,8 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
       if ($product=='0') {$product='%';}
       //var_dump($product);die();
       $datos = \DB::table('products')->leftjoin('materials','products.material_id','=','materials.id')
-                           ->join('variants as T6','products.id','=','T6.product_id')
-                            ->join('stock as T7','T6.id','=','T7.variant_id')
+                           ->leftjoin('variants as T6','products.id','=','T6.product_id')
+                            ->leftjoin('stock as T7','T6.id','=','T7.variant_id')
                             ->leftjoin ('types as T10','T10.id','=', 'products.type_id')
                             ->leftjoin ('brands as T12','T12.id','=', 'products.brand_id')
 
@@ -433,7 +433,12 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->join ('stores as T9', 'T9.id', '=', 'T8.store_id')  
 
                             ->select(\DB::raw('products.nombre as Producto,products.modelo,T6.sku as codigo,T6.id as vari ,T7.stockActual as stock,T10.nombre as Linea,T12.nombre as Mate,
-                                                T13.price as Precio,T13.dsctoRange,
+                                                T13.price as Precio,T13.dsctoRange,T13.suppPriDol as preDol,T13.suppPri as preCompSol,T13.price as preVenSol,T13.cambioDolar as camDol,
+                                                IF(products.hasVariants=1 , CONCAT(T6.codigo," - ",products.nombre,"/ ",(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /") FROM variants
+                                                    LEFT JOIN detAtr ON detAtr.variant_id = variants.id
+                                                    LEFT JOIN atributes ON atributes.id = detAtr.atribute_id
+                                                    where variants.id=vari
+                                                    GROUP BY variants.id)),  CONCAT(T6.codigo," - ",products.nombre, IF(products.modelo is null ," ", CONCAT(" - ",products.modelo) ) ) ) as NombreAtributos,
 
                                                 IF( T13.fecIniDscto<="'.$q.'" and T13.fecFinDscto>="'.$q.'",T13.dsctoRange,T13.dscto) as Descuento ,
                                                 IF( T13.fecIniDscto<="'.$q.'" and T13.fecFinDscto>="'.$q.'",T13.pvpRange,T13.pvp) as PrecioVenta ,
@@ -450,8 +455,15 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->where('T8.id','like',$were.'%')
                             ->where('T10.id','like',$type.'%')
                             ->where('T12.id','like',$brand.'%')
+
+                            ->orWhere('T6.codigo','like', $product.'%')
+                            ->where('T9.id','like',$store.'%')
+                            ->where('T8.id','like',$were.'%')
+                            ->where('T10.id','like',$type.'%')
+                            ->where('T12.id','like',$brand.'%')
+
                             ->groupBy('T6.id')
-                            ->paginate(15);
+                            ->paginate(15); 
             return $datos;
     }
      public function validarNoRepitname($text){

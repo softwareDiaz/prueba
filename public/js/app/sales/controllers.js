@@ -1245,6 +1245,8 @@
                            $scope.payment1.cashMonthly_id=row.cashMonthly_id;
 
                            $scope.payment1.detCash_id=row.detCash_id;
+                           $scope.payment1.monto=row.monto;
+                           $log.log($scope.payment1);
                       crudServiceOrders.destroy($scope.payment1,'salePayment').then(function(data)
                       {
                         if(data['estado'] == true){

@@ -28,7 +28,7 @@
                 $scope.generos = [{name:'Masculino'},{name:'Femenino'}];
                 $scope.errors;
                 $scope.success;
-                $scope.query = '';
+                $scope.query = ''; 
                 $scope.brands = {};
                 $scope.materials = {};
                 $scope.types = {};
@@ -97,11 +97,45 @@
                     /*$scope.calculateSuppPric();*/
                     $scope.calculateSuppPricDol();
                 }
+                 $scope.calculateSuppPricDol1 = function() {
+                    //alert("Hffola");
+                    //presentation.suppPriDol
+                    //$scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPriDol).toFixed(2);
+                    $scope.calculateSuppPricDol();
+                }
+                $scope.calcularigv = function() {
+                    $scope.calculateSuppPricIgv();
+                }
+                $scope.calculateSuppPricIgv = function() {
+                    //alert("Hola");
+                    $scope.presentation.suppPriDol = parseFloat($scope.presentation.sinIgv)+(parseFloat($scope.presentation.sinIgv) * 0.18);
+                    $scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPriDol).toFixed(2);
+
+                    $scope.presentation.suppPri = parseFloat($scope.presentation.suppPriDol) * parseFloat($scope.presentation.cambioDolar);
+                    $scope.presentation.suppPri = parseFloat($scope.presentation.suppPri).toFixed(2);
+                    //$scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPriDol).toFixed(2);
+                    //tobal
+                    $scope.presentation.price = parseFloat($scope.presentation.suppPri) + parseFloat($scope.presentation.markup) * parseFloat($scope.presentation.suppPri) / 100;
+                    $scope.presentation.price = parseFloat($scope.presentation.price).toFixed(2);
+
+                    
+                    //----
+                    //$scope.calculateSuppPric();
+                    $scope.calculatePrice();
+                }
 
                 $scope.calculateSuppPricDol = function() {
                     $scope.presentation.suppPri = parseFloat($scope.presentation.suppPriDol) * parseFloat($scope.presentation.cambioDolar);
                     $scope.presentation.suppPri = parseFloat($scope.presentation.suppPri).toFixed(2);
-                    $scope.calculateSuppPric();
+                    //$scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPriDol).toFixed(2);
+                    //tobal
+                    $scope.presentation.price = parseFloat($scope.presentation.suppPri) + parseFloat($scope.presentation.markup) * parseFloat($scope.presentation.suppPri) / 100;
+                    $scope.presentation.price = parseFloat($scope.presentation.price).toFixed(2);
+
+                    $scope.presentation.sinIgv = (parseFloat($scope.presentation.suppPriDol) / 1.18);
+                    $scope.presentation.sinIgv = parseFloat($scope.presentation.sinIgv).toFixed(2);
+                    //----
+                    //$scope.calculateSuppPric();
                     $scope.calculatePrice();
                 }
 
@@ -122,6 +156,9 @@
                         $scope.presentation.price = parseFloat($scope.presentation.price).toFixed(2);
                         $scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPri) / parseFloat($scope.presentation.cambioDolar);
                         $scope.presentation.suppPriDol = parseFloat($scope.presentation.suppPriDol).toFixed(2);
+                        
+                        $scope.presentation.sinIgv = (parseFloat($scope.presentation.suppPriDol) / 1.18);
+                        $scope.presentation.sinIgv = parseFloat($scope.presentation.sinIgv).toFixed(2);
                     $scope.calculatePrice();
                     //alert('holi');
                     //}
@@ -134,7 +171,31 @@
 
                         $scope.presentation.markupCant = parseFloat($scope.presentation.price) - parseFloat($scope.presentation.suppPri);
                         $scope.presentation.markupCant = parseFloat($scope.presentation.markupCant).toFixed(2);
-                        $scope.calculatePrice();
+                        $scope.calculatePrice1();
+                    //}
+                };
+                $scope.calculatePrice1 = function() {
+                    //alert('holi');
+                    //if(angular.isNumber($scope.presentation.suppPri) && angular.isNumber($scope.presentation.markup) && angular.isNumber($scope.presentation.price)){
+                        //$scope.presentation.markup = (parseFloat($scope.presentation.price) - parseFloat($scope.presentation.suppPri)) * 100 / parseFloat($scope.presentation.suppPri);
+                        //$scope.presentation.markup = parseFloat($scope.presentation.markup).toFixed(2);
+
+                    $scope.presentation.pvp = parseFloat($scope.presentation.price) - parseFloat($scope.presentation.dscto) * parseFloat($scope.presentation.price) / 100;
+                    $scope.presentation.pvp = parseFloat($scope.presentation.pvp).toFixed(2);
+
+                    $scope.presentation.dsctoCant = parseFloat($scope.presentation.price) - parseFloat($scope.presentation.pvp);
+                    $scope.presentation.dsctoCant = parseFloat($scope.presentation.dsctoCant).toFixed(2);
+
+                        $scope.presentation.markupCant = parseFloat($scope.presentation.price) - parseFloat($scope.presentation.suppPri);
+                        $scope.presentation.markupCant = parseFloat($scope.presentation.markupCant).toFixed(2);
+
+                    $scope.presentation.pvpRange = parseFloat($scope.presentation.price) - parseFloat($scope.presentation.dsctoRange) * parseFloat($scope.presentation.price) / 100;
+                    $scope.presentation.pvpRange = parseFloat($scope.presentation.pvpRange).toFixed(2);
+
+                    $scope.presentation.dsctoCantRange = parseFloat($scope.presentation.price) - parseFloat($scope.presentation.pvpRange);
+                    $scope.presentation.dsctoCantRange = parseFloat($scope.presentation.dsctoCantRange).toFixed(2);
+
+
                     //}
                 };
                 $scope.calculatePrice = function() {
@@ -1236,6 +1297,8 @@
                     //dsctos por rango de fechas
                     //if(row.fecIniDscto instanceof Date) {
                         //alert('holaxx');
+                    $scope.presentation.sinIgv = (parseFloat($scope.presentation.suppPriDol) / 1.18);
+                        $scope.presentation.sinIgv = parseFloat($scope.presentation.sinIgv).toFixed(2);
                     var fecIniDscto = new Date(row.fecIniDscto);
                     fecIniDscto.setDate(fecIniDscto.getDate()+1);
 

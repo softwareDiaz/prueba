@@ -447,29 +447,24 @@
                       <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
                           <option value="">Linea - Todos</option>
                           </select></th>
-                      <th>Categoria</th>
-                      <th>Color</th>
                       <th>Stock</th>
-                      <th>Descuento</th>
-                      <th>Descuento Rango</th>
-                      <th>Precio Normal</th>
-                      <th>Precio Oferta</th>
+                      <th>Precio Compra ($USS)</th>
+                      <th>Precio Venta ($USS)</th>
+                      <th>Precio Compra(S/.)</th>
+                      <th>Precio Venta (S/.)</th>
                     </tr>
                     
                     <tr ng-repeat="row in variants1 track by $index">
                       <td>@{{$index + 1}}</td>
-                      <td>@{{row.Producto}}/@{{row.modelo}}</td>
+                      <td>@{{row.NombreAtributos}}</td>
                       <td>@{{row.codigo}}</td>
                       <td>@{{row.Mate}}</td>
                       <td>@{{row.Linea}}</td>
-                      <td>@{{row.Color}}</td>
-                      <td>@{{row.Tallas}}</td>
                       <td>@{{row.stock}}</td>
-                      <td>@{{row.Descuento}}%</td>
-                      <td>@{{row.dsctoRange}}%</td>
-                      <td>@{{row.Precio}}</td>
-                      <td ng-if="row.Estado=='SI'" style="color:blue">@{{row.PrecioVenta}}</td>
-                      <td ng-if="row.Estado=='NO'">@{{row.PrecioVenta}}</td>
+                      <td>@{{row.preDol}}</td>
+                      <td>@{{row.preVenSol/row.camDol | number:2}}</td>
+                      <td>@{{row.preCompSol}}</td>
+                      <td>@{{row.preVenSol}}</td> 
                       
                     </tr>
                     
