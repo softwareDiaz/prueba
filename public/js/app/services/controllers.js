@@ -453,11 +453,15 @@
                 };
                 $scope.aumentarPrecio= function(index){
                     $scope.compra.precioVenta=Number($scope.compra.precioVenta)+1;
+                    //$log.log($scope.compras[index].precioVenta);
+                    $scope.bandera=false;
                     $scope.calcularmontos(index);
                 };
                 $scope.disminuirPrecio= function(index){
                     $scope.compra.precioVenta=Number($scope.compra.precioVenta)-1;
+                    $scope.bandera=false;
                     $scope.calcularmontos(index);
+                    //$scope.bandera=true;
                 };
                 $scope.aumentarDescuento= function(index){
                     $scope.compra.descuento=Number($scope.compra.descuento)+1;
@@ -480,36 +484,54 @@
                 }
                 //-----------------------------------------
                 $scope.calcularmontos=function(index){
+                    //$log.log($scope.compras[index].precioVenta);
+
                     if($scope.compra.oferta==undefined){
                           $scope.compra.oferta=0;
+                          $log.log("1");
                     }
                     $scope.fechaActual=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                         
                      
-                    if($scope.compra.cantidad>($scope.compra.Stock-$scope.compra.stockPedidos-$scope.compra.stockSeparados)){
+                    if($scope.compra.cantidad>($scope.compra.Stock-$scope.compra.stockPedidos-$scope.compra.stockSeparados)
+                        && $scope.compra.listService_id==undefined){
                         $scope.compra.cantidad=1;
                         alert("Cantidad excede el STOCK");
+                        $log.log("2");
                     }
                     if($scope.compra.cantidad<1){
                        $scope.compra.cantidad=1;
                        alert("La cantidad debe ser mayor 0"); 
+                       $log.log("3");
                     }
                     //$scope.sale.montoTotal=$scope.sale.montoTotalSinDescuento-$scope.compra.subTotal;
 
                     if($scope.bandera){
                         $scope.compra.precioVenta=((100-Number($scope.compra.descuento))*Number($scope.compra.precioProducto))/100;
+                        
+                        $log.log("4");
                     }else{
                         $scope.compra.descuento=((Number($scope.compra.precioProducto)-Number($scope.compra.precioVenta))*100)/Number($scope.compra.precioProducto);
+                        $log.log("5");
                     }
                     $scope.compra.subTotal=$scope.compra.cantidad*Number($scope.compra.precioVenta);
 
                     //$scope.sale.montoTotal=$scope.sale.montoTotal+$scope.compra.subTotal;
-                    //$scope.recalcularCompra();
+                    
+
+                   // $scope.recalcularCompra();
+                    
+
+                    //$scope.sale.montoTotalSinDescuento=$scope.sale.montoTotal;
+                    //$scope.sale.montoBruto=Number($scope.sale.montoTotal)/1.18;
+                    //$scope.sale.igv=$scope.sale.montoTotal-$scope.sale.montoBruto;
                     if($scope.compra.cantidad>=1){
+                        $log.log("6");
                     crudServiceServices.confirmarVariante($scope.compra.vari,$scope.fechaActual).then(function(data){
                           if(data.sku!=undefined && data.cantidad<=$scope.compra.cantidad ){
                                if($scope.compra.oferta==0){
                                   if(confirm("Desea cargar oferta") == true){
+                                    $log.log("7");
                                       $scope.descuento10=data.descuento;
                                       $scope.varianteSkuSelected1=undefined;
                                       $scope.varianteSkuSelected=data.sku;
@@ -518,12 +540,18 @@
                                       $scope.compra.oferta=1;
                                       $scope.getvariantSKU(); 
                                       }else{
+                                        $log.log("8");
                                         $scope.bandera=false; 
                                       }
                                 }else{
+                                        //$scope.promedioV=Number(Math.floor(Number($scope.compras[index].cantidad)/Number(data.cantidad)));
+                                        //$scope.compras[index+1].cantidad=$scope.promedioV;
+                                        //$scope.calcularmontos(index+1);
+                                        //alert('hola');
                                         $scope.oferta=false;
                                         $scope.bandera=false;
                                         $scope.descuento10=0;
+                                        $log.log("9");
                                 }
                                }
                           
