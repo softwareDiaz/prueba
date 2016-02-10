@@ -333,6 +333,7 @@
              
                    <div class="box-footer">
                     <a href="/orderPurchases" class="btn btn-danger">Salir</a>
+                    <button ng-click="grabarCanPedido()" class="btn btn-danger">Salir</button>
                   </div>
                 </form>
               </div><!-- /.box -->

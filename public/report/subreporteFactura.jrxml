@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreporteFactura" language="groovy" pageWidth="500" pageHeight="792" columnWidth="500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4550bfe4-43f9-44fd-9b4b-d8895c35f840">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="90"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreporteFactura" language="groovy" pageWidth="550" pageHeight="792" columnWidth="550" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4550bfe4-43f9-44fd-9b4b-d8895c35f840">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="detail_id" class="java.lang.String"/>
 	<queryString>
@@ -47,18 +47,21 @@
 		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="78" height="20" uuid="165432c6-8f6c-4d0a-9ee4-e6f3b5571777"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="78" y="0" width="258" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
+				<reportElement x="78" y="0" width="308" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="336" y="0" width="85" height="20" uuid="502479fc-f7ae-406b-b222-52235d50e2f1"/>
+				<reportElement x="386" y="0" width="85" height="20" uuid="502479fc-f7ae-406b-b222-52235d50e2f1"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{PrecioUnit}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="421" y="0" width="79" height="20" uuid="c895da09-a171-4722-9972-6e13538625bf"/>
+				<reportElement x="471" y="0" width="79" height="20" uuid="c895da09-a171-4722-9972-6e13538625bf"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{PrecioVent}]]></textFieldExpression>
 			</textField>
 		</band>
