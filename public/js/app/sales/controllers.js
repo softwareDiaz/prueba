@@ -698,8 +698,9 @@
                       
                         if(data.id != undefined){
                          
-                //$scope.mostrarAlmacenCaja();    
-                if ($scope.cashfinal.estado=='1') {
+                //$scope.mostrarAlmacenCaja();
+    
+                if (data.id!=undefined) {
                     $scope.salePayment.MontoTotal=$scope.sale.montoTotal;
                     $scope.salePayment.Acuenta=0;
                     $scope.salePayment.customer_id=$scope.sale.customer_id;
