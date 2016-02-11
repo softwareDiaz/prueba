@@ -336,10 +336,13 @@
      
              
                    <div class="box-footer">
-
+<<<<<<< HEAD
                     <a href="/sales" class="btn btn-danger">Salir</a>
+                    <a class="btn btn-info" ng-click="grabarCanPedido()">Anular</a>
+=======
+                    <a href="/orderPurchases" class="btn btn-danger">Salir</a>
                     <button ng-click="grabarCanPedido()" class="btn btn-danger">Salir</button>
-
+>>>>>>> e1d66bae62e2d2e70ecacf5a9b2c2e2b583cd47f
                   </div>
                 </form>
               </div><!-- /.box -->

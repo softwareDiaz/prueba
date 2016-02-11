@@ -700,10 +700,8 @@
                          
                 //$scope.mostrarAlmacenCaja();
     
-          
-                  
-                if ($scope.cashfinal.estado=='1') {
-                $scope.salePayment.MontoTotal=$scope.sale.montoTotal;
+                if (data.id!=undefined) {
+                    $scope.salePayment.MontoTotal=$scope.sale.montoTotal;
                     $scope.salePayment.Acuenta=0;
                     $scope.salePayment.customer_id=$scope.sale.customer_id;
 
@@ -1597,7 +1595,7 @@ $scope.Saldo1=0;
                     //$scope.recalcularCompra();
                     $scope.sale.montoBruto=Number($scope.sale.montoTotal)/1.18;
                     $scope.sale.igv=$scope.sale.montoTotal-$scope.sale.montoBruto;
-                }; 
+                };
                 
                 $scope.sacarRow=function(index,total){
                     $scope.sale.montoTotal=$scope.sale.montoTotalSinDescuento-$scope.compras[index].subTotal;
@@ -2286,7 +2284,6 @@ $scope.Saldo1=0;
 
                 }
                 $scope.createsalidaCaja = function(tipo){
-                    $log.log("Hola");
                     if ($scope.cash1.cashHeader_id==undefined) {
                         alert("Elija Caja");
                     }else{
@@ -2318,7 +2315,7 @@ $scope.Saldo1=0;
                                     //////////////////////////////////////////////
                                     $scope.order1.movimiento=$scope.detCash;
                                     $scope.order1.caja=$scope.cashfinal;
-                                    $log.log($scope.order1);
+
                                     crudServiceOrders.update($scope.order1,'sales').then(function (data){
                                         $location.path('/sales');
                                     });

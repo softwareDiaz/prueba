@@ -30,7 +30,17 @@
 
                 return deferred.promise;
             }
-
+             function reportCod(uri,cant)
+            {
+                var deferred = $q.defer();
+                $http.post('/api/'+uri+'/'+cant)
+                    .success(function(data)
+                    {
+                        deferred.resolve(data);
+                    }
+                );
+                return deferred.promise;
+            }
             function create(area,uri)
             {
                 var deferred = $q.defer();
@@ -199,7 +209,8 @@
                 searchMes,searchMes,
                 reportPro,reportPro,
                 reportProWare,reportProWare,
-                deudasSupplier: deudasSupplier
+                deudasSupplier: deudasSupplier,
+                reportCod: reportCod
             }
         }])
         .factory('socketService', function ($rootScope) {

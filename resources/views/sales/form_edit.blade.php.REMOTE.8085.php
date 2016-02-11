@@ -191,12 +191,8 @@
                     
                     
                   </table>
-
                   </div>
-
                 </div><!-- /.box-body -->
-                <!-- <div class="overlay" ng-class="{ 'hidden': !cancelPedido}">
-                                                                    </div>-->
       <div class="box-body">
 <div class="row">
 
@@ -336,10 +332,8 @@
      
              
                    <div class="box-footer">
-
-                    <a href="/sales" class="btn btn-danger">Salir</a>
+                    <a href="/orderPurchases" class="btn btn-danger">Salir</a>
                     <button ng-click="grabarCanPedido()" class="btn btn-danger">Salir</button>
-
                   </div>
                 </form>
               </div><!-- /.box -->
