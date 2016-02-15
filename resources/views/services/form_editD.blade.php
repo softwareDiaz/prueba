@@ -179,7 +179,7 @@
                                              <option value="2">Con Revision</option>
                                              <option value="3">En Reparacion</option>
                                              <option value="4">Por Entregar</option>
-                                             <option value="5" ng-show="service.tipo==1">Entregar</option>
+                                             <option value="5">Entregar</option>
 
                                             </select>
                                       </div>
