@@ -21,8 +21,9 @@ class ServiceRepo extends BaseRepo{
     public function search($q)
     {
         $brands =Service::where('numeroServicio','like', $q.'%')
-                    ->orWhere('cliente','like',$q.'%')
-                    ->orWhere('empresa','like',$q.'%')
+                    ->orWhere('cliente','like','%'.$q.'%')
+                    ->orWhere('serie','like',$q.'%')
+                    ->orWhere('empresa','like','%'.$q.'%')
                     ->orderBy('id', 'desc')
                     //->with(['customer','employee'])
                     ->paginate(15);
