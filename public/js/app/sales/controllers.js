@@ -1036,9 +1036,11 @@
                          
                 }
                 $scope.selecionarCliente = function() {
-                    if ($scope.customersSelected!=undefined) {
+                  if ($scope.customersSelected!=undefined) {
                         $scope.sale.customer_id=$scope.customersSelected.id;
                         $scope.sale.cliente=$scope.customersSelected.busqueda;
+                        $scope.sale.rucCliente=$scope.customersSelected.ruc;
+                        
                         $scope.customersSelected=undefined;
                     };
                 }
@@ -1774,7 +1776,7 @@ $scope.Saldo1=0;
                 $scope.estadoComoDocument=false;
                     if($scope.sale.comprobante==true )
                     {
-                        if($scope.sale.cliente!=null){
+                        if($scope.sale.rucCliente!=''){
                         $scope.sale.tipoDoc="F";
                                crudServiceOrders.numeracion("sales","F",$scope.cash1.cashHeader_id).then(function (data){
                                           //$scope.numActual="0000"+(Number(data.numFactura)+1);

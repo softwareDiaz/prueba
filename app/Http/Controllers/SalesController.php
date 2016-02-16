@@ -856,13 +856,10 @@ class SalesController extends Controller
     
     public function edit(Request $request)
     {
-      // \DB::beginTransaction();
-
+       \DB::beginTransaction();
         $varDetOrders = $request->detOrder;
         $varPayment = $request->payment;
         $movimiento = $request->movimiento;
-
-
         if ($movimiento['montoMovimientoEfectivo']>0) {
             //---create movimiento--- 
             //var_dump($request->movimiento);die();
@@ -892,6 +889,7 @@ class SalesController extends Controller
         $manager->save();
 
         }
+        
         $HeadStockRepo;
          $codigoHeadIS=0;
          
@@ -933,7 +931,6 @@ class SalesController extends Controller
             $HeadStockinsert->save();
             $codigoHeadIS=$HeadStock->id;
           }
-          die();
 
           $object['headInputStock_id']=$codigoHeadIS;
           $object["producto"]=$object['nameProducto']."(".$object['NombreAtributos'].")";
@@ -949,12 +946,13 @@ class SalesController extends Controller
         }
 
         $orderSale = $this->saleRepo->find($request->id);
+        //if()
         $manager = new SaleManager($orderSale,$request->all());
         $manager->save();
 
         
 
-        // \DB::commit();
+         \DB::commit();
 
         return response()->json(['estado'=>true, 'nombre'=>$orderSale->nombre]);
     }
