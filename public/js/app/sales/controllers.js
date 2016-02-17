@@ -2139,7 +2139,8 @@ $scope.Saldo1=0;
     $scope.insertar=function(num,cod){
         //alert(Math.floor(num));
         if((num-Math.floor(num))!=0){
-            $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+" CON "+((num-Math.floor(num))*100).toFixed(0)+"/100 NUEVOS SOLES";
+            
+            $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+"CON-"+((num-Math.floor(num))*100).toFixed(0)+"";
             //alert($scope.DecripcionTotal);
                                             crudServiceOrders.Document_venta_Factura('Factura',$scope.DecripcionTotal,cod).then(function (data) {  
                                                       //alert(data);
@@ -2154,7 +2155,7 @@ $scope.Saldo1=0;
                                                       }
                                             });
         }else{
-            $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+" ";
+            $scope.DecripcionTotal=$scope.doThings(Math.floor(num))+"CON-00";
             //alert($scope.DecripcionTotal);
                                             crudServiceOrders.Document_venta_Factura('Factura',$scope.DecripcionTotal,cod).then(function (data) {  
                                                       //alert(data);

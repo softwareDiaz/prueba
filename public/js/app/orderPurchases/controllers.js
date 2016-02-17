@@ -322,6 +322,7 @@
                 
                 };
                 $scope.asignarEmpresa=function(){
+                  //alert($scope.orderPurchase.empresa.id);
                     $scope.orderPurchase.supplier_id=$scope.orderPurchase.empresa.id;
                     $scope.orderPurchase.empresa=$scope.orderPurchase.empresa.empresa;
                 }
