@@ -1454,7 +1454,10 @@ $scope.Saldo1=0;
                        alert("La cantidad debe ser mayor 0"); 
                        $log.log("3");
                     }
-                    $scope.sale.montoTotal=$scope.sale.montoTotalSinDescuento-$scope.compras[index].subTotal;
+                    if (isNaN($scope.compras[index].subTotal)) {}
+                        else{
+                        $scope.sale.montoTotal=$scope.sale.montoTotalSinDescuento-$scope.compras[index].subTotal;
+                    }
 
                     if($scope.bandera){
                         $scope.compras[index].precioVenta=((100-Number($scope.compras[index].descuento))*Number($scope.compras[index].precioProducto))/100;
@@ -1466,8 +1469,15 @@ $scope.Saldo1=0;
                     }
                     $scope.compras[index].subTotal=$scope.compras[index].cantidad*Number($scope.compras[index].precioVenta);
 
-                    $scope.sale.montoTotal=$scope.sale.montoTotal+$scope.compras[index].subTotal;
-                    $scope.recalcularCompra();
+                    
+                    if (isNaN($scope.compras[index].subTotal)) {}
+                        else{
+                            $scope.sale.montoTotal=$scope.sale.montoTotal+$scope.compras[index].subTotal;
+                            $scope.recalcularCompra();
+                        }
+                    
+                    
+                    
                     //$scope.sale.montoTotalSinDescuento=$scope.sale.montoTotal;
                     //$scope.sale.montoBruto=Number($scope.sale.montoTotal)/1.18;
                     //$scope.sale.igv=$scope.sale.montoTotal-$scope.sale.montoBruto;
@@ -1549,6 +1559,7 @@ $scope.Saldo1=0;
                     $scope.calcularmontos(index);
                 };
                 $scope.keyUpDescuento= function(index){
+                    //$scope.compras[index].descuento=Number($scope.compras[index].descuento);
                     $scope.bandera=true;
                     $scope.calcularmontos(index);
                 };
@@ -1617,7 +1628,10 @@ $scope.Saldo1=0;
                     $scope.sale.montoTotal=((100-Number($scope.sale.descuento))*Number($scope.sale.montoTotalSinDescuento))/100;    
 
                     $scope.sale.montoBruto=Number($scope.sale.montoTotal)/1.18;
-                    $scope.sale.igv=$scope.sale.montoTotal-$scope.sale.montoBruto;  
+                    $scope.sale.igv=$scope.sale.montoTotal-$scope.sale.montoBruto; 
+                    alert("-- "+$scope.sale.montoTotalSinDescuento); 
+                    alert("-- "+$scope.sale.montoBruto); 
+                    alert("-- "+$scope.sale.igv); 
                 };
 
                 
