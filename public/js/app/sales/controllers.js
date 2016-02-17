@@ -1629,9 +1629,9 @@ $scope.Saldo1=0;
 
                     $scope.sale.montoBruto=Number($scope.sale.montoTotal)/1.18;
                     $scope.sale.igv=$scope.sale.montoTotal-$scope.sale.montoBruto; 
-                    alert("-- "+$scope.sale.montoTotalSinDescuento); 
-                    alert("-- "+$scope.sale.montoBruto); 
-                    alert("-- "+$scope.sale.igv); 
+                    //alert("-- "+$scope.sale.montoTotalSinDescuento); 
+                    //alert("-- "+$scope.sale.montoBruto); 
+                    //alert("-- "+$scope.sale.igv); 
                 };
 
                 
