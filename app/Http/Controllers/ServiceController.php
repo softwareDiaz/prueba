@@ -21,7 +21,10 @@ class ServiceController extends Controller {
     {
         return View('services.index');
     }
-
+    public function showService()
+    {
+        return View('services.showService');
+    }
     public function all()
     {
         $services = $this->serviceRepo->paginate(15);

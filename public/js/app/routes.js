@@ -453,6 +453,10 @@
                     templateUrl:'/services/form-editD',
                     controller: 'ServicesController'
                 })
+                .when('/services/showService/:id',{
+                    templateUrl:'/services/view-showService',
+                    controller: 'ServicesController'
+                })
                 .otherwise({
                     redirectTo: '/'
                 });

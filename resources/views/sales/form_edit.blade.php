@@ -308,8 +308,9 @@
                       <td ng-hide="true">@{{row.cashID}}</td>
                       <td ng-hide="true">@{{row.Saldo_F}}</td>
                       <td>@{{row.fecha}}</td>
-                      <td Style="width:26%;">caja Mensual</td>
+                      <td Style="width:26%;">caja Diaria</td>
                       <td Style="width:20%;">@{{row.monto}}</td>
+                      <td Style="width:15%;" ng-if="row.tipoPago=='A'"><span class="badge bg-yellow">@{{row.tipoPago}}</span></td>
                       <td Style="width:15%;" ng-if="row.tipoPago=='V'"><span class="badge bg-blue">@{{row.tipoPago}}</span></td> 
                       <td Style="width:15%;" ng-if="row.tipoPago=='P'"><span class="badge bg-green">@{{row.tipoPago}}</span></td> 
                      <td><button type="button" class="btn btn-danger btn-xs"  ng-click="destroyPay(row)">

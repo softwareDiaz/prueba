@@ -1143,12 +1143,16 @@
                         <td style="font-size:150%;">S/. @{{sale.descuento | number:2}}</td>
                       </tr>  
                       <tr>
-                        <td><b>Total Pagar</b></td>
+                        <td><b>Total Venta</b></td>
                         <td><b  style="font-size:150%;">S/. @{{sale.montoTotal | number:2}}</b></td>                    
                       </tr> 
                       <tr>
-                        <td><b>Vuelto</b></td>
-                        <td><b style="font-size:150%;">S/. @{{sale.vuelto | number:2}}</b></td>                    
+                        <td><b>Monto Adelantado</b></td>
+                        <td><b  style="font-size:150%;">S/. @{{serviceacuenta | number:2}}</b></td>                    
+                      </tr> 
+                      <tr>
+                        <td><b>Deuda a Pagar</b></td>
+                        <td><b  style="font-size:150%;">S/. @{{sale.montoTotal-serviceacuenta | number:2}}</b></td>                    
                       </tr>                                   
                     </table>
 
