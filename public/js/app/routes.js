@@ -110,6 +110,21 @@
                     templateUrl:'/stations/form-edit',
                     controller: 'StationController'
                 }) 
+                // ------------------------------------------------------
+               .when('/otherPheads', {
+                    templateUrl: '/js/app/otherPheads/views/index.html',
+                    controller: 'OtherPheadController'
+                })
+                .when('/otherPheads/create',{
+                    templateUrl:'/otherPheads/form-create',
+                    controller: 'OtherPheadController'
+                })
+                .when('/otherPheads/edit/:id',{
+                    templateUrl:'/otherPheads/form-edit',
+                    controller: 'OtherPheadController'
+                })    
+
+                //-------------------------------------------------------------    
            // ------------------------------------------------------
             .when('/types', {
                     templateUrl: '/js/app/types/views/index.html',

@@ -272,15 +272,15 @@
                         });
                     }
                 }
-                
+                $scope.cashMonthly.fecha=new Date();
                 $scope.createcashMonthly = function(){
                     if ($scope.cashMonthlyCreateForm.$valid) {  
                         //$scope.fechap=new Date($scope.fechap);
                         //$scope.cashMonthly.fecha.getTimezoneOffset();
-                        $scope.cashMonthly.fecha=$scope.cashMonthly.fechap.getFullYear()+'-'+($scope.cashMonthly.fechap.getMonth()+1)+'-'+$scope.cashMonthly.fechap.getDate()+' '+$scope.cashMonthly.fechap.getHours()+':'+$scope.cashMonthly.fechap.getMinutes()+':'+$scope.cashMonthly.fechap.getSeconds();
+                       $scope.cashMonthly.fecha=$scope.cashMonthly.fecha.getFullYear()+'-'+($scope.cashMonthly.fecha.getMonth()+1)+'-'+$scope.cashMonthly.fecha.getDate()+' '+$scope.cashMonthly.fecha.getHours()+':'+$scope.cashMonthly.fecha.getMinutes()+':'+$scope.cashMonthly.fecha.getSeconds();
                         $log.log("=============");
                         $log.log($scope.cashMonthly);
-
+                          alert("hola");
                         //$scope.cashMonthly.fecha=$scope.fechap;
                         //$log.log($scope.cashMonthly);
                         //'999plasas
@@ -302,7 +302,7 @@
                     $location.path('/cashMonthlys/edit/'+row.id);
                 };
 
-                $scope.updatecashMonthly = function(){
+                $scope.updatecashMonthly = function(){fecha
                     if ($scope.cashMonthlyCreateForm.$valid) {
                         crudService.update($scope.cashMonthly,'cashMonthlys').then(function(data)
                         {

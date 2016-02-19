@@ -776,3 +776,18 @@ Route::post('api/Boleta/{descri}/{id}','SalesController@reporteBoleta');
 
 Route::post('api/reporteServicio/{id}','ServiceController@reporteServicio');
 Route::post('api/reports1/{cant}',['as'=>'person_search', 'uses'=>'ProductsController@reports']);
+
+
+Route::get('otherPheads',['as'=>'store','uses'=>'OtherPheadController@index']);
+Route::get('otherPheads/create',['as'=>'type_create','uses'=>'OtherPheadController@index']);
+Route::get('otherPheads/edit/{id?}', ['as' => 'type_edit', 'uses' => 'OtherPheadController@index']);
+Route::get('otherPheads/form-create',['as'=>'type_form_create','uses'=>'OtherPheadController@form_create']);
+Route::get('otherPheads/form-edit',['as'=>'type_form_edit','uses'=>'OtherPheadController@form_edit']);
+Route::get('api/otherPheads/all',['as'=>'type_all', 'uses'=>'OtherPheadController@all']);
+Route::get('api/otherPheads/paginate/',['as' => 'type_paginate', 'uses' => 'OtherPheadController@paginatep']);
+Route::post('api/otherPheads/create',['as'=>'type_create', 'uses'=>'OtherPheadController@create']);
+Route::put('api/otherPheads/edit',['as'=>'type_edit', 'uses'=>'OtherPheadController@edit']);
+Route::post('api/otherPheads/destroy',['as'=>'type_destroy', 'uses'=>'OtherPheadController@destroy']);
+Route::get('api/otherPheads/search/{q?}',['as'=>'type_search', 'uses'=>'OtherPheadController@search']);
+Route::get('api/otherPheads/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@find']);
+Route::get('api/otherPdetails/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@datos']);
