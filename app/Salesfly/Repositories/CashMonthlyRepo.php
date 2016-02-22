@@ -78,5 +78,13 @@ class CashMonthlyRepo extends BaseRepo{
         $d = \DateTime::createFromFormat($format, $date);
         return $d && $d->format($format) == $date;
     }
+      public function pagosCompras($id){
+        $cashMonthlys = CashMonthly::join('OtherPheads','OtherPheads.id','=','cashMonthlys.otherPhead_id')                          
+                          ->where('cashMonthlys.otherPhead_id','=',$id)
+                          ->select(\DB::raw('cashMonthlys.id ,cashMonthlys.fecha,cashMonthlys.amount as monto,"CajaMensual" as tipo'))
+
+        ->get();
+        return $cashMonthlys;
+    }
     
 } 

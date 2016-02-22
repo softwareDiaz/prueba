@@ -122,7 +122,11 @@
                 .when('/otherPheads/edit/:id',{
                     templateUrl:'/otherPheads/form-edit',
                     controller: 'OtherPheadController'
-                })    
+                }) 
+                .when('/otherPheads/show/:id',{
+                    templateUrl:'/otherPheads/view-show',
+                    controller: 'OtherPheadController'
+                })  
 
                 //-------------------------------------------------------------    
            // ------------------------------------------------------
@@ -466,6 +470,10 @@
                 })
                 .when('/services/editD/:id',{
                     templateUrl:'/services/form-editD',
+                    controller: 'ServicesController'
+                })
+                .when('/services/showService/:id',{
+                    templateUrl:'/services/view-showService',
                     controller: 'ServicesController'
                 })
                 .otherwise({

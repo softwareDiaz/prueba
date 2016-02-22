@@ -748,7 +748,8 @@ Route::get('api/services/find/{id}',['as'=>'person_find', 'uses'=>'ServiceContro
 Route::get('services/editD/{id?}', ['as' => 'person_editD', 'uses' => 'ServiceController@index']);
 Route::get('services/form-editD',['as'=>'person_form_editD','uses'=>'ServiceController@form_editD']);
 Route::get('api/services/numero',['as'=>'person_find', 'uses'=>'ServiceController@numeroServicio']);
-//Route::put('api/services/editD',['as'=>'person_editD', 'uses'=>'ServiceController@edit']);
+Route::get('services/showService/{id?}','ServiceController@index');
+Route::get('services/view-showService','ServiceController@showService'); 
 
 //-----------------------------DetSeparate---------------------------
 Route::get('detServices',['as'=>'person','uses'=>'DetServicesController@index']);
@@ -778,6 +779,7 @@ Route::post('api/reporteServicio/{id}','ServiceController@reporteServicio');
 Route::post('api/reports1/{cant}',['as'=>'person_search', 'uses'=>'ProductsController@reports']);
 
 
+
 Route::get('otherPheads',['as'=>'store','uses'=>'OtherPheadController@index']);
 Route::get('otherPheads/create',['as'=>'type_create','uses'=>'OtherPheadController@index']);
 Route::get('otherPheads/edit/{id?}', ['as' => 'type_edit', 'uses' => 'OtherPheadController@index']);
@@ -791,3 +793,14 @@ Route::post('api/otherPheads/destroy',['as'=>'type_destroy', 'uses'=>'OtherPhead
 Route::get('api/otherPheads/search/{q?}',['as'=>'type_search', 'uses'=>'OtherPheadController@search']);
 Route::get('api/otherPheads/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@find']);
 Route::get('api/otherPdetails/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@datos']);
+Route::get('otherPheads/show/{id?}','OtherPheadController@index');
+Route::get('otherPheads/view-show','OtherPheadController@show'); 
+Route::post('api/pagosVarios/create',['as'=>'type_create', 'uses'=>'OtherPheadController@createPago']);
+Route::get('api/pagos/find/{id}','OtherPheadController@pagosCompras');
+Route::get('api/pagos2/find/{id}','OtherPheadController@pagosCompras2');
+Route::post('api/pagos/destroy',['as'=>'type_destroy', 'uses'=>'OtherPheadController@destroyPagos']);
+//---------------------------------------------------------
+Route::post('api/servicePayment/create',['as'=>'person_create', 'uses'=>'ServicePaymentController@create']);
+Route::get('api/servicePayment/find/{id}',['as'=>'person_create', 'uses'=>'ServicePaymentController@find']);
+Route::post('api/servicePayment/destroy',['as'=>'person_destroy', 'uses'=>'ServicePaymentController@destroy']);
+

@@ -21,7 +21,7 @@
                 });
 
                 return deferred.promise;
-            }
+            } 
             function deudasSupplier(page){
                 var deferred = $q.defer();
                 $http.get('api/suppliers/deudas/?page='+page).success(function (data) {
@@ -244,9 +244,28 @@
 
                 return deferred.promise;
             }
+            function listaCashes(uri,alm)
+            {
+                var deferred = $q.defer();
+                $http.get('/api/cashHeaders/cajasActivas/'+alm)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
+            function comprovarCaja(id){
+                 var deferred = $q.defer();
+                $http.get('api/detCashes/compCajaActiva/'+id).success(function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+            }
 
             return {
                 all: all,
+                listaCashes:listaCashes,
+                comprovarCaja:comprovarCaja,
                 buscarServicio: buscarServicio,
                 numeracion: numeracion,
                 confirmarVariante:confirmarVariante,

@@ -1,3 +1,4 @@
+
 <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
@@ -74,11 +75,14 @@
                     <tr ng-repeat="row in orders">
                       <td>{{$index + 1}}</td>
                       <td>{{row.fechaPedido}}</td>
-                      <td>{{row.fechaAnulado}}</td>
+                      <td ng-if="row.fechaAnulado == '0000-00-00 00:00:00'">-</td>
+                      <td ng-if="row.fechaAnulado != '0000-00-00 00:00:00'">{{row.fechaAnulado}}</td>
                       <td>{{row.montoTotal}}</td>                      
                       <td>{{row.customer.nombres+' '+row.customer.apellidos+' - '+row.customer.empresa}}</td>
                       <td>{{row.employee.nombres+' '+row.employee.apellidos}}</td>
-                      <td>{{row.estado==1? 'Pendiente':'Terminado'}}</td>
+                      <td ng-if="row.estado==1"><span style="color: green;">Terminado</span></td>
+                      <td ng-if="row.estado==0"><span style="color: yellow;">Pendiente</span></td>
+                      <td ng-if="row.estado==3"><span style="color: red;">Anulado</span></td>
                       <td>{{row.estadoPago==1? 'Credito':'Contado'}}</td> 
                       <td><a ng-click="editorder(row)" class="btn btn-warning btn-xs">Ver</a></td>
                       

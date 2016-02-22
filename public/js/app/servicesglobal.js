@@ -192,6 +192,16 @@
 
                 return deferred.promise;
             }
+            function listaCashes(uri,alm)
+            {
+                var deferred = $q.defer();
+                $http.get('/api/cashHeaders/cajasActivas/'+alm)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
             return {
                 all: all,
                 paginate: paginate,
@@ -210,7 +220,8 @@
                 reportPro,reportPro,
                 reportProWare,reportProWare,
                 deudasSupplier: deudasSupplier,
-                reportCod: reportCod
+                reportCod: reportCod,
+                listaCashes: listaCashes
             }
         }])
         .factory('socketService', function ($rootScope) {

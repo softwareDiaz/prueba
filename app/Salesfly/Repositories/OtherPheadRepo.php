@@ -10,8 +10,9 @@ class OtherPheadRepo extends BaseRepo{
 
     public function search($q)
     {
-        $brands =OtherPhead::where('nombre','like', $q.'%')
-                    ->orWhere('shortname','like',$q.'%')
+        $brands =OtherPhead::where('proveedor','like', $q.'%')
+                    ->orWhere('ruc','like',$q.'%')
+                    ->orWhere('numeroDocumento','like',$q.'%')
                     //->with(['customer','employee'])
                     ->paginate(15);
         return $brands;

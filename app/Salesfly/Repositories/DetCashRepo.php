@@ -44,7 +44,7 @@ class DetCashRepo extends BaseRepo{
                            ->join('cashHeaders','cashHeaders.id','=','cashes.cashHeader_id')
                            ->leftjoin('headInvoices as hi','hi.venta_id','=','sales.id')
                            ->select(\DB::raw("sales.id,cashHeaders.nombre,users.name,
-                            hi.tipoDoc,hi.id as idDocu,cashMotives.nombre as Motivo,detCash.montoMovimientoTarjeta as tarjeta,
+                            hi.tipoDoc,hi.id as idDocu,cashMotives.nombre as Motivo,sales.estado,detCash.montoMovimientoTarjeta as tarjeta,
                             detCash.montoMovimientoEfectivo as efectivo,cashMotives.id as cashMotive_id,CONCAT((SUBSTRING(sales.fechaPedido,9,2)),'-',
                                 (SUBSTRING(sales.fechaPedido,6,2)),'-',
                                 (SUBSTRING(sales.fechaPedido,1,4)))as fecha,SUBSTRING(sales.fechaPedido,12) as hora,
@@ -67,7 +67,7 @@ class DetCashRepo extends BaseRepo{
                            ->paginate(15);
         return $detCashs; 
     }
-    public function searchSale($q)
+   public function searchSale($q)
     {
         $detCashs =DetCash::join('cashMotives','cashMotives.id','=','detCash.cashMotive_id')
                     ->join('cashes','cashes.id','=','detCash.cash_id')
@@ -75,7 +75,7 @@ class DetCashRepo extends BaseRepo{
                     ->join('sales','sales.detCash_id','=','detCash.id')
                     ->join('cashHeaders','cashHeaders.id','=','cashes.cashHeader_id')
                     ->leftjoin('headInvoices as hi','hi.venta_id','=','sales.id')
-                           ->select(\DB::raw("detCash.*,cashMotives.nombre as nommovimiento, users.name,
+                           ->select(\DB::raw("detCash.*,detCash.estado as estado1,cashMotives.nombre as nommovimiento, users.name,
                             cashHeaders.nombre,hi.tipoDoc,hi.id as idDocu,
                             IF(hi.numero<10,CONCAT('000000',hi.numero),
                              IF(hi.numero<100,CONCAT('00000',hi.numero),
@@ -93,6 +93,17 @@ class DetCashRepo extends BaseRepo{
                     ->paginate(15);
         return $detCashs; 
     } 
+   /* public function searchSale($q)
+    {
+        $detCashs =DetCash::with('cashMotive')
+                        ->where('cash_id','=', $q)
+                        ->where('cashMotive_id','=','1')
+                        ->orWhere('cash_id','=', $q)
+                        ->where('cashMotive_id','=','14')
+                        //->orWhere('cashMotive_id','=','14')
+                    ->paginate(15);
+        return $detCashs; 
+    }*/
     public function searchOrderSale($q)
     {
         $detCashs =DetCash::with('cashMotive')
@@ -125,6 +136,23 @@ class DetCashRepo extends BaseRepo{
                           ->where('detCash.id','=',$id)
                           ->select('cashes.estado')
         ->first();
+        return $detCashs;
+    }
+    public function pagosCompras($id){
+        $detCashs = DetCash::join('cashes','cashes.id','=','detCash.cash_id')
+                          ->join('OtherPheads','OtherPheads.id','=','detCash.otherPhead_id')                          
+                          ->where('detCash.otherPhead_id','=',$id)
+                          ->select(\DB::raw('detCash.id ,CONCAT(detCash.fecha," ",detCash.hora)as fecha,detCash.montoMovimientoEfectivo as monto,"Caja" as tipo'))
+
+        ->paginate(15);
+        return $detCashs;
+    }
+    public function inventarioVentas($fechaini,$fechafin){
+        $detCashs = DetCash::join('cashMotives','cashMotives.id','=','detCash.cashMotive_id')                          
+                          ->where('cashMotives.tipo','=','+')
+                          ->select(\DB::raw('detCash.id ,CONCAT(detCash.fecha," ",detCash.hora)as fecha,detCash.montoMovimientoEfectivo as monto,"Caja" as tipo'))
+
+        ->paginate(15);
         return $detCashs;
     }
 

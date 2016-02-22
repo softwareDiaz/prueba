@@ -4,7 +4,10 @@
             function($scope, $routeParams,$location,crudServiceServices,socket,$filter,$route,$log,$window,$modal){
                 $scope.services = [];
                 $scope.service = {};
+                $scope.detPayment={};
+                $scope.payment={};
                 $scope.service.fechaServicio=new Date();
+                $scope.detPayment.fecha=new Date();
                 $scope.errors = null;
                 $scope.success;
                 $scope.query = '';
@@ -69,6 +72,18 @@
 
                     crudServiceServices.search('detServices',id,1).then(function (data){
                         $scope.detServices=data;
+                    });
+                    crudServiceServices.listaCashes('cashHeaders',1).then(function (data) {
+                        $scope.cashHeaders = data;
+                        $log.log(data); 
+                    });
+                    crudServiceServices.select('saleMethodPayments','select').then(function (data) {                        
+                        $scope.saleMethodPayments = data;
+
+                    });
+                    crudServiceServices.byId(id,'servicePayment').then(function (data) {
+                        $scope.detPayments = data;
+                        
                     });
                 }else{
                     //alert("Hola");
@@ -712,6 +727,101 @@
                     
                     $scope.atributoSelected=undefined;
                 }
+                $scope.VerAdelantos=function(id){
+                  $location.path('/services/showService/'+id);
+                 }
+                 $scope.createPayment=function(){
+      
+                  $scope.detPayment.service_id=id;
+                  $scope.detPayment.fecha.setUTCHours($scope.detPayment.fecha.getHours());
+                  $scope.payment.detPayments=$scope.detPayment;
+                        $log.log("$scope.payment");
+                        $log.log($scope.payment);
+                        crudServiceServices.create($scope.payment, 'servicePayment').then(function (data) {
+                          
+                            if (data['estado'] == true) {
+                                alert('grabado correctamente');
+                               $scope.detPayment={};
+                               $scope.detPayment.fecha=new Date();
+                               $scope.payment.cash_id=0; 
+                                $scope.detPayment.fecha=new Date();
+
+                                    crudServiceServices.byId(id,'servicePayment').then(function (data) {
+                                        $scope.detPayments = data;
+                        
+                                    });
+
+                            } else {
+                                $scope.errors = data;
+
+                            }
+                        });//}
+                      
+                }
+                $scope.TraerSales=function(id){
+                    //alert("hola : "+id);
+                     crudServiceServices.byId(id,'cashes').then(function (data) {
+                       $scope.cashes=data;
+                       $log.log(data);
+                        $scope.payment.cash_id=$scope.cashes.id; 
+                        $scope.payment.fecha=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
+                        $scope.payment.hora=$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
+                        $scope.payment.montoCaja=$scope.cashes.montoBruto;
+                        $scope.payment.montoMovimientoTarjeta=0;
+                        $scope.payment.cashMotive_id=22;
+                        $scope.payment.estado=1;
+                    });
+                }
+                $scope.recalPayments=function(){
+                if($scope.payment.cash_id>0){
+                    if($scope.detPayment.saleMethodPayment_id==1){
+                        $scope.payment.montoMovimientoEfectivo=Number($scope.detPayment.monto);
+                        $scope.payment.montoMovimientoTarjeta=0;
+                    }else{
+                        $scope.payment.montoMovimientoTarjeta=Number($scope.detPayment.monto);
+                        $scope.payment.montoMovimientoEfectivo=0;
+                    }
+                    $scope.payment.montoFinal=Number($scope.payment.montoCaja)+$scope.payment.montoMovimientoEfectivo+$scope.payment.montoMovimientoTarjeta;
+     
+                }
+                }
+                $scope.destroyPay = function(row){
+                      crudServiceServices.comprovarCaja(row.detCash_id).then(function(data){
+                        if(data.estado==1){
+                           if(confirm("Esta segura de querer eliminar este pago!!!") == true){
+                           $scope.payment.detpId=row.id;
+                           $scope.payment.Saldo_F=row.Saldo_F;
+
+                           $scope.payment.detpId=row.id;
+                           $scope.payment.cashMonthly_id=row.cashMonthly_id;
+
+                           $scope.payment.detCash_id=row.detCash_id;
+                           $scope.payment.monto=row.monto;
+                           $log.log($scope.payment);
+                      crudServiceServices.destroy($scope.payment,'servicePayment').then(function(data)
+                      {
+                        if(data['estado'] == true){
+                            $scope.success = data['nombre'];
+                            
+                            alert('Eliminado Correctamente');
+
+                            //$scope.payment1.Acuenta=Number($scope.totAnterior)-Number($scope.detPayment1.montoPagado);
+                            //$scope.payment1.Saldo=(Number($scope.payment1.MontoTotal)-Number($scope.payment1.Acuenta)).toFixed(2);
+                            //$scope.payment1.PorPagado=((Number($scope.payment1.Acuenta)*100)/(Number($scope.payment1.MontoTotal))).toFixed(2);
+                            //$scope.totAnterior=$scope.payment1.Acuenta;
+                            $scope.detPayment = {};
+
+                            $route.reload();
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                  }
+                        }else{
+                            alert("Usted no puede eliminar un pago de una caja cerrada");
+                        }
+                    });
+            } 
 
             }]);
 })();

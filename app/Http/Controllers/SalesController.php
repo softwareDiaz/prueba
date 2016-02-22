@@ -21,7 +21,7 @@ use Salesfly\Salesfly\Repositories\DetSeparateSaleRepo;
 use Salesfly\Salesfly\Managers\DetSeparateSaleManager;
 
 use Salesfly\Salesfly\Repositories\DetSaleRepo;
-use Salesfly\Salesfly\Managers\DetSaleManager;
+use Salesfly\Salesfly\Managers\DetSaleManager; 
 
 use Salesfly\Salesfly\Repositories\CustomerRepo;
 use Salesfly\Salesfly\Managers\CustomerManager;
@@ -128,6 +128,9 @@ class SalesController extends Controller
         //var_dump($var);die();
         $payment = $request->salePayment;
         $saledetPayments = $request->saledetPayments;
+
+        $servicePayment = $request->servicePayment;
+
         $cajaAct = $request->caja;
         //var_dump($cajaAct);die();
         //-------------------------
@@ -145,13 +148,8 @@ class SalesController extends Controller
             
         $manager = new ServiceManager($brand,$varService);
         $manager->save();
-
-            //$insertService=new ServiceManager($serviceSave,$varService);
-            //$insertService->save();          
-            //$serviceSave->save();
         }
         
-
         //---create movimiento---
             $movimiento = $request->movimiento;
             $detCashrepo;
@@ -215,6 +213,19 @@ class SalesController extends Controller
         $temporal1=$paymentSave->id;
             //--------------------------
                 $saledetPaymentrepo;
+                if($request->input("banderaservice")==true){
+                  foreach($servicePayment as $object2){
+                      $object2['salePayment_id'] = $temporal1;
+                      $object2['detCash_id']=$detCash_id;
+
+                      $saledetPaymentrepo = new SaleDetPaymentRepo;
+
+                      $insertar=new SaleDetPaymentManager($saledetPaymentrepo->getModel(),$object2);
+                      $insertar->save();
+          
+                      $saledetPaymentrepo = null;
+                  }
+                }
                 foreach($saledetPayments as $object1){
                     $object1['salePayment_id'] = $temporal1;
                     $object1['detCash_id']=$detCash_id;
@@ -226,6 +237,8 @@ class SalesController extends Controller
           
                     $saledetPaymentrepo = null;
                 }
+
+                
             //--------------------------
     if(!empty($request->input("comprobante"))){
             ///var_dump("kkdkdkkdsk");die();
@@ -856,10 +869,12 @@ class SalesController extends Controller
     
     public function edit(Request $request)
     {
+      
        \DB::beginTransaction();
         $varDetOrders = $request->detOrder;
         $varPayment = $request->payment;
         $movimiento = $request->movimiento;
+       // var_dump($movimiento);die();
         if ($movimiento['montoMovimientoEfectivo']>0) {
             //---create movimiento--- 
             //var_dump($request->movimiento);die();
@@ -952,7 +967,7 @@ class SalesController extends Controller
 
         
 
-         \DB::commit();
+       \DB::commit();
 
         return response()->json(['estado'=>true, 'nombre'=>$orderSale->nombre]);
     }

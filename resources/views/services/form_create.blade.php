@@ -46,19 +46,13 @@
                     <div class="col-md-4">                          
                     <div class="form-group" ng-class="{true: 'has-error'}[ serviceCreateForm.fechaServicio.$error.required &amp;&amp; serviceCreateForm.$submitted || serviceCreateForm.fechaServicio.$dirty &amp;&amp; serviceCreateForm.fechaServicio.$invalid]">
                                 <label for="fechaServicio">Fecha: </label>
-                            <div ng-hide="show" class="input-group">
+                            <div class="input-group">
                                 <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                 </div>
                                   <input type="date" class="form-control ng-pristine ng-valid ng-touched" name="fechaServicio" ng-model="service.fechaServicio">
                             </div>
-                            <label ng-show="serviceCreateForm.$submitted || serviceCreateForm.fechaServicio.$dirty &amp;&amp; serviceCreateForm.fechaServicio.$invalid" class="ng-hide">
-                            <span ng-show="serviceCreateForm.fechaServicio.$invalid" class="ng-hide"><i class="fa fa-times-circle-o"></i>Fecha Inválida.</span>
-                            </label>
-                             
-                             <div ng-show="show" class="input-group ng-hide">
-                               <spam class="ng-binding"></spam>
-                    </div> 
+               
                       </div>
                       </div>
                       <div class="col-md-3"> 

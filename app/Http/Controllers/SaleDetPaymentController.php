@@ -85,7 +85,7 @@ class SaleDetPaymentController extends Controller {
      //if(intval($request->input('cash_id'))>0){
 
         $detcash = new DetCashManager($detCash,$request->all());
-        $detcash->save();
+        $detcash->save(); 
         $var['detCash_id']=$detCash->id;
              $request->merge(["ingresos"=>floatval($cash->ingresos)+floatval($var["monto"])]);
              $request->merge(['fechaInicio'=>$cash->fechaInicio]);
