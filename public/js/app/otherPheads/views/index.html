@@ -1,13 +1,11 @@
-
 <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>
-            Ventas
+          <h1>Brands
             <small>Panel de Control</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Ventas</li>
+            <li class="active">Brands</li>
           </ol>
 
           
@@ -19,7 +17,7 @@
         <section class="content">
         <div class="row">
         <div class="col-md-12">
-          <a href="/sales/create" type="submit" class="btn btn-primary pull-left">Realizar Venta</a> 
+          <a href="/otherPheads/create" type="submit" class="btn btn-primary pull-left">Agregar Compras</a> 
           </div>
         </div>
         </br>
@@ -30,9 +28,9 @@
               <div class="box">
 
                 <div class="box-header with-border">
-                  <h3 class="box-title">Pedidos</h3>
+                  <h3 class="box-title">Brands</h3>
                   <div class="box-tools">
-                  <form ng-keyup="searchorder()">
+                  <form ng-keyup="searchotherPhead()">
                     <div class="input-group" style="width: 200px;">
                       <input type="text" ng-model="query"  name="table_search" class="form-control input-sm pull-right" placeholder="Search" />
                       <div class="input-group-btn">
@@ -43,7 +41,6 @@
                   </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                <!--
                     <div class="row">
                         <div class="col-sm-10">
                             <div ng-show="success" class="callout callout-info">
@@ -51,41 +48,36 @@
                             </div>
                         </div>
                     </div>
-                  <div class="callout callout-info"  ng-show="store.id >0">
-                    <h4>¿ Estás seguro que deseas eliminar a "{{store.nombreTienda}}" ?</h4>
+                <div class="callout callout-info"  ng-show="otherPhead.id">
+                    <h4>¿ Estás seguro que deseas eliminar Compra" ?</h4>
                     <p>
-                      <button type="button" class="btn btn-danger" ng-click="destroyorder()">Si</button>
-                      <button type="button" class="btn btn-default" ng-click="cancelorder()">No</button>
+                      <button type="button" class="btn btn-danger" ng-click="destroyotherPhead()">Si</button>
+                      <button type="button" class="btn btn-default" ng-click="cancelotherPhead()">No</button>
                     </p>
                   </div>
-                  -->
                   <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Fechas</th>
-                      <th>Fecha Anulado</th>
-                      <th>Total</th>                                             
-                      <th>Cliente</th>
-                      <th>Vendedor</th>
-                      <th>Estado Pago</th>
-                      <th>Estado Venta</th>
-                      <th style="width: 40px">Detalle</th>
+                      <th>Fecha</th>
+                      <th>Proveedor</th>
+                      <th>Ruc</th>
+                      <th>Numero de Documento</th>
+                      <th>Monto</th>
+                      <th style="width: 40px">Pagos</th>
+                      <th style="width: 40px">Editar</th>
+                      <th style="width: 40px">Eliminar</th>
                     </tr>
                     
-                    <tr ng-repeat="row in orders">
+                    <tr ng-repeat="row in otherPheads">
                       <td>{{$index + 1}}</td>
-                      <td>{{row.fechaPedido}}</td>
-                      <td ng-if="row.fechaAnulado == '0000-00-00 00:00:00'">-</td>
-                      <td ng-if="row.fechaAnulado != '0000-00-00 00:00:00'">{{row.fechaAnulado}}</td>
-                      <td>{{row.montoTotal}}</td>                      
-                      <td>{{row.customer.nombres+' '+row.customer.apellidos+' - '+row.customer.empresa}}</td>
-                      <td>{{row.employee.nombres+' '+row.employee.apellidos}}</td>
-                      <td ng-if="row.estado==1"><span style="color: green;">Terminado</span></td>
-                      <td ng-if="row.estado==0"><span style="color: yellow;">Pendiente</span></td>
-                      <td ng-if="row.estado==3"><span style="color: red;">Anulado</span></td>
-                      <td>{{row.estadoPago==1? 'Credito':'Contado'}}</td> 
-                      <td><a ng-click="editorder(row)" class="btn btn-warning btn-xs">Ver</a></td>
-                      
+                      <td>{{row.fecha}}</td>
+                      <td>{{row.proveedor}}</td>
+                      <td>{{row.ruc}}</td>
+                      <td>{{row.tipoDoc}}-({{row.numeroDocumento}})<br>{{row.serie}}</td>
+                      <td>S/.{{row.MontoTotal}}</td>
+                       <td><a ng-click="pagarVentana(row)" class="btn btn-success btn-xs">Pagos</a></td>
+                      <td><a ng-click="editotherPhead(row)" class="btn btn-warning btn-xs">Editar</a></td>
+                      <td><a ng-click="deleteotherPhead(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
                       
                     </tr>
                     

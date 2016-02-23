@@ -869,10 +869,12 @@ class SalesController extends Controller
     
     public function edit(Request $request)
     {
+      
        \DB::beginTransaction();
         $varDetOrders = $request->detOrder;
         $varPayment = $request->payment;
         $movimiento = $request->movimiento;
+       // var_dump($movimiento);die();
         if ($movimiento['montoMovimientoEfectivo']>0) {
             //---create movimiento--- 
             //var_dump($request->movimiento);die();
@@ -965,7 +967,7 @@ class SalesController extends Controller
 
         
 
-         \DB::commit();
+       \DB::commit();
 
         return response()->json(['estado'=>true, 'nombre'=>$orderSale->nombre]);
     }

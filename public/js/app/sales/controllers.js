@@ -237,7 +237,7 @@
                         $scope.cashHeaders=data;
                     });
 
-                    crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
+                    /*crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
                         var canCashes=data.total;
                         var pagActual=Math.ceil(canCashes/15);
                         crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
@@ -251,6 +251,18 @@
                                 $scope.itemsperPage1 = 15;
 
                             });
+                        });
+                    });*/
+                    crudServiceOrders.Comprueba_caj_for_user().then(function (data){
+                        $scope.cashfinal=data;
+                        crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
+                            $scope.detCashes = data.data;
+                            $scope.maxSize1 = 5;
+                            $scope.totalItems1 = data.total;
+                            $scope.currentPage1 = data.current_page;
+                            $scope.itemsperPage1 = 15;
+
+                            //$log.log($scope.detCashes);
                         });
                     });
 
@@ -279,7 +291,7 @@
                         $scope.cashHeaders=data;
                     });
 
-                    crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
+                    /*crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
                         var canCashes=data.total;
                         var pagActual=Math.ceil(canCashes/15);
                         crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
@@ -293,6 +305,18 @@
                                 $scope.itemsperPage1 = 15;
 
                             });
+                        });
+                    });*/
+                    crudServiceOrders.Comprueba_caj_for_user().then(function (data){
+                        $scope.cashfinal=data;
+                        crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
+                            $scope.detCashes = data.data;
+                            $scope.maxSize1 = 5;
+                            $scope.totalItems1 = data.total;
+                            $scope.currentPage1 = data.current_page;
+                            $scope.itemsperPage1 = 15;
+
+                            //$log.log($scope.detCashes);
                         });
                     });
                     //$scope.detCashes={};
@@ -555,6 +579,7 @@
                                 $scope.cashes = data.data;
                                 $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
                                */
+                               
                                 crudServiceOrders.paginate('ver_ventas',1).then(function (data){
                                     //$scope.detCashes = data.data;
                                     //crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
@@ -722,7 +747,7 @@
     
           
                   
-                if ($scope.cashfinal.estado=='1') {
+                if ($scope.cashfinal.id!= undefined) {
                 $scope.salePayment.MontoTotal=$scope.sale.montoTotal;
                     $scope.salePayment.Acuenta=0;
                     $scope.salePayment.customer_id=$scope.sale.customer_id;

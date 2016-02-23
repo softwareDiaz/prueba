@@ -37,7 +37,7 @@
                         <div class="form-group" >
                          <label for="expense">Concepto</label>
 
-                          <select class="form-control" name="" ng-model="cashMonthly.expenseMonthlys_id" ng-options="item.id as item.name for item in expenses | orderBy: 'name'">
+                          <select class="form-control" name="" ng-model="cashMonthly.expenseMonthlys_id" ng-options="item.id as item.name for item in expenses | orderBy: 'name'" required>
                             <option value="">--Elije Concepto--</option>
                           </select>
                           </div>
@@ -101,7 +101,7 @@
                                 <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                 </div>
-                                  <input type="datetime-local" class="form-control ng-pristine ng-valid ng-touched" name="fechaPedido" ng-model="cashMonthly.fechap">
+                                  <input type="datetime-local" class="form-control ng-pristine ng-valid ng-touched" name="fechaPedido" ng-model="cashMonthly.fecha" required>
                                 </div>
                             <label ng-show="cashMonthlyCreateForm.$submitted || cashMonthlyCreateForm.fechaPedido.$dirty &amp;&amp; cashMonthlyCreateForm.fechaPedido.$invalid" class="ng-hide">
                             <span ng-show="cashMonthlyCreateForm.fechaPedido.$invalid" class="ng-hide"><i class="fa fa-times-circle-o"></i>Fecha Inválida.</span>
@@ -115,7 +115,7 @@
                       <!-- capo de Texto  Monto-->
                         <div class="form-group" ng-class="{true: 'has-error'}[ cashMonthlyCreateForm.amount.$error.required && cashMonthlyCreateForm.$submitted || cashMonthlyCreateForm.amount.$dirty && cashMonthlyCreateForm.amount.$invalid]">
                           <label for="amount">Monto</label>
-                          <input type="number" class="form-control ng-pristine ng-valid ng-touched" name="amount" placeholder="0.00" ng-model="cashMonthly.amount" ng-blur="calculateSuppPric()" step="0.1">
+                          <input type="number" class="form-control ng-pristine ng-valid ng-touched" name="amount" placeholder="0.00" ng-model="cashMonthly.amount" ng-blur="calculateSuppPric()" step="0.1" required>
                           <label ng-show="cashMonthlyCreateForm.$submitted || cashMonthlyCreateForm.amount.$dirty && cashMonthlyCreateForm.amount.$invalid">
                             <span ng-show="cashMonthlyCreateForm.amount.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
                           </label>

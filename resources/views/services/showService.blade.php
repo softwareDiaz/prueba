@@ -1,11 +1,11 @@
 <section class="content-header">
           <h1>
-            Adelantos Proveedores
+            Adelantos Clientes
             <small>Panel de Control</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="/orderPurchases"><i class="fa fa-dashboard"></i>Orden de Compras</a></li>
+            <li><a href="/services"><i class="fa fa-dashboard"></i>Servicios</a></li>
           </ol>
 
           
