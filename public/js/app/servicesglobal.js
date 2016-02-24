@@ -192,6 +192,15 @@
 
                 return deferred.promise;
             }
+            function Comprueba_caj_for_user2(id)
+            {
+                var deferred = $q.defer();
+                $http.get('api/cashes/cajas_for_user2/'+id).success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
             function listaCashes(uri,alm)
             {
                 var deferred = $q.defer();
@@ -221,6 +230,7 @@
                 reportProWare,reportProWare,
                 deudasSupplier: deudasSupplier,
                 reportCod: reportCod,
+                Comprueba_caj_for_user2: Comprueba_caj_for_user2,
                 listaCashes: listaCashes
             }
         }])

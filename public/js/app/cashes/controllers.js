@@ -107,7 +107,7 @@
                         $scope.cash.fechaFin=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate()+' '+$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
                             $scope.cash.estado='0';
                             //alert($scope.cash.fechaFin);
-                            $log.log($scope.cash);
+                            //$log.log($scope.cash);
                         if ($scope.cashCreateForm.$valid) {  
                             
                         crudService.update($scope.cash,'cashes').then(function(data)
@@ -151,9 +151,9 @@
                     }else{
                         crudService.paginate('cashes',$scope.currentPage).then(function (data) {
                             $scope.cashes = data.data;
-                            $log.log("------------------");
-                            $log.log($scope.cashes);
-                            $log.log("------------------");
+                            //$log.log("------------------");
+                            //$log.log($scope.cashes);
+                            //$log.log("------------------");
                         });  
                     }
                 };
@@ -179,6 +179,8 @@
                 {
                     crudService.byId(id,'cashes').then(function (data) {
                         $scope.cash = data;
+                        //$log.log(data);
+                        $scope.cash.montoReal=Number($scope.cash.montoReal);
                        // $scope.buscar=$scope.cash.id;
                         //$log.log($scope.cash);
 
@@ -200,6 +202,7 @@
                     //-------------------------------------------------------
 
                         crudService.search('detCashes',id,1).then(function (data) {
+                            //$log.log(data.data);
                             $scope.detCashes = data.data;
                             $scope.maxSize1 = 5;
                             $scope.totalItems1 = data.total;
@@ -225,7 +228,7 @@
                     //});
                     crudService.select('stores','select').then(function (data) {                        
                         $scope.stores = data;
-                        $log.log($scope.stores);
+                        //$log.log($scope.stores);
                     });
 
                 }
@@ -283,7 +286,8 @@
 
                 $scope.editcash = function(row){
                     
-                    crudService.Comprueba_caj_for_user1(row.id).then(function (data){
+                    crudService.Comprueba_caj_for_user2(row.id).then(function (data){
+                        //$log.log(data);
                         if(data.id!=undefined){
                              if (row.estado=='0') {
                                  //alert("La caja esta Cerrada");

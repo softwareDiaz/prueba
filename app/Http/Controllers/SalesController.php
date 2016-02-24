@@ -120,12 +120,10 @@ class SalesController extends Controller
 
     public function create(Request $request) 
         {
-        //var_dump($request->all());die();
         \DB::beginTransaction();
         $vuelto=$request->input("vuelto");
         $orderSale = $this->saleRepo->getModel();
         $var = $request->detOrders;
-        //var_dump($var);die();
         $payment = $request->salePayment;
         $saledetPayments = $request->saledetPayments;
 
@@ -133,7 +131,7 @@ class SalesController extends Controller
 
         $cajaAct = $request->caja;
         //var_dump($cajaAct);die();
-        //-------------------------
+        //-------------------------$cajaAct['id']
         //----------------
         if($request->input("banseraServicio")==true){
             $varService = $request->service;
@@ -161,19 +159,9 @@ class SalesController extends Controller
             $insertarMovimiento->save();
             $detCash_id=$movimientoSave->id;
         $request->merge(["cash_id"=>$cajaAct['id']]);
-        //$almacen_id=$var->input("idAlmacen");
-        //$variante_id=$var->input("vari");
         $request->merge(['detCash_id'=> $detCash_id]);
         $manager = new SaleManager($orderSale,$request->all());
         $manager->save();
-        //$codSale=$orderSale->id;
-        /*
-       if($this->purchaseRepo->validateDate(substr($request->input('fechaEntrega'),0,10))){
-            $order->fechaEntrega = substr($request->input('fechaEntrega'),0,10);
-        }else{
-           
-            $order->fechaEntrega = null;
-        }*/ 
         $orderSale->save();
 
         $temporal=$orderSale->id;
@@ -182,22 +170,13 @@ class SalesController extends Controller
             
             
             $cashrepo;
-            //$movimiento['observacion']=$temporal;
             $cashrepo = new CashRepo;
             $cajaSave=$cashrepo->getModel();
             
-            $cash1 = $cashrepo->find($cajaAct["id"]);
-            
-            //var_dump($cash1["id"]);die();
-        
-            //$insertarMovimiento=new DetCashManager($movimientoSave,$movimiento);
-            //$insertarMovimiento->save();
+            //-->$cash1 = $cashrepo->find($cajaAct["id"]);
 
-            //$stores = $this->storeRepo->find($request->id);
-            //var_dump($cash1);die();
-
-            $manager1 = new CashManager($cash1,$cajaAct);
-            $manager1->save();
+            //-->$manager1 = new CashManager($cash1,$cajaAct);
+            //-->$manager1->save();
             
 
         //----------------
@@ -238,7 +217,27 @@ class SalesController extends Controller
                     $saledetPaymentrepo = null;
                 }
 
-                
+            //--------------------------
+                //$request->merge(["ingresos"=>floatval($cash->ingresos)+floatval($var["monto"])]);
+   $cash1 =$cashrepo->find($cajaAct['id']);
+            $request->merge(["ingresos"=>floatval($cash1->ingresos)+floatval($movimiento["montoMovimientoTarjeta"])+floatval($movimiento["montoMovimientoEfectivo"])]);
+             $request->merge(['fechaInicio'=>$cash1->fechaInicio]);
+             $request->merge(['fechaFin'=>$cash1->fechaFin]);
+             $request->merge(['montoInicial'=>$cash1->montoInicial]);
+             $request->merge(['gastos'=>$cash1->gastos]);
+             $request->merge(['montoBruto'=>floatval($cash1->montoBruto)+floatval($movimiento["montoMovimientoTarjeta"])+floatval($movimiento["montoMovimientoEfectivo"])]);
+             $request->merge(['montoReal'=>$cash1->montoReal]);
+             $request->merge(['descuadre'=>$cash1->descuadre]);
+             $request->merge(['estado'=>$cash1->estado]);
+             $request->merge(['notas'=>$cash1->notas]);
+             $request->merge(['cashHeader_id'=>$cash1->cashHeader_id]);
+             if($cash1->user_id==auth()->user()->id  && $cash1->estado==1){
+              $request->merge(['user_id'=>$cash1->user_id]);
+             }else{
+              return response()->json(['estado'=>'Usted no tiene permisos sobre esta caja o la caja esta cerrada??']);
+             }
+        $cashr = new CashManager($cash1,$request->all());
+        $cashr->save();
             //--------------------------
     if(!empty($request->input("comprobante"))){
             ///var_dump("kkdkdkkdsk");die();
@@ -395,22 +394,18 @@ class SalesController extends Controller
                   $insertDetInvoice=new DetailInvoiceManager($detInvoice->getModel(),$object);
                   $insertDetInvoice->save();
           }
-             //var_dump($codigoFactura.'¿'.$vuelto);die();
          
             //------------------------------------------------------
        }
      if(!empty($request->input("comprobante"))){
       if($request->input("tipoDoc")=='TF' || $request->input("tipoDoc")=='TB' ){
         $this->generate_factura($codigoFactura,$vuelto,$cajaId,$cajaAct["id"],$request->input("tipoDoc"),$request->input('descuento'));
-      }//else{
-        //$this->generate_Boleta($codigoFactura,$vuelto,$cajaId,$request->input("tipoDoc"));
-     // }
+      }
    }
        //-----------------Creacion de Cabecera Factura-------
-       //$cajaPrueba=$request->saledetPayments;
 
-      //var_dump($codigoFactura);
-      //die();
+
+   
 
        \DB::commit();
        if(!empty($codigoFactura)){

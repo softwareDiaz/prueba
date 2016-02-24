@@ -52,6 +52,13 @@ class CashRepo extends BaseRepo{
                     ->first();
         return $cashes;
     }
+     public function searchuserincaja2($id,$user){
+        $cashes =Cash::where('user_id','=', $user)
+                     ->where('id','=',$id)
+                    //with(['customer','employee'])
+                    ->first();
+        return $cashes;
+    }
     public function searchuserincaja1($idCaja,$id){
         $cashes =Cash::where('id','=', $idCaja)
                      ->where('user_id','=',$id)
