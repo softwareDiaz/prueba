@@ -105,7 +105,7 @@ class SaleDetPaymentController extends Controller {
              }
         $cashr = new CashManager($cash,$request->all());
         $cashr->save();
-    //}
+    //} 
     /*if($request->input('cajamensual')==true){
 
     $request->merge(["amount"=>$var["montoPagado"]]);
