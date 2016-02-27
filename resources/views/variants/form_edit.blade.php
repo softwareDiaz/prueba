@@ -139,7 +139,7 @@
                                 <div class="row">
 
                                     <div class="col-md-12">
-                                        <div class="table-responsive">
+                                        <div class="box-body table-responsive no-padding">
                                         <table class="table table-bordered">
                                             <tbody><tr>
                                                 <th>#</th>

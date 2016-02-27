@@ -104,6 +104,7 @@
                         </div><!-- /.box-header -->
                         <div class="box-body" style="min-height: 400px; border-style: solid;
                                 border-width: 2px; border-color: #C8D9F7;" >
+
                           <table class="table table-bordered">
                                              
                             <tr ng-repeat="row in compras track by $index">
@@ -177,6 +178,7 @@
                             </div>
 
                             <div class="col-md-6" >
+                            <div class="box-body table-responsive no-padding">
                                 <table class="table table-bordered">
                                 <tr>
                                 <td>Sub Total</td>
@@ -197,6 +199,7 @@
                                 <td ng-model="sale.montoTotal" ><b>@{{sale.montoTotal | number:2}}</b></td>                    
                                 </tr>                                   
                               </table>
+                              </div>
                             </div>
                         </div>
                       </div> 
@@ -286,6 +289,7 @@
                             <div class="row" ng-show="estadoAddVariant">
 
                                     <div class="col-md-12">
+                                    <div class="box-body table-responsive no-padding">
                                         <table class="table table-bordered">
                                             <tbody><tr>
                                                 <th>#</th>
@@ -309,7 +313,7 @@
 
 
 
-                                            </tbody></table>
+                                            </tbody></table></div>
                                     </div>
 
 
@@ -343,6 +347,7 @@
                   </div><!-- /.tab-pane -->
 
                   <div class="tab-pane" id="tab_2">
+                  <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -368,7 +373,7 @@
                       <td ng-if="row.cashMotive_id==15 || row.cashMotive_id==16"><a href="/orderSales/edit/@{{row.observacion}}" target="_blank">ver pedido</a></td>
                       <td ng-if="row.cashMotive_id!=15 && row.cashMotive_id!=16">@{{row.observacion}}</td>
                     </tr>                   
-                  </table>
+                  </table></div>
                   <div class="box-footer clearfix">
                     <pagination total-items="totalItems1" ng-model="currentPage1" max-size="maxSize1" 
                     class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1" boundary-links="true" rotate="false" 

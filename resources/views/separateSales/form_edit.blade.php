@@ -84,6 +84,7 @@
           </div><!-- /.box-tools -->
         </div><!-- /.box-header -->
         <div  class="box-body" style="display: block;">
+        <div class="box-body table-responsive no-padding">
           <table  class="table table-bordered" id="tabla1">
             <tr>
               <th style="width: 10px">#</th>
@@ -103,7 +104,7 @@
             </tr>
             <tr  ng-repeat="row in detOrders">
                       <td>@{{$index + 1}}</td>
-                      <td><a popover-template="dynamicPopover5.templateUrl" popover-trigger="mouseenter">@{{row.nameProducto}}</td>
+                      <td><a popover-template="dynamicPopover5.templateUrl" popover-trigger="mouseenter">@{{row.nameProducto}}</a></td>
                       <td>@{{row.NombreAtributos}}</a></td>
                       <td>@{{row.presentacion}}</td>
                       <td ng-hide="true">@{{row.purchases_id}}</td>
@@ -120,7 +121,7 @@
                       <td><a ng-click="EditarDetalles(row,row.index)" data-target="#miventanaEditRow" data-toggle="modal" class="btn btn-warning btn-xs">Edit</a></td>
                     -->
                     </tr> 
-          </table>
+          </table></div>
           <br>
           <div class="row" ng-if="atenderOrder">
             <div class="col-md-4">
@@ -181,7 +182,7 @@
                 <!-- form start -->
                 <form name="TtypeCreateForm" role="form" novalidate>
                   <div class="box-body">
-                  
+                  <div class="box-body table-responsive no-padding">
                    
                     <table class="table table-striped">
                     <tr>
@@ -206,7 +207,7 @@
                     </tr>
                     
                     
-                  </table>
+                  </table></div>
                 </div>
             </div><!-- /.box-body -->
             <div class="box-body">
@@ -280,6 +281,7 @@
             <div class="form-group">
               <b>Pagos Realizados</b>
               </div>
+              <div class="box-body table-responsive no-padding">
             <table class="table table-striped" >
                     <tr>
                       <th>Fecha</th>
@@ -305,7 +307,7 @@
                     </tr>
                     
                     
-                  </table>
+                  </table></div>
                   <div class="box-footer clearfix">
                   <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" 
                   class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" 

@@ -60,17 +60,19 @@ use Salesfly\Salesfly\Managers\DetailInvoiceManager;
 use Salesfly\Salesfly\Repositories\DetailInvoiceRepo;
 use Salesfly\Salesfly\Managers\FBnumberManager;
 use Salesfly\Salesfly\Repositories\FBnumberRepo;
+
 class SalesController extends Controller
 {
     protected $saleRepo;
 
     public function __construct(SaleRepo $saleRepo,CashHeaderRepo $ashHeaderRepo,
-      PromocionRepo $promocionRepo,HeadInvoiceRepo $headInvoiceRepo)
+      PromocionRepo $promocionRepo,HeadInvoiceRepo $headInvoiceRepo,ServiceRepo $serviceRepo)
     {
         $this->saleRepo = $saleRepo;
         $this->ashHeaderRepo = $ashHeaderRepo;
         $this->promocionRepo = $promocionRepo;
         $this->headInvoiceRepo=$headInvoiceRepo;
+        $this->serviceRepo=$serviceRepo;
     }
 
     public function all()
@@ -257,13 +259,24 @@ class SalesController extends Controller
                  $request->merge(["numero"=>(intval($num->numFactura)+1)]);
                  $request->merge(["numFactura"=>$request->input("numero")]);
                  $request->merge(["numTiketFactura"=>(intval($num->numTiketFactura)+1)]);
-                 $request->merge(["cliente"=>$direccion["empresa"]]);
+                 if(!empty($direccion["empresa"]))
+                  {
+                    $request->merge(["cliente"=>$direccion["empresa"]]);
+                  }else{
+                    $request->merge(["cliente"=>$direccion["nombres"]." ".$direccion["apellidos"]]);
+                  }
                  $request->merge(["direccion"=>$direccion["direccFiscal"]]);
                  $request->merge(["ruc"=>$direccion["ruc"]]);
                  $inputfbnumber=new FBnumberManager($numbers,$request->only("numFactura","numTiketFactura"));
                  $inputfbnumber->save();
             }elseif($request->input("tipoDoc")=="B"){
-                 $request->merge(["cliente"=>$direccion["nombres"]." ".$direccion["apellidos"]]);
+                 
+                 if(!empty($direccion["nombres"] &&  strlen($direccion["nombres"])>2))
+                  {                    
+                    $request->merge(["cliente"=>$direccion["nombres"]." ".$direccion["apellidos"]]);
+                  }else{
+                    $request->merge(["cliente"=>$direccion["empresa"]]);
+                  }
                  $request->merge(["direccion"=>$direccion["direccContac"]]);
                  $request->merge(["numero"=>(intval($num->numBoleta)+1)]);
                  $request->merge(["numBoleta"=>$request->input("numero")]);
@@ -292,14 +305,15 @@ class SalesController extends Controller
                  $inputfbnumber->save();
             }
             
-            
+            $request->merge(["direccion_cliente"=>$direccion["direccContac"]]);
+            $request->merge(["direccion"=>$direccion["direccFiscal"]]);
             $request->merge(["subTotal"=>$request->input("montoBruto")]);
             $request->merge(["Total"=>$request->input("montoTotal")]);
             $request->merge(["venta_id"=>$temporal]);
             $request->merge(["cliente_id"=>$request->input("customer_id")]);
            
             $inputheadInvoiceRepo=new HeadInvoiceManager($headInvoice,
-            $request->only('numero','cliente','direccion','ruc','GRemicion','subTotal',
+            $request->only('numero','cliente','direccion_cliente','direccion','ruc','GRemicion','subTotal',
                 'igv','Total','venta_id','cliente_id','tipoDoc','vuelto'));
             $inputheadInvoiceRepo->save();
             $codigoFactura=$headInvoice->id;
@@ -874,7 +888,6 @@ class SalesController extends Controller
         $varDetOrders = $request->detOrder;
         $varPayment = $request->payment;
         $movimiento = $request->movimiento;
-       // var_dump($movimiento);die();
         if ($movimiento['montoMovimientoEfectivo']>0) {
             //---create movimiento--- 
             //var_dump($request->movimiento);die();
@@ -892,17 +905,15 @@ class SalesController extends Controller
             $cashrepo = new CashRepo;
             $cajaSave=$cashrepo->getModel();
             $cash1 = $cashrepo->find($cajaAct["id"]);
-
             $manager1 = new CashManager($cash1,$cajaAct);
             $manager1->save();
         //----------------
-
             $salePaymentRepo;
         $salePaymentRepo = new SalePaymentRepo;
-        $payment = $salePaymentRepo->find($varPayment['id']);
+        //$payment = $salePaymentRepo->find($varPayment['id']);
+        $payment = $salePaymentRepo->find($varPayment['idPAY']);
         $manager = new SalePaymentManager($payment,$varPayment);
         $manager->save();
-
         }
         
         $HeadStockRepo;
@@ -911,62 +922,82 @@ class SalesController extends Controller
         //$detOrderSaleRepo;
         foreach($varDetOrders as $object){
             //$detOrderSaleRepo = new DetSaleRepo;
-
             //$detorderSale = $detOrderSaleRepo->find($object['id']);
             //$manager = new DetSaleManager($detorderSale,$object);
             //$manager->save();
-
+          if(!empty($object['idStock'])){
             $stokRepo;
             $stokRepo = new StockRepo;
             $cajaSave=$stokRepo->getModel();
             $stockOri = $stokRepo->find($object['id']);
-
             $stock = $stokRepo->find($object['idStock']);
             //+++if ($object['estad']==true) {
                 $stock->stockActual= $stock->stockActual+$object['cantidad'];
             //+++}else{
                 //+++$stock->stockPedidos= $stock->stockPedidos+$object['canPendiente'];
             //+++}
-
             $stock->save();
-
             //--------------reporte stock------------
             $object["variant_id"]=$object['vari'];
           if($codigoHeadIS===0){
             $object["warehouses_id"]=$object['idAlmacen'];
             //$object["cantidad_llegado"]=$cantidaCalculada;
             //$object['descripcion']='Entrada por compra';
-            $object['tipo']='Entrada Venta';
+            //$object['tipo']='Entrada Venta';
+            $object['tipo']='Entrada-Anulado';
             $object["user_id"]=auth()->user()->id;
-            $object["Fecha"]=$request->input("fechaPedido");
-
+            //$object["Fecha"]=$request->input("fechaPedido");
+            $object["Fecha"]= date('Y-m-d H:i:s');
             $HeadStockRepo = new HeadInputStockRepo;
             $HeadStock=$HeadStockRepo->getModel();
             $HeadStockinsert=new HeadInputStockManager($HeadStock,$object);
             $HeadStockinsert->save();
             $codigoHeadIS=$HeadStock->id;
           }
-
           $object['headInputStock_id']=$codigoHeadIS;
           $object["producto"]=$object['nameProducto']."(".$object['NombreAtributos'].")";
           $object["cantidad_llegado"]=$object['cantidad'];
-          $object['descripcion']='Entrada Venta Anulada';
+          $object['descripcion']='Entrada-Venta-Anulada';
           
           $inputRepo;
           $inputRepo = new InputStockRepo;
             $inputstock=$inputRepo->getModel();
             $inputInsert=new InputStockManager($inputstock,$object);
             $inputInsert->save();
+          }
           //---------------------------------------
         }
-
         $orderSale = $this->saleRepo->find($request->id);
-        //if()
+        if($request->input('estado') == '3'){
+            $request->merge(array('fechaAnulado' => date('Y-m-d H:i:s')));
+        }
         $manager = new SaleManager($orderSale,$request->all());
         $manager->save();
-
-        
-
+        $serviceID=$orderSale->service_id;
+        if(!empty($serviceID)){
+        $servicio = $this->serviceRepo->find($serviceID);
+        $request->merge(["estado"=>4]);
+        $request->merge(["numeroServicio"=>$servicio->numeroServicio]);
+        $request->merge(["fechaServicio"=>$servicio->fechaServicio]);
+        $request->merge(["tipo"=>$servicio->tipo]);
+        $request->merge(["cliente"=>$servicio->cliente]);
+        $request->merge(["ruc"=>$servicio->ruc]);
+        $request->merge(["direcion"=>$servicio->direcion]);
+        $request->merge(["telefono"=>$servicio->telefono]);
+        $request->merge(["empresa"=>$servicio->empresa]);
+        $request->merge(["descripcion"=>$servicio->descripcion]);
+        $request->merge(["modelo"=>$servicio->modelo]);
+        $request->merge(["serie"=>$servicio->serie]);
+        $request->merge(["accesorios"=>$servicio->accesorios]);
+        $request->merge(["diagnostico"=>$servicio->diagnostico]);
+        $request->merge(["accionCorrectiva"=>$servicio->accionCorrectiva]);
+        $request->merge(["ordenTrabajo"=>$servicio->ordenTrabajo]);
+        $request->merge(["customer_id"=>$servicio->customer_id]);
+        $request->merge(["employee_id"=>$servicio->employee_id]);
+        $request->merge(["user_id"=>$servicio->user_id]);
+        $manager = new ServiceManager($servicio,$request->all());
+        $manager->save();
+         }
        \DB::commit();
 
         return response()->json(['estado'=>true, 'nombre'=>$orderSale->nombre]);

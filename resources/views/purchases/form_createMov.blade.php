@@ -224,6 +224,7 @@
           </div>
           <div class="col-md-10">
               <div  class="well well-lg">
+              <div class="box-body table-responsive no-padding">
                    <table class="table table-striped">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -244,7 +245,7 @@
                     </tr>
                     
                     
-                  </table>
+                  </table></div>
                   <div class="">
                     <a  type="submit" ng-click="crearEntradasEstock()" class="btn btn-success btn-xs">Guardar</a>
                  </div>

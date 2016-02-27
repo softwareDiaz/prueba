@@ -38,7 +38,7 @@ class CreateServicesTable extends Migration
             $table->foreign('employee_id')->references('id')->on('employees');
 
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('employees');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

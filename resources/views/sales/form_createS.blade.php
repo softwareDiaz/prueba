@@ -161,6 +161,7 @@
                             </div>
 
                             <div class="col-md-6" >
+
                                 <table class="table table-bordered">
                                 <tr>
                                 <td>Sub Total</td>
@@ -222,12 +223,12 @@
                   </div><!-- /.tab-pane -->
 
                   <div class="tab-pane" id="tab_2">
+                  <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Fecha</th>
                       <th>Hora</th>
-                      <th>Caja</th>
                       <th>Usuario</th>
                       <th>Documento</th>
                       <th>Tipo</th>
@@ -238,27 +239,29 @@
                       <th>Ver Venta</th>
                     </tr>
                     
+                     
                     <tr ng-repeat="row in detCashes">
                       <td>@{{$index + 1}}</td>
                       <td>@{{row.fecha}}</td>
                       <td>@{{row.hora}}</td>
-                      <td>@{{row.nombre}}</td>
                       <td>@{{row.name}}</td>
-                      <td><a href="#tab_7" data-toggle="tab" aria-expanded="false" ng-click="traerDoumento(row)">@{{row.tipoDoc+"-"+row.NumDocument}}</a></td>
-                      <td>@{{row.Motivo}}</td>
-                      
+                      <td ng-if="row.tipoDoc!=null"><a href="#tab_4" data-toggle="tab" aria-expanded="false" ng-click="traerDoumento(row)">@{{row.tipoDoc+"-"+row.NumDocument}}</a></td>
+                      <td ng-if="row.tipoDoc==null">-</td>
                       <td>@{{row.tarjeta}}</td>
                       <td>@{{row.efectivo}}</td>
-                      
+                        <td ng-if="row.estado==0" style="color: yellow;">Pend.</td>
+                        <td ng-if="row.estado==1" style="color: green;">Term.</td>
+                        <td ng-if="row.estado==3" style="color: red;">Anul.</td>
+
                       <td ng-if="row.cashMotive_id==1 || row.cashMotive_id==14"><a href="/sales/edit/@{{row.id}}" target="_blank">ver venta</a></td>
                       <td ng-if="row.cashMotive_id!=1 && row.cashMotive_id!=14">@{{row.id}}</td>
                     </tr>                   
-                  </table>
+                  </table></div>
                   <div class="box-footer clearfix">
-                    <pagination total-items="totalItems1" ng-model="currentPage1" max-size="maxSize1" 
-                    class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1" boundary-links="true" rotate="false" 
-                    num-pages="numPages1" ng-change="pageChanged1()"></pagination>
-                  </div>                    
+                    <pagination total-items="totalItems1_caja" ng-model="currentPage1_caja" max-size="maxSize1_caja" 
+                    class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1_caja" boundary-links="true" rotate="false" 
+                    num-pages="numPages1_caja" ng-change="pageChanged1_caja()"></pagination>
+                  </div>               
 
                   </div><!-- /.tab-pane -->
 
@@ -429,7 +432,7 @@
                   <div class="tab-pane" id="tab_5">
                       
                       
-                    
+                    <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -446,7 +449,7 @@
                       </th>
                       <th>SKU</th>
                       <th><select class="form-control" name="" ng-model="materialId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in brands">
-                          <option value="">Marca - Todos</option>
+                          <option value="">Marca - Todos</option></select>
                       <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
                           <option value="">Linea - Todos</option>
                           </select></th>
@@ -477,7 +480,7 @@
                     </tr>
                     
                     
-                  </table>
+                  </table></div>
                     <div class="box-footer clearfix">
                         <pagination total-items="totalItemsZ" ng-model="currentPageZ" max-size="maxSizeZ" class="pagination-sm no-margin pull-right" 
                         items-per-page="itemsperPageZ" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChangedZ()"></pagination>
@@ -649,7 +652,7 @@
                      
                      </form></div>
                      <br>
-                   
+                   <div class="box-body table-responsive no-padding">
                      <table class="table table-striped">
                        <thead>
                          <tr>
@@ -697,7 +700,7 @@
                            </td>
                          </tr>
                        </tbody>
-                     </table>
+                     </table></div>
                      <div class="box-footer clearfix">
                   <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
                   </div>
@@ -1201,7 +1204,7 @@
           <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title">Presentaciones</h3>
-        </div>
+        </div><div class="box-body table-responsive no-padding">
                   <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -1225,7 +1228,7 @@
                       <td ng-if="row.base!=0"><span class="badge bg-green">SI</span></td> 
                       <td><a ng-click="AsignarCompra(row)" class="btn btn-warning btn-xs" data-dismiss="modal">Enviar</a></td>
 
-                    </tr>                                       
+                    </tr>         </div>                              
                   </table>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>

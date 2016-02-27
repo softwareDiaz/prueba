@@ -256,7 +256,7 @@
                                 <br>
                             </div>
                       </div>
-
+                              <div class="box-body table-responsive no-padding">
 
                                 <table class="table table-bordered">       
                                     <tr>
@@ -270,12 +270,13 @@
                                       <td>@{{compra.subTotal | number:2}}</td>
                                       <td><a ng-if="compra.cantidad!=undefined" type="submit" class="btn btn-primary" ng-click="agregarTrabajo()">Add</a></td>
                                       <td><button ng-if="compra.cantidad!=undefined" type="button" class="btn btn-danger ng-binding"  ng-click="sacarRow($index,row.subTotal)">
-                                      <span class="glyphicon glyphicon-trash"></span>
+                                      <span class="glyphicon glyphicon-trash"></span></button>
 
                                       
                                       </td>                    
                                     </tr>                                    
-                                  </table> 
+                                  </table> </div>
+                                  <div class="box-body table-responsive no-padding">
 
                                 <table class="table table-bordered">
                                   <tr>
@@ -299,7 +300,7 @@
                                     <td>@{{row.subTotal}}</td>
                                     <td ng-if="service.estado!=5"><a ng-click="destroyDetService(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
                                   </tr>              
-                                </table>
+                                </table></div>
 
                               <a ng-if="(service.estado!=5 && service.tipo!=1)" ng-click="rutaMovimiento()" ng-href="@{{rutaSalesService}}"  target="_self" type="submit" class="btn btn-primary" >Pagar</a>
 
@@ -412,7 +413,7 @@
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
             <h3 class="modal-title">Presentaciones</h3>
-        </div>
+        </div><div class="box-body table-responsive no-padding">
                   <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -437,7 +438,7 @@
                       <td><a ng-click="AsignarCompra(row)" class="btn btn-warning btn-xs" data-dismiss="modal">Enviar</a></td>
 
                     </tr>                                       
-                  </table>
+                  </table></div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>

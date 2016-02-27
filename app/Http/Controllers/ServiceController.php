@@ -54,7 +54,7 @@ class ServiceController extends Controller {
 
     public function create(Request $request)
     {
-        $request->merge(array('user_id' => auth()->user()->id));
+        $request->merge(['user_id' => auth()->user()->id]);
         //$request->merge
         $services = $this->serviceRepo->getModel();
         //var_dump($request->all());

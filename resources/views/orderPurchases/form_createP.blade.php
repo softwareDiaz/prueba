@@ -221,7 +221,7 @@
             <div collapse="mostrardetalles">
           <div class="well well-lg">
                  <div align="center"><h3>Seleccione Una Presentacion</h3></div> 
-
+                   <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -249,7 +249,7 @@
                     
                     
                   </table>
-                  
+                  </div>
                      
           </div> 
           </div>

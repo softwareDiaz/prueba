@@ -70,7 +70,7 @@
                         <button type="button" class="btn btn-default" ng-click="cancelVariant()">No</button>
                     </p>
                 </div>
-                            <div class="box-body no-padding">
+                            <div class="box-body table-responsive no-padding">
                               <table class="table table-striped">
                                 <tbody><tr>
                                   <th style="width: 10px">#</th>

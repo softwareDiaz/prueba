@@ -585,16 +585,22 @@
                                     //crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
                                     
                                     $scope.detCashes = data.data;
-                                    $scope.maxSize1 = 5;
-                                    $scope.totalItems1 = data.total;
-                                    $scope.currentPage1 = data.current_page;
-                                    $scope.itemsperPage1 = 15;
+                                    $scope.maxSize1_caja = 5;
+                                    $scope.totalItems1_caja = data.total;
+                                    $scope.currentPage1_caja = data.current_page;
+                                    $scope.itemsperPage1_caja = 15;
                                 });
                           //  });
                         //});
                     }
                         
                 }
+                 $scope.pageChanged1_caja = function() {
+                        crudServiceOrders.paginate('ver_ventas',$scope.currentPage1_caja).then(function (data){
+                            $scope.detCashes = data.data;
+                        });
+                    
+                };
                 $scope.pageChanged1 = function() {
                     if ($scope.query.length > 0) {
                         crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,$scope.currentPage1).then(function (data){
@@ -1099,7 +1105,8 @@
                 $scope.deleteCliente= function(){
                     $scope.sale.customer_id=undefined;
                     $scope.sale.cliente=undefined;
-                    $scope.customersSelected=undefined;    
+                    $scope.customersSelected=undefined;  
+                    $scope.sale.rucCliente=undefined;  
                 }
 
                 $scope.employeeSelected=undefined;
@@ -1830,11 +1837,11 @@ $scope.Saldo1=0;
                 $scope.validaDocumento=function(){
                     //$scope.sale.comprobante=!$scope.sale.comprobante;
 
-                    
+                   alert($scope.sale.rucCliente);
                 $scope.estadoComoDocument=false;
                     if($scope.sale.comprobante==true )
                     {
-                        if($scope.sale.rucCliente!=''){
+                        if($scope.sale.rucCliente!=undefined && $scope.sale.rucCliente!=""){
                         $scope.sale.tipoDoc="F";
                                crudServiceOrders.numeracion("sales","F",$scope.cash1.cashHeader_id).then(function (data){
                                           //$scope.numActual="0000"+(Number(data.numFactura)+1);

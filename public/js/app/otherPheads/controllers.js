@@ -261,7 +261,7 @@
                     
                     //if ($scope.otherPheadCreateForm.$valid) {
                         crudService.create($scope.pagos, 'pagosVarios').then(function (data) {
-                          alert("hola");
+                         
                             if (data['estado'] == true) {
                                 $scope.success = data['nombres'];
                                 alert('grabado correctamente');

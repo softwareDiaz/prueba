@@ -181,7 +181,7 @@
 
 
 
-
+       <div class="box-body table-responsive no-padding">
           <table class="table table-bordered" id="tabla1">
             <tr>
               <th style="width: 10px">#</th>
@@ -210,7 +210,7 @@
                     </tr> 
           </table>
 
-
+         </div>
         </div>
       </div>
   <!-- ==========================================================================================-->
@@ -243,7 +243,7 @@
                    <h4><b>Elija Producto</b></h4>
                    </div>
                    <div class="modal-body">
-
+                     <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -271,7 +271,7 @@
                     
                   </table>
                   
-                      
+                      </div>
                      </div>
                     
                </div>

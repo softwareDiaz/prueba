@@ -90,7 +90,7 @@
 			</textField>
 			<textField>
 				<reportElement x="73" y="44" width="290" height="20" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
-				<textFieldExpression><![CDATA[($F{direccion}.equals(null)?"":$F{direccion})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{direccion}.equals("")?$F{direccion_cliente}:$F{direccion})]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="490" y="44" width="100" height="20" uuid="625e9f8e-2ea9-44d7-b856-e2473fb9a1ae"/>

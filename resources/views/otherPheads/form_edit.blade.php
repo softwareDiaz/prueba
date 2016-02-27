@@ -147,6 +147,7 @@
                    </form>
                       <div class="row">
                       <div class="col-md-12">
+                      <div class="box-body table-responsive no-padding">
                         <table class="table table-striped">
                           <thead>
                             <th>Cantidad</th>
@@ -161,10 +162,10 @@
                               <td>S/.@{{row.PrecioUnit}}</td>
                               <td>S/.@{{row.PrecioFinal}}</td>
                               <td><button type="button" class="btn btn-danger btn-xs"  ng-click="sacarRow($index,row.PrecioFinal)">
-                        <span class="glyphicon glyphicon-trash"></span></td>
+                        <span class="glyphicon glyphicon-trash"></span></button></td>
                             </tr>
                           </tbody>
-                        </table>
+                        </table></div>
                         </div>
                       </div>
                      <div class="row">
