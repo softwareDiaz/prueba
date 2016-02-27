@@ -177,7 +177,7 @@
                                             <select name="estado" class="form-control ng-pristine ng-valid ng-touched" ng-model="service.estado">
                                              <option value="1">Por Revision</option>
                                              <option value="2">Con Revision</option>
-                                             <option value="3">En Reparacion</option>
+                                             <option value="3">Cambio de Repuesto</option>
                                              <option value="4">Por Entregar</option>
                                              <option value="5">Entregar</option>
 

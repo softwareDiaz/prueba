@@ -581,8 +581,9 @@ Route::get('api/cashes/search/{q?}',['as'=>'person_search', 'uses'=>'CashesContr
 Route::get('api/cashes/find/{id}',['as'=>'person_find', 'uses'=>'CashesController@find']);
 Route::get('api/cashes/cajas_for_user','CashesController@cajas_for_user');
 Route::get('api/cashes/cajas_for_user1/{id}','CashesController@cajas_for_user1');
+Route::get('api/cashes/cajas_for_user2/{id}','CashesController@cajas_for_user2');
 Route::get('api/cashes1/search/{q?}',['as'=>'person_search', 'uses'=>'CashesController@search1']);
-//-----------------------------DetCashes---------------------------
+//-----------------------------DetCashes-------------------------- -
 Route::get('detCashes',['as'=>'person','uses'=>'DetCashController@index']);
 //Route::get('detCashes',['as'=>'person','uses'=>'DetCashController@index']);
 Route::get('detCashes/create/{id?}',['as'=>'person_create','uses'=>'DetCashController@index']);

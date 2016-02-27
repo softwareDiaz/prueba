@@ -135,7 +135,7 @@
                       </div><!-- /.box -->
                     </div>
                   </div>
-                   <div class="box-body table-responsive no-padding">
+
                   <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -143,38 +143,30 @@
                       <th>Hora</th>
                       <th>Caja</th>
                       <th>Usuario</th>
-                      <th>Tipo de Mov</th>
+                      <th>Tipo</th>
                       <th>Documento</th>
                       <th>S/.Tarjeta</th>
                       <th>S/.Efectivo</th>
-                      <th>Estado</th>
                       <th>Ver Venta</th>
                     </tr>
                     
-                    <tr ng-repeat="row in detCashes">
+                    <tr ng-repeat="row in detCashes"> 
                       <td>@{{$index + 1}}</td>
-                      <td>@{{row.fecha}}</td>
-                      <td>@{{row.hora}}</td>
+                      <td>@{{row.fecha1}}</td>
+                      <td>@{{row.hora1}}</td>
                       <td>@{{row.nombre}}</td>
                       <td>@{{row.name}}</td>
                       <td>@{{row.Motivo}}</td>
-                      <td ng-if="row.tipoDoc!=null">@{{row.tipoDoc+"-"+row.NumDocument}}</td>
-                      <td ng-if="row.tipoDoc==null">-</td>
+                      <td>@{{row.tipoDoc+"-"+row.NumDocument}}</td>
                       <td>@{{row.tarjeta}}</td>
                       <td>@{{row.efectivo}}</td>
-                      <td ng-if="row.estado==3"><span style="color: red;">Anul.</span></td>
-                      <td ng-if="row.estado==1"><span style="color: green;">Term.</span></td>
-                      <td ng-if="row.estado==0"><span style="color: yellow;">Pend.</span></td>
-                      <td ng-if="row.estado==null"><span style="color: greenyellow;">Activo.</span></td>
-                      <td ng-if="row.cashMotive_id==1 || row.cashMotive_id==13 || row.cashMotive_id==14"><a href="/sales/edit/@{{row.id}}" target="_blank">ver venta</a></td>
-                      <td ng-if="row.cashMotive_id==15 || row.cashMotive_id==16 || row.cashMotive_id==17"><a href="/orderSales/edit/@{{row.id}}" target="_blank">ver pedido</a></td>
-                      <td ng-if="row.cashMotive_id==19 || row.cashMotive_id==20 || row.cashMotive_id==21"><a href="/separateSales/edit/@{{row.id}}" target="_blank">ver separado</a></td>
-                      <td ng-if="row.cashMotive_id!=1 && row.cashMotive_id!=13 && row.cashMotive_id!=14 && row.cashMotive_id!=15 && row.cashMotive_id!=16 && row.cashMotive_id!=17
+                      <td ng-if="row.id!=null && (row.cashMotive_id==1 || row.cashMotive_id==13 || row.cashMotive_id==14)"><a href="/sales/edit/@{{row.id}}" target="_blank">ver venta</a></td>
+                      <td ng-if="row.id!=null && (row.cashMotive_id==15 || row.cashMotive_id==16 || row.cashMotive_id==17)"><a href="/orderSales/edit/@{{row.id}}" target="_blank">ver pedido</a></td>
+                      <td ng-if="row.id!=null && (row.cashMotive_id==19 || row.cashMotive_id==20 || row.cashMotive_id==21)"><a href="/separateSales/edit/@{{row.id}}" target="_blank">ver separado</a></td>
+                      <td ng-if="row.id==null && row.cashMotive_id!=1 && row.cashMotive_id!=13 && row.cashMotive_id!=14 && row.cashMotive_id!=15 && row.cashMotive_id!=16 && row.cashMotive_id!=17
                                  && row.cashMotive_id!=19 && row.cashMotive_id!=20 && row.cashMotive_id!=21">@{{row.id}}</td>
-
-                    </tr>                    
+                    </tr>                   
                   </table>
-                  </div>
                   <div class="box-footer clearfix">
                     <pagination total-items="totalItems1" ng-model="currentPage1" max-size="maxSize1" 
                     class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1" boundary-links="true" rotate="false" 

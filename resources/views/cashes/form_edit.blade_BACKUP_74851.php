@@ -143,7 +143,7 @@
                       <th>Hora</th>
                       <th>Caja</th>
                       <th>Usuario</th>
-                      <th>Tipo de Mov</th>
+                      <th>Tipo</th>
                       <th>Documento</th>
                       <th>S/.Tarjeta</th>
                       <th>S/.Efectivo</th>
@@ -151,10 +151,17 @@
                       <th>Ver Venta</th>
                     </tr>
                     
+<<<<<<< HEAD
                     <tr ng-repeat="row in detCashes">
-                      <td>@{{$index + 1}}</td>
+                     <td>@{{$index + 1}}</td>
                       <td>@{{row.fecha}}</td>
                       <td>@{{row.hora}}</td>
+=======
+                    <tr ng-repeat="row in detCashes"> 
+                      <td>@{{$index + 1}}</td>
+                      <td>@{{row.fecha1}}</td>
+                      <td>@{{row.hora1}}</td>
+>>>>>>> 47a6d78795d2e6cd4d403acb0b2cfdf1d944c276
                       <td>@{{row.nombre}}</td>
                       <td>@{{row.name}}</td>
                       <td>@{{row.Motivo}}</td>
@@ -162,6 +169,7 @@
                       <td ng-if="row.tipoDoc==null">-</td>
                       <td>@{{row.tarjeta}}</td>
                       <td>@{{row.efectivo}}</td>
+<<<<<<< HEAD
                       <td ng-if="row.estado==3"><span style="color: red;">Anul.</span></td>
                       <td ng-if="row.estado==1"><span style="color: green;">Term.</span></td>
                       <td ng-if="row.estado==0"><span style="color: yellow;">Pend.</span></td>
@@ -170,9 +178,15 @@
                       <td ng-if="row.cashMotive_id==15 || row.cashMotive_id==16 || row.cashMotive_id==17"><a href="/orderSales/edit/@{{row.id}}" target="_blank">ver pedido</a></td>
                       <td ng-if="row.cashMotive_id==19 || row.cashMotive_id==20 || row.cashMotive_id==21"><a href="/separateSales/edit/@{{row.id}}" target="_blank">ver separado</a></td>
                       <td ng-if="row.cashMotive_id!=1 && row.cashMotive_id!=13 && row.cashMotive_id!=14 && row.cashMotive_id!=15 && row.cashMotive_id!=16 && row.cashMotive_id!=17
+=======
+                      <td ng-if="row.id!=null && (row.cashMotive_id==1 || row.cashMotive_id==13 || row.cashMotive_id==14)"><a href="/sales/edit/@{{row.id}}" target="_blank">ver venta</a></td>
+                      <td ng-if="row.id!=null && (row.cashMotive_id==15 || row.cashMotive_id==16 || row.cashMotive_id==17)"><a href="/orderSales/edit/@{{row.id}}" target="_blank">ver pedido</a></td>
+                      <td ng-if="row.id!=null && (row.cashMotive_id==19 || row.cashMotive_id==20 || row.cashMotive_id==21)"><a href="/separateSales/edit/@{{row.id}}" target="_blank">ver separado</a></td>
+                      <td ng-if="row.id==null && row.cashMotive_id!=1 && row.cashMotive_id!=13 && row.cashMotive_id!=14 && row.cashMotive_id!=15 && row.cashMotive_id!=16 && row.cashMotive_id!=17
+>>>>>>> 47a6d78795d2e6cd4d403acb0b2cfdf1d944c276
                                  && row.cashMotive_id!=19 && row.cashMotive_id!=20 && row.cashMotive_id!=21">@{{row.id}}</td>
 
-                    </tr>                    
+                    </tr>                        
                   </table>
                   </div>
                   <div class="box-footer clearfix">

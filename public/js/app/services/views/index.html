@@ -75,13 +75,13 @@
                     
                     <tr ng-repeat="row in services">
                       <td ng-init="llenarxd($index)">{{$index + 1}}</td>
-                      <td>{{row.numeroServicio}}</td>
+                      <td>{{row.numeroServicio}}</td> 
                       <td>{{row.cliente}}</td>
                       <td>{{row.modelo}}</td>
                       <td>{{row.serie}}</td>
                       <td>{{row.telefono}}</td>
                       <td>{{row.tipo==0? 'Servicio':'Garantia'}}</td>
-                      <td>{{row.estado==1? 'Por Revision': row.estado==2? 'Con Revision':row.estado==3? 'En Reparacion':row.estado==4? 'Por Entregar':'Entregado'}}</td>
+                      <td>{{row.estado==1? 'Por Revision': row.estado==2? 'Con Revision':row.estado==3? 'Cambio de Repuesto':row.estado==4? 'Por Entregar':'Entregado'}}</td>
                       <td><a ng-disabled="row.estado==5" ng-click="editService(row)" class="btn btn-warning btn-xs">Editar</a></td>
                       <td ng-if="row.estado==1"><a ng-click="editServiceDiagnostico(row)" class="btn btn-primary btn-xs">Diagnostico</a></td>
                       <td ng-if="row.estado>1 && row.estado<5"><a ng-click="editServiceDiagnostico(row)" class="btn btn-success btn-xs">Agregar Trabajo</a></td>

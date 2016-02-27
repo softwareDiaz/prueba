@@ -413,6 +413,8 @@
                                         $scope.sale.service=$scope.findService;
                                         $scope.sale.banderaservice=$scope.banderaservice;
                                         $scope.sale.serviceacuenta=$scope.serviceacuenta;
+                                        
+
                                         $log.log($scope.sale);
                                         
                              crudServiceOrders.create($scope.sale, 'sales').then(function (data) {

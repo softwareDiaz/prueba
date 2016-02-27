@@ -143,7 +143,7 @@
                       <th>Hora</th>
                       <th>Caja</th>
                       <th>Usuario</th>
-                      <th>Tipo de Mov</th>
+                      <th>Tipo</th>
                       <th>Documento</th>
                       <th>S/.Tarjeta</th>
                       <th>S/.Efectivo</th>
@@ -152,7 +152,7 @@
                     </tr>
                     
                     <tr ng-repeat="row in detCashes">
-                      <td>@{{$index + 1}}</td>
+                     <td>@{{$index + 1}}</td>
                       <td>@{{row.fecha}}</td>
                       <td>@{{row.hora}}</td>
                       <td>@{{row.nombre}}</td>
@@ -172,7 +172,7 @@
                       <td ng-if="row.cashMotive_id!=1 && row.cashMotive_id!=13 && row.cashMotive_id!=14 && row.cashMotive_id!=15 && row.cashMotive_id!=16 && row.cashMotive_id!=17
                                  && row.cashMotive_id!=19 && row.cashMotive_id!=20 && row.cashMotive_id!=21">@{{row.id}}</td>
 
-                    </tr>                    
+                    </tr>                        
                   </table>
                   </div>
                   <div class="box-footer clearfix">
