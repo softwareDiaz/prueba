@@ -796,6 +796,8 @@ Route::get('api/otherPheads/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadCo
 Route::get('api/otherPdetails/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@datos']);
 Route::get('otherPheads/show/{id?}','OtherPheadController@index');
 Route::get('otherPheads/view-show','OtherPheadController@show'); 
+Route::get('otherPheads/form-balance','OtherPheadController@form_balance');
+Route::get('otherPheads/balance','OtherPheadController@index'); 
 Route::post('api/pagosVarios/create',['as'=>'type_create', 'uses'=>'OtherPheadController@createPago']);
 Route::get('api/pagos/find/{id}','OtherPheadController@pagosCompras');
 Route::get('api/pagos2/find/{id}','OtherPheadController@pagosCompras2');
@@ -805,3 +807,10 @@ Route::post('api/servicePayment/create',['as'=>'person_create', 'uses'=>'Service
 Route::get('api/servicePayment/find/{id}',['as'=>'person_create', 'uses'=>'ServicePaymentController@find']);
 Route::post('api/servicePayment/destroy',['as'=>'person_destroy', 'uses'=>'ServicePaymentController@destroy']);
 
+
+
+Route::get('api/payments/totales/{fecha1}/{fecha2}','PaymentsController@Totales');
+Route::get('api/payments2/totales/{fecha1}/{fecha2}','CashMonthlyController@totales');
+Route::get('api/payments3/totales/{fecha1}/{fecha2}','DetCashController@totales');
+Route::get('api/payments5/totales/{fecha1}/{fecha2}','DetCashController@totales5');
+Route::get('api/payments6/totales/{fecha1}/{fecha2}','SalesController@Totales');

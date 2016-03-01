@@ -81,4 +81,5 @@ class CashRepo extends BaseRepo{
                     ->paginate($q);
         return $cashes;
     }
+    
 } 

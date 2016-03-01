@@ -127,6 +127,10 @@
                     templateUrl:'/otherPheads/view-show',
                     controller: 'OtherPheadController'
                 })  
+                 .when('/otherPheads/balance',{
+                    templateUrl:'/otherPheads/form-balance',
+                    controller: 'OtherPheadController'
+                })
 
                 //-------------------------------------------------------------    
            // ------------------------------------------------------

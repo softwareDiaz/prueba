@@ -15,6 +15,8 @@ class OtherPheadManager extends BaseManager {
                            'BaseImponible'=>'',
                            'MontoTotal'=>'',
                            'tipoDoc'=>'',
-                           'checkIgv'=>''];
+                           'checkIgv'=>'',
+                           'montoPagado'=>'',
+                           'Saldo'=>''];
         return $rules;
     }}

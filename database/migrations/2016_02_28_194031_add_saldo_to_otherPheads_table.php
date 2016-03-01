@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIdcomprasToDetCashTable extends Migration
+class AddSaldoToOtherPheadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class AddIdcomprasToDetCashTable extends Migration
      */
     public function up()
     {
-        Schema::table('detCash', function (Blueprint $table) {
-            $table->integer('otherPhead_id')->unsigned()->nullable();
-            $table->foreign('otherPhead_id')->references('id')->on('OtherPheads');
+        Schema::table('OtherPheads', function (Blueprint $table) {
+            $table->decimal('montoPagado',10,2)->default(0);
+            $table->decimal('Saldo',10,2)->default(0);
         });
     }
 
@@ -25,7 +25,7 @@ class AddIdcomprasToDetCashTable extends Migration
      */
     public function down()
     {
-        Schema::table('detCash', function (Blueprint $table) {
+        Schema::table('otherPheads', function (Blueprint $table) {
             //
         });
     }

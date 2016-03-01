@@ -155,6 +155,57 @@ class DetCashRepo extends BaseRepo{
         ->paginate(15);
         return $detCashs;
     }
-
+     public function Totales($fecha1,$fecha2){
+       $payment=DetCash::join("OtherPheads","OtherPheads.id","=","detCash.otherPhead_id")
+       ->select(\DB::raw("SUM(detCash.montoMovimientoEfectivo) as montototal,SUM(OtherPheads.Saldo)as saldos"))
+       ->whereBetween("detCash.fecha",[$fecha1,$fecha2])
+                        ->get();
+       return $payment;
+   }
+    
+     public function Totales5($fecha1,$fecha2){
+       $payment=DetCash::select(\DB::raw("SUM(detCash.montoMovimientoEfectivo) as montototalEfect,
+        (SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=7 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totCompras,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=1 and fecha BETWEEN '".$fecha1."' and '".$fecha2."' 
+        )as totVenta,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=2 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totPrestamos,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=3 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totIngresosVarios,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=4 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totDevoluciones,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=8 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totCreditos,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=9 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totAdelantoPersonal,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=10 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totPagoProveedor,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=11 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totGastosVarios,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=12 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totViaticos,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=13 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totPagoVentaCredito,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=11 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totVentaCredito,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=18 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totReembolso,(SELECT SUM(montoMovimientoEfectivo) as 
+          montototalEfectivo FROM detCash WHERE  cashMotive_id=22 and fecha BETWEEN '".$fecha1."' and '".$fecha2."'
+        )as totAdelantoServicio"))
+       ->where("cashMotive_id","=","6")
+       ->whereBetween("detCash.fecha",[$fecha1,$fecha2])
+                        ->get();
+       return $payment;
+   }
+    public function Totales6(){
+       $payment=DetCash::select(\DB::raw("SUM(detCash.montoMovimientoEfectivo) as montototalEfect,
+        SUM(detCash.montoMovimientoTarjeta) as montototalTar"))
+       ->where("cashMotive_id","=","7")
+       ->where("detCash.otherPhead_id","=","NULL")
+                        ->get();
+       return $payment;
+   }
 
 }

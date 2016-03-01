@@ -370,4 +370,8 @@ if(intval($request->input('cashMonthly_id'))>0){
         $payment = $this->paymentRepo->payIDLocal($id);
         return response()->json($payment);
     }
+    public function Totales($fecha1,$fecha2){
+        $payment = $this->paymentRepo->Totales($fecha1,$fecha2);
+        return response()->json($payment);
+    }
 }

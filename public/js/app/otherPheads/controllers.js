@@ -67,6 +67,34 @@
                 socket.on('otherPhead.update', function (data) {
                     $scope.otherPheads=JSON.parse(data);
                 });
+                 if($location.path() == '/otherPheads/balance') {
+                     $scope.pagos.fecha1=new Date();
+                      
+                 }
+                 $scope.consultarBalance=function(){
+                  $scope.pagos.fecha10=$scope.pagos.fecha1.getFullYear()+'-'+($scope.pagos.fecha1.getMonth()+1)+'-'+$scope.pagos.fecha1.getDate();
+                   $scope.pagos.fecha12=$scope.pagos.fecha2.getFullYear()+'-'+($scope.pagos.fecha2.getMonth()+1)+'-'+$scope.pagos.fecha2.getDate();
+                  
+                   alert($scope.pagos.fecha10);
+                   alert($scope.pagos.fecha12);
+                      crudService.balance('payments',$scope.pagos.fecha10,$scope.pagos.fecha12).then(function (data) {
+                         $scope.Compras=data[0];
+                      });
+                      crudService.balance('payments3',$scope.pagos.fecha10,$scope.pagos.fecha12).then(function (data) {
+                         $scope.OtrasCompras=data[0];
+                         crudService.balance('payments2',$scope.pagos.fecha10,$scope.pagos.fecha12).then(function (data) {
+                         $scope.CajaMensual=data[0];
+                         $scope.CajaMensual.total=Number($scope.CajaMensual.totPagado)+Number($scope.OtrasCompras.montototal);
+                         });
+                      });
+                      
+                      crudService.balance('payments5',$scope.pagos.fecha10,$scope.pagos.fecha12).then(function (data) {
+                         $scope.CjaDiraria=data[0];
+                      });
+                      crudService.balance('payments6',$scope.pagos.fecha10,$scope.pagos.fecha12).then(function (data) {
+                         $scope.VentasFactu=data[0];
+                      });
+                 }
                if($location.path() == '/otherPheads/show/'+$routeParams.id) {
                	$scope.pagos.idpago=id;
                	crudService.byId(id,'pagos2').then(function (data) {                	 	 

@@ -78,7 +78,11 @@ class CashMonthlyController extends Controller {
 
         return response()->json($material);
     }
+    public function totales($fecha1,$fecha2){
+        $material = $this->CashMonthlyRepo->Totales($fecha1,$fecha2);
 
+        return response()->json($material);
+    }
     public function edit(Request $request)
     {
         $material = $this->CashMonthlyRepo->find($request->id);

@@ -64,6 +64,8 @@
                       <th>Ruc</th>
                       <th>Numero de Documento</th>
                       <th>Monto</th>
+                      <th>Saldo</th>
+                      <th>Monto Pagado</th>
                       <th style="width: 40px">Pagos</th>
                       <th style="width: 40px">Editar</th>
                       <th style="width: 40px">Eliminar</th>
@@ -76,6 +78,8 @@
                       <td>{{row.ruc}}</td>
                       <td>{{row.tipoDoc}}-({{row.numeroDocumento}})<br>{{row.serie}}</td>
                       <td>S/.{{row.MontoTotal}}</td>
+                      <td>S/.{{row.Saldo}}</td>
+                      <td>S/.{{row.montoPagado}}</td>
                        <td><a ng-click="pagarVentana(row)" class="btn btn-success btn-xs">Pagos</a></td>
                       <td><a ng-click="editotherPhead(row)" class="btn btn-warning btn-xs">Editar</a></td>
                       <td><a ng-click="deleteotherPhead(row)" class="btn btn-danger btn-xs">Eliminar</a></td>

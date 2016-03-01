@@ -74,7 +74,10 @@ class SalesController extends Controller
         $this->headInvoiceRepo=$headInvoiceRepo;
         $this->serviceRepo=$serviceRepo;
     }
-
+    public function Totales($fecha1,$fecha2){
+        $payment = $this->headInvoiceRepo->Totales($fecha1,$fecha2);
+        return response()->json($payment);
+    }
     public function all()
     {
         $orders = $this->saleRepo->paginate(15);

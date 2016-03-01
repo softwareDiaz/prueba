@@ -201,6 +201,15 @@
 
                 return deferred.promise;
             }
+            function balance(uri,fecha1,fecha2)
+            {
+                var deferred = $q.defer();
+                $http.get('api/'+uri+'/totales/'+fecha1+'/'+fecha2).success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
             function listaCashes(uri,alm)
             {
                 var deferred = $q.defer();
@@ -221,6 +230,7 @@
                 byId:byId,
                 validar:validar,
                 update:update,
+                balance:balance,
                 destroy:destroy,
                 search: search,
                 select:select,

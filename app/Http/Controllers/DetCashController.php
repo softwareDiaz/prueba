@@ -20,6 +20,18 @@ class DetCashController extends Controller
        $cash = $this->detCashRepo->compCajaActiva($id);
         return response()->json($cash);
     }
+    public function totales($fecha1,$fecha2)
+    {
+        $detCash = $this->detCashRepo->Totales($fecha1,$fecha2);
+        return response()->json($detCash);
+        //var_dump($materials);
+    }
+    public function totales5($fecha1,$fecha2)
+    {
+        $detCash = $this->detCashRepo->Totales5($fecha1,$fecha2);
+        return response()->json($detCash);
+        //var_dump($materials);
+    }
     public function all()
     {
         $detCash = $this->detCashRepo->paginate(15);

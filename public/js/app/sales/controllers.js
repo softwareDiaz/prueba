@@ -193,6 +193,7 @@
                             crudServiceOrders.byId(data.customer_id,'customers').then(function (data) {
                                 $scope.sale.customer_id=data.id;
                                 $scope.sale.cliente=data.nombres+"-"+data.apellidos+"-"+data.empresa;
+                                $scope.sale.rucCliente=data.ruc;
                             });
                         });
 
@@ -1839,7 +1840,7 @@ $scope.Saldo1=0;
                 $scope.validaDocumento=function(){
                     //$scope.sale.comprobante=!$scope.sale.comprobante;
 
-                   alert($scope.sale.rucCliente);
+                   
                 $scope.estadoComoDocument=false;
                     if($scope.sale.comprobante==true )
                     {

@@ -89,6 +89,8 @@ class OtherPheadController extends Controller {
         \DB::beginTransaction();
         $otherPhead = $this->otherPheadRepo->getModel();
         $var=$request->detalles;
+        $request->merge(["Saldo"=>$request->input("MontoTotal")]);
+        $request->merge(["montoPagado"=>0]);
         $manager = new OtherPheadManager($otherPhead,$request->all());
         //print_r($manager); die();
         $manager->save();
@@ -108,8 +110,12 @@ class OtherPheadController extends Controller {
     }
     public function createPago(Request $request)
     {
-        //var_dump($request->all());die();
+       // var_dump($request->all());die();
         \DB::beginTransaction();
+        $otherPhead = $this->otherPheadRepo->find($request->idpago);
+        $request->merge(["montoPagado"=>floatval($otherPhead->montoPagado)+floatval($request->input("monto"))]);
+        $request->merge(["Saldo"=>floatval($otherPhead->Saldo)-floatval($request->input("monto"))]);
+
        if(!empty($request->input('cashe_id'))){
         $caja=$this->cashRepo->find($request->input('cashe_id'));
         $request->merge(['montoCaja'=>$caja->montoBruto]);
@@ -153,16 +159,25 @@ class OtherPheadController extends Controller {
          $detcash = new CashMonthlyManager($cashMonthly,$request->all());
         $detcash->save();
     }
+        $request->merge(["fecha"=>$otherPhead->fecha]);
+        $request->merge(["numeroDocumento"=>$otherPhead->numeroDocumento]);
+        $request->merge(["proveedor"=>$otherPhead->proveedor]);
+        $request->merge(["ruc"=>$otherPhead->ruc]);
+        $compras = new OtherPheadManager($otherPhead,$request->only("fecha","numeroDocumento","proveedor","ruc","montoPagado","Saldo"));
+        $compras->save();
      \DB::commit();
         return response()->json(['estado'=>true]);
     }
     public function destroyPagos(Request $request)
     {
+        //var_dump($request->tipo);die();
          \DB::beginTransaction();
+        $idCompra="";
         if($request->input('tipo')=='Caja'){
-            $detCash = $this->detCashRepo->find($request->id);
+            $detCash=$this->detCashRepo->find($request->id);
             $caja=$this->cashRepo->find($detCash->cash_id);
-            if($caja->estado==1) {       
+            if($caja->estado==1) {  
+             $idCompra=$detCash->otherPhead_id;     
        $request->merge(['gastos'=>(floatval($caja->gastos)-floatval($request->input('monto')))]);
        $request->merge(['montoBruto'=>floatval($caja->ingresos+$caja->montoInicial)-floatval($request->input('gastos'))]);
         $request->merge(['montoInicial'=>$caja->montoInicial]);
@@ -177,17 +192,29 @@ class OtherPheadController extends Controller {
         $manager = new CashManager($caja,$request->all());
         $manager->save();
          $detCash->delete();
-         return response()->json(['estado'=>true]);
+         
         }else{
             return response()->json(['estado'=>true,'nota'=>'Caja Cerrada']);
         }
         }else{
             $cashMonthly = $this->cashMonthlyRepo->find($request->id);
+             $idCompra=$cashMonthly->otherPhead_id;
             $cashMonthly->delete();
-            return response()->json(['estado'=>true]);
+            
         }
+         $otherPhead = $this->otherPheadRepo->find($idCompra);
+        $request->merge(["montoPagado"=>floatval($otherPhead->montoPagado)-floatval($request->input("monto"))]);
+        $request->merge(["Saldo"=>floatval($otherPhead->Saldo)+floatval($request->input("monto"))]);
+        $request->merge(["fecha"=>$otherPhead->fecha]);
+        $request->merge(["numeroDocumento"=>$otherPhead->numeroDocumento]);
+        $request->merge(["proveedor"=>$otherPhead->proveedor]);
+        $request->merge(["ruc"=>$otherPhead->ruc]);
+        $compras = new OtherPheadManager($otherPhead,$request->only("fecha","numeroDocumento","proveedor","ruc","montoPagado","Saldo"));
+        $compras->save();
+         
         \DB::commit();
         //Event::fire('update.brand',$brand->all());
+        return response()->json(['estado'=>true]);
         
     }
     public function find($id)
@@ -242,6 +269,10 @@ class OtherPheadController extends Controller {
     public function show()
     {
         return View('otherPheads.show');
+    }
+    public function form_balance()
+    {
+        return View('otherPheads.form_balance');
     }
 
     public function search($q)

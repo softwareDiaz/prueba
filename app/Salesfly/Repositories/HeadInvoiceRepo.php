@@ -46,5 +46,10 @@ class HeadInvoiceRepo extends BaseRepo{
     	                      ->first();
     	return $headInvoice;
     }
+     public function Totales($fecha1,$fecha2){
+       $payment=HeadInvoice::select(\DB::raw("SUM(Total) as TotalVentasFacturado"))
+        ->whereBetween("created_at",[$fecha1,$fecha2]) ->get();
+       return $payment;
+   }
     
 }

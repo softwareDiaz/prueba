@@ -16,7 +16,9 @@ class OtherPhead extends \Eloquent {
                            'BaseImponible',
                            'MontoTotal',
                            'tipoDoc',
-                           'checkIgv'];
+                           'checkIgv',
+                           'montoPagado',
+                           'Saldo'];
    public function OtherPdetail()
     {
         return $this->belongsTo('\Salesfly\Salesfly\Entities\OtherPdetail','otherPhead_id','id');

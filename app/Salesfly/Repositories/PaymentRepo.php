@@ -16,5 +16,10 @@ class PaymentRepo extends BaseRepo{
        $payment=Payment::where('payments.purchase_id','=',$id)->first();
        return $payment;
    }
+    public function Totales($fecha1,$fecha2){
+       $payment=Payment::select(\DB::raw("SUM(Acuenta) as totalPaga,SUM(saldo) as totSaldo"))
+        ->whereBetween("created_at",[$fecha1,$fecha2]) ->get();
+       return $payment;
+   }
    
 } 
