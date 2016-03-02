@@ -2,14 +2,15 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="610" pageHeight="842" columnWidth="590" leftMargin="20" rightMargin="0" topMargin="135" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="45"/>
+	<property name="ireport.y" value="125"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/usr/share/nginx/html/salesfly/public/report/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="q" class="java.lang.String"/>
 	<parameter name="descriNum" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from headInvoices where id=$P{q};]]>
+		<![CDATA[select *,(SUBSTRING(created_at,9,2))as dia,(SUBSTRING(created_at,6,2))as mes,
+                                (SUBSTRING(created_at,1,4))as año from headInvoices where id=$P{q};]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -62,6 +63,9 @@
 	<field name="vuelto" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="dia" class="java.lang.String"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="año" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -77,7 +81,7 @@
 	<detail>
 		<band height="580">
 			<subreport>
-				<reportElement x="17" y="98" width="538" height="392" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="17" y="98" width="541" height="392" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -92,13 +96,6 @@
 				<reportElement x="73" y="44" width="290" height="20" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
 				<textFieldExpression><![CDATA[($F{direccion}.equals("")?$F{direccion_cliente}:$F{direccion})]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="490" y="44" width="100" height="20" uuid="625e9f8e-2ea9-44d7-b856-e2473fb9a1ae"/>
-				<textElement>
-					<paragraph lineSpacing="Double"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{created_at}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="62" y="64" width="167" height="20" uuid="a41ece0c-a1c3-4ae6-ac93-4e792e295e4b"/>
 				<textFieldExpression><![CDATA[$F{ruc}]]></textFieldExpression>
@@ -109,19 +106,37 @@
 			</textField>
 			<textField>
 				<reportElement x="490" y="516" width="100" height="20" uuid="e9169480-3850-4f65-a73e-8537080a7aac"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="490" y="536" width="100" height="20" uuid="a513859a-a026-4b51-bcbb-84996209418d"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{igv}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="490" y="556" width="100" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="62" y="516" width="279" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
 				<textFieldExpression><![CDATA[$P{descriNum}+"/100"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="44" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="44" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="531" y="44" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

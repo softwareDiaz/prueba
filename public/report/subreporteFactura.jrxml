@@ -51,11 +51,11 @@
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="78" y="0" width="308" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
+				<reportElement x="78" y="0" width="331" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="386" y="0" width="85" height="20" uuid="502479fc-f7ae-406b-b222-52235d50e2f1"/>
+				<reportElement x="409" y="0" width="62" height="20" uuid="502479fc-f7ae-406b-b222-52235d50e2f1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{PrecioUnit}]]></textFieldExpression>
 			</textField>
