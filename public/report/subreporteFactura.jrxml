@@ -46,12 +46,12 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="78" height="20" uuid="165432c6-8f6c-4d0a-9ee4-e6f3b5571777"/>
-				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<reportElement x="0" y="0" width="55" height="20" uuid="165432c6-8f6c-4d0a-9ee4-e6f3b5571777"/>
+				<textElement textAlignment="Left" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="78" y="0" width="331" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
+				<reportElement x="55" y="0" width="354" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
