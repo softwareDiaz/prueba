@@ -127,6 +127,7 @@ class SalesController extends Controller
         {
         \DB::beginTransaction();
         $vuelto=$request->input("vuelto");
+        $montobrutoventa=$request->input("montoBruto");
         $orderSale = $this->saleRepo->getModel();
         $var = $request->detOrders;
         $payment = $request->salePayment;
@@ -309,7 +310,7 @@ class SalesController extends Controller
             
             $request->merge(["direccion_cliente"=>$direccion["direccContac"]]);
             $request->merge(["direccion"=>$direccion["direccFiscal"]]);
-            $request->merge(["subTotal"=>$request->input("montoBruto")]);
+            $request->merge(["subTotal"=>$montobrutoventa]);
             $request->merge(["Total"=>$request->input("montoTotal")]);
             $request->merge(["venta_id"=>$temporal]);
             $request->merge(["cliente_id"=>$request->input("customer_id")]);
