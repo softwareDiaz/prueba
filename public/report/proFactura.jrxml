@@ -89,19 +89,19 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subreporteFactura.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="73" y="24" width="290" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
+				<reportElement x="73" y="22" width="290" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="73" y="44" width="290" height="20" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
+				<reportElement x="73" y="42" width="290" height="20" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
 				<textFieldExpression><![CDATA[($F{direccion}.equals("")?$F{direccion_cliente}:$F{direccion})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="62" y="64" width="167" height="20" uuid="a41ece0c-a1c3-4ae6-ac93-4e792e295e4b"/>
+				<reportElement x="62" y="62" width="167" height="20" uuid="a41ece0c-a1c3-4ae6-ac93-4e792e295e4b"/>
 				<textFieldExpression><![CDATA[$F{ruc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="235" y="64" width="164" height="20" uuid="db0bacb3-db31-4510-bdfe-b20a1d5e20c4"/>
+				<reportElement x="235" y="62" width="164" height="20" uuid="db0bacb3-db31-4510-bdfe-b20a1d5e20c4"/>
 				<textFieldExpression><![CDATA[($F{GRemicion}.equals(null)?"":$F{GRemicion})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -124,18 +124,18 @@
 				<textFieldExpression><![CDATA[$P{descriNum}+"/100"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="452" y="44" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
+				<reportElement x="464" y="42" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="492" y="44" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
+				<reportElement x="497" y="42" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="531" y="44" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="526" y="42" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
 		</band>
