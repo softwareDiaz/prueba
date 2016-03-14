@@ -125,6 +125,7 @@ class SalesController extends Controller
 
     public function create(Request $request) 
         {
+          
         \DB::beginTransaction();
         $vuelto=$request->input("vuelto");
         $montobrutoventa=$request->input("montoBruto");

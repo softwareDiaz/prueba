@@ -198,6 +198,11 @@
 
               </ul>
             </li>
+             <li class="">
+              <a href="/purchases/create">
+                <i class="fa-angle-left"></i> <span>Movimientos de Almacen</span>
+              </a>
+            </li>
             <li class="">
               <a href="/customers">
                 <i class="fa fa-users"></i> <span>Clientes</span>
