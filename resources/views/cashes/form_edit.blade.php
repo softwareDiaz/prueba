@@ -135,6 +135,13 @@
                       </div><!-- /.box -->
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-md-10"> </div>
+                      <div class="col-md-2">
+                        <button ng-click="generarReporteDetCash()" type="submit" class="btn btn-primary" >@{{descriReport}}</button>
+                      </div>
+                  </div>
+
                    <div class="box-body table-responsive no-padding">
                   <table class="table table-bordered">
                     <tr>
@@ -170,7 +177,7 @@
                       <td ng-if="row.cashMotive_id==15 || row.cashMotive_id==16 || row.cashMotive_id==17"><a href="/orderSales/edit/@{{row.id}}" target="_blank">ver pedido</a></td>
                       <td ng-if="row.cashMotive_id==19 || row.cashMotive_id==20 || row.cashMotive_id==21"><a href="/separateSales/edit/@{{row.id}}" target="_blank">ver separado</a></td>
                       <td ng-if="row.cashMotive_id!=1 && row.cashMotive_id!=13 && row.cashMotive_id!=14 && row.cashMotive_id!=15 && row.cashMotive_id!=16 && row.cashMotive_id!=17
-                                 && row.cashMotive_id!=19 && row.cashMotive_id!=20 && row.cashMotive_id!=21">@{{row.id}}</td>
+                                 && row.cashMotive_id!=19 && row.cashMotive_id!=20 && row.cashMotive_id!=21">@{{row.observacion}}</td>
 
                     </tr>                    
                   </table>

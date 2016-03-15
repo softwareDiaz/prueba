@@ -814,3 +814,9 @@ Route::get('api/payments2/totales/{fecha1}/{fecha2}','CashMonthlyController@tota
 Route::get('api/payments3/totales/{fecha1}/{fecha2}','DetCashController@totales');
 Route::get('api/payments5/totales/{fecha1}/{fecha2}','DetCashController@totales5');
 Route::get('api/payments6/totales/{fecha1}/{fecha2}','SalesController@Totales');
+
+Route::post('api/Reportedetcash/create/{id}','CashesController@Reportedetcash');
+Route::post('api/ReportCashes/create/{fechaini}/{fechafin}','CashesController@ReportCashes');
+Route::post('api/ReportVentas/create/{fechaini}/{fechafin}','SalesController@ReportVentas');
+Route::post('api/ReportMejoresCliente/create/{fechaini}/{fechafin}/{cant}','PurchasesController@ReportMejoresCliente');
+Route::post('api/ReportMejoresEmpleados/create/{fechaini}/{fechafin}/{cant}','PurchasesController@ReportMejoresEmpleados');

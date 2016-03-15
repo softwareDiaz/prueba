@@ -16,7 +16,13 @@ class CashRepo extends BaseRepo{
             $q='%%';
         }
         $cashes =Cash::join("users","cashes.user_id","=","users.id")
-                    ->select("cashes.*","users.name")
+                    ->select(\DB::raw("cashes.*,cashes.estado as estado1,users.name,
+                                CONCAT((SUBSTRING(cashes.fechaInicio,9,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,6,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,1,4)))as fechainicio2,
+                            CONCAT((SUBSTRING(cashes.fechaFin,9,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,6,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,1,4)))as fechafin2"))
 
                     ->where('cashes.cashHeader_id','like', $q)
                     ->orWhere('users.name','like', $q)
@@ -33,14 +39,36 @@ class CashRepo extends BaseRepo{
             $q='%%';
         }
         $cashes =Cash::join("users","cashes.user_id","=","users.id")
-                    ->select("cashes.*","users.name")
-
+                    ->select(\DB::raw("cashes.*,cashes.estado as estado1,users.name,
+                                CONCAT((SUBSTRING(cashes.fechaInicio,9,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,6,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,1,4)))as fechainicio2,
+                            CONCAT((SUBSTRING(cashes.fechaFin,9,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,6,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,1,4)))as fechafin2"))
                     ->where('cashes.cashHeader_id','like', $q)
                     ->orWhere('users.name','like', $q)
                     ->orWhere('cashes.fechaInicio','like','%'.$q.'%')
 
                     ->orderBy('id', 'desc')
                     //with(['customer','employee'])
+                    ->paginate(15);
+        return $cashes;
+    }
+    public function paginate2()
+    {
+        
+        $cashes =Cash::join("users","users.id","=","cashes.user_id")
+                    ->join("cashHeaders","cashHeaders.id","=","cashes.cashHeader_id")
+                    ->select(\DB::raw("cashes.*,cashes.estado as estado1,users.name ,
+                                CONCAT((SUBSTRING(cashes.fechaInicio,9,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,6,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,1,4)))as fechainicio2,
+                            CONCAT((SUBSTRING(cashes.fechaFin,9,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,6,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,1,4)))as fechafin2"))
+                    //with(['customer','employee'])
+                        ->orderby('cashes.fechaInicio','DESC')
                     ->paginate(15);
         return $cashes;
     }

@@ -21,16 +21,18 @@ class DetCashRepo extends BaseRepo{
                            ->select(\DB::raw("detCash.hora as hora1,detCash.fecha as fecha1,detCash.id as idCajaDiaria,sales.id,cashHeaders.nombre,users.name,
                             (SELECT detCash.montoMovimientoEfectivo from detCash where detCash.id=idCajaDiaria)as efectivo2,
                             hi.tipoDoc,hi.id as idDocu,cashMotives.nombre as Motivo,detCash.montoMovimientoTarjeta as tarjeta,
-                            detCash.montoMovimientoEfectivo as efectivo,cashMotives.id as cashMotive_id,IF(detCash.cashMotive_id=1, CONCAT((SUBSTRING(sales.fechaPedido,9,2)),'-',
-                                (SUBSTRING(sales.fechaPedido,6,2)),'-',
-                                (SUBSTRING(sales.fechaPedido,1,4))),detCash.fecha)as fecha,IF(detCash.cashMotive_id=1,SUBSTRING(sales.fechaPedido,12),detCash.hora) as hora,
+                            detCash.montoMovimientoEfectivo as efectivo,cashMotives.id as cashMotive_id,IF(cashMotive_id=1, CONCAT((SUBSTRING(detCash.fecha,9,2)),'-',
+                                (SUBSTRING(detCash.fecha,6,2)),'-',
+                                (SUBSTRING(detCash.fecha,1,4))),CONCAT((SUBSTRING(detCash.fecha,9,2)),'-',
+                                (SUBSTRING(detCash.fecha,6,2)),'-',
+                                (SUBSTRING(detCash.fecha,1,4))))as fecha,IF(detCash.cashMotive_id=1,detCash.hora,detCash.hora) as hora,
                             IF(hi.numero<10,CONCAT('000000',hi.numero),
                              IF(hi.numero<100,CONCAT('00000',hi.numero),
                              IF(hi.numero<1000,CONCAT('0000',hi.numero),
                              IF(hi.numero<10000,CONCAT('000',hi.numero),
                              IF(hi.numero<100000,CONCAT('00',hi.numero),
                              IF(hi.numero<100000,CONCAT('0',hi.numero),hi.numero
-                             ))))))as NumDocument"))
+                             ))))))as NumDocument,detCash.observacion"))
                     ->where('detCash.cash_id','=', $q)
                     ->groupBy('detCash.id')
                     ->paginate(15);

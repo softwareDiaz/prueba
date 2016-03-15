@@ -240,6 +240,14 @@
 
                 return deferred.promise;
             }
+            function reporteRangFechas(uri,fechaini,fechafin){
+                var deferred = $q.defer();
+                $http.post('/api/'+uri+'/create/'+fechaini+'/'+fechafin).success(function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+
+            }
             function Comprueba_caj_for_user()
             {
                 var deferred = $q.defer();
@@ -271,6 +279,7 @@
                 comprovarCaja:comprovarCaja,
                 listaCashes:listaCashes,
                 paginate: paginate,
+                reporteRangFechas: reporteRangFechas,
                 numeracion: numeracion,
                 Comprueba_caj_for_user: Comprueba_caj_for_user,
                 factura: factura,

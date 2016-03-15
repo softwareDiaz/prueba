@@ -22,6 +22,14 @@
 
                 return deferred.promise;
             }
+            function reporteRangFechas(uri,fechaini,fechafin){
+                var deferred = $q.defer();
+                $http.post('/api/'+uri+'/create/'+fechaini+'/'+fechafin).success(function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+
+            }
             function deudasSupplier(page){
                 var deferred = $q.defer();
                 $http.get('api/suppliers/deudas/?page='+page).success(function (data) {
@@ -220,16 +228,26 @@
 
                 return deferred.promise;
             }
+            function Reportes10(uri,id)
+            {
+                var deferred = $q.defer();
+                $http.post('/api/'+uri+'/create/'+id).success(function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+            }
             return {
                 all: all,
                 paginate: paginate,
                 create:create,
+                Reportes10: Reportes10,
                 Comprueba_caj_for_user: Comprueba_caj_for_user,
                 Comprueba_caj_for_user1: Comprueba_caj_for_user1,
                 Cuentas:Cuentas,
                 byId:byId,
                 validar:validar,
                 update:update,
+                reporteRangFechas: reporteRangFechas,
                 balance:balance,
                 destroy:destroy,
                 search: search,

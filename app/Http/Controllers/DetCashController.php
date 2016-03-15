@@ -94,7 +94,7 @@ class DetCashController extends Controller
     public function create(Request $request)
     {
         $detCash = $this->detCashRepo->getModel();
-
+        $request->merge(array('fecha'=>date('Y-m-d'),'hora'=>date('H:i:s')));
         $manager = new DetCashManager($detCash,$request->all());
         $manager->save();
 

@@ -1331,7 +1331,42 @@
                     $scope.mostrarBtnGEd=true;
                  }
                 }
-                
+                $scope.decriboton="Generar Reporte Clientes";
+                $scope.ReportMejoresCliente=function(){
+                    if($scope.fechainicio!=undefined && $scope.fechafin!=undefined){
+                    $scope.fechainicio1=$scope.fechainicio.getFullYear()+"-"+($scope.fechainicio.getMonth()+1)+"-"+$scope.fechainicio.getDate();
+                    $scope.fechafin2=$scope.fechafin.getFullYear()+"-"+($scope.fechafin.getMonth()+1)+"-"+$scope.fechafin.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decriboton="Generando..";
+                     crudOPurchase.movimientoFechasTipo('ReportMejoresCliente',$scope.fechainicio1,$scope.fechafin2,$scope.limit).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decriboton="Generar Reporte Clientes";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
+$scope.decriboton1="Generar Reporte Empleados";
+                $scope.ReportMejoresEmpleados=function(){
+                    if($scope.fechainicio!=undefined && $scope.fechafin!=undefined){
+                    $scope.fechainicio1=$scope.fechainicio.getFullYear()+"-"+($scope.fechainicio.getMonth()+1)+"-"+$scope.fechainicio.getDate();
+                    $scope.fechafin2=$scope.fechafin.getFullYear()+"-"+($scope.fechafin.getMonth()+1)+"-"+$scope.fechafin.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decriboton1="Generando..";
+                     crudOPurchase.movimientoFechasTipo('ReportMejoresEmpleados',$scope.fechainicio1,$scope.fechafin2,$scope.limit).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decriboton1="Generar Reporte Empleados";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
                 $scope.cashmontly=function(){
                     if($scope.payment.cajamensual==true){
                           $scope.payment.months_id=$scope.date.getMonth()+1;

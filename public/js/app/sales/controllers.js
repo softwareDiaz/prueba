@@ -2356,6 +2356,24 @@ $scope.Saldo1=0;
                     //})
 
                 }
+                $scope.decriboton="Generar Reporte";
+                $scope.GenReporteCajas=function(){
+                    if($scope.fechainicio!=undefined && $scope.fechafin!=undefined){
+                    $scope.fechainicio1=$scope.fechainicio.getFullYear()+"-"+($scope.fechainicio.getMonth()+1)+"-"+$scope.fechainicio.getDate();
+                    $scope.fechafin2=$scope.fechafin.getFullYear()+"-"+($scope.fechafin.getMonth()+1)+"-"+$scope.fechafin.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decriboton="Generando..";
+                     crudServiceOrders.reporteRangFechas('ReportVentas',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decriboton="Generar Reporte";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
                 $scope.createsalidaCaja = function(tipo){
                     //$log.log("Hola");
                     if ($scope.cash1.cashHeader_id==undefined) {

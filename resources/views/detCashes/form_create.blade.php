@@ -59,7 +59,7 @@
                     <div class="col-md-4">
                      <div class="form-group" >
                         <label for="year">Movimiento</label>
-                        <select class="form-control" name="" ng-model="detCash.cashMotive_id" ng-options="item.id as item.nombre for item in cashMotives" ng-click="estadoMovimiento()">
+                        <select  class="form-control" name="" ng-model="detCash.cashMotive_id" ng-options="item.id as item.nombre for item in cashMotives" ng-click="estadoMovimiento()">
                           <option value="">--Movimiento-</option>
                         </select>
                       </div>

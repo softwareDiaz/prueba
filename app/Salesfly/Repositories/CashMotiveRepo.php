@@ -13,6 +13,7 @@ class CashMotiveRepo extends BaseRepo{
     public function search($q)
     {
         $cashMotives =CashMotive::where('tipo','=', $q)
+                ->where('id','!=',1)
                     //with(['customer','employee'])
                     ->paginate(15);
         return $cashMotives;

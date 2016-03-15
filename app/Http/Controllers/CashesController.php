@@ -24,8 +24,49 @@ class CashesController extends Controller
         //var_dump($materials);
     }
 
+    public function ReportCashes($fecha1,$fecha2){
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_ReporteCajas';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/ReporteCajas.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['SUBREPORT_DIR'=> public_path() . '/report/','fechaini'=>$fecha1,'fechafin'=>$fecha2],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_ReporteCajas.'.$ext;
+    }
+    public function Reportedetcash($caja_id){
+       
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_ReportDetCash';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/ReportDetCash.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['SUBREPORT_DIR'=> public_path() . '/report/','cash_id'=>$caja_id],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_ReportDetCash.'.$ext;
+    }
     public function paginatep(){
-        $cashes = $this->cashRepo->paginarCashes(15);
+        $cashes = $this->cashRepo->paginate2();
         return response()->json($cashes);
     }
 

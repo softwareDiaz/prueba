@@ -1009,6 +1009,46 @@ class PurchasesController extends Controller {
         return '/report/'.$time.'_reportMovimientosVarianteRangoF.'.$ext;
    
     }
+    public function ReportMejoresEmpleados($fecha1,$fecha2,$can){
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_MejoresClientes';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/MejoresClientes.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['fechaini'=>$fecha1,'fechafin'=>$fecha2,'cant'=>$can],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_MejoresClientes.'.$ext;
+    }
+     public function ReportMejoresCliente($fecha1,$fecha2,$can){
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_MejoresClientes2';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/MejoresClientes2.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['fechaini'=>$fecha1,'fechafin'=>$fecha2,'cant'=>$can],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_MejoresClientes2.'.$ext;
+    }
     //=============================================fin reportCardex=============================
     
 }

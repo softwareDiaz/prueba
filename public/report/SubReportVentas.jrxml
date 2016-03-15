@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubReportVentas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a79d4afb-19d5-41e9-81e3-a24b10014a80">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaini" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/usr/share/nginx/html/salesfly/public/report/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select SUM(detSales.cantidad) AS totalUnidades, SUM(detPres.suppPri) as totalPrecioCompra, SUM(detSales.subTotal)as totalVentas, SUM(detSales.subTotal-detPres.suppPri) as totalGanacia,(SUM(detSales.subTotal)-(SUM(detPres.suppPri)+SUM(detSales.subTotal-detPres.suppPri))) as totServicios,
+(SUM(detPres.suppPri)+SUM(detSales.subTotal-detPres.suppPri)) as totvenProduct from detSales left join detPres on detPres.id=detSales.detPre_id
+                     left join variants on variants.id=detPres.variant_id
+                     left join products on products.id=variants.product_id
+                     left join brands on products.brand_id=brands.id
+                     left join types on products.type_id=types.id
+                     left join stations on products.station_id=stations.id
+                     inner join sales on detSales.sale_id=sales.id
+                     inner join detCash on sales.detCash_id=detCash.id
+                     inner join cashes on detCash.cash_id=cashes.id
+                     inner join salePayments on salePayments.sale_id=sales.id
+                     inner join saledetPayments on saledetPayments.salePayment_id=salePayments.id
+                     inner join saleMethodPayments on saleMethodPayments.id=saledetPayments.saleMethodPayment_id
+
+                    where   detSales.created_at between $P{fechaini} and $P{fechafin}]]>
+	</queryString>
+	<field name="totalUnidades" class="java.math.BigDecimal"/>
+	<field name="totalPrecioCompra" class="java.math.BigDecimal"/>
+	<field name="totalVentas" class="java.math.BigDecimal"/>
+	<field name="totalGanacia" class="java.math.BigDecimal"/>
+	<field name="totServicios" class="java.math.BigDecimal"/>
+	<field name="totvenProduct" class="java.math.BigDecimal"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="40">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="40" backcolor="#25A5A5" uuid="eb8d85e4-3ff8-489c-9566-3bb77ec731ee"/>
+				<textElement>
+					<font size="32"/>
+				</textElement>
+				<text><![CDATA[REPORTE VENTAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="5"/>
+	</columnHeader>
+	<detail>
+		<band height="108">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="1" width="78" height="20" forecolor="#006699" backcolor="#D1B5B5" uuid="808219bc-9606-4c77-8b84-3cf75359410e"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. P.Com.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="164" y="0" width="103" height="20" forecolor="#006699" backcolor="#D1B5B5" uuid="2d476265-1e73-4c45-82cd-8ab0954bbbac"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. Gan. Pr.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="332" y="24" width="71" height="20" forecolor="#006699" backcolor="#D1B5B5" uuid="5d3aed1d-66d9-40ba-a224-d6dc778ae2f8"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. Vent.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="78" y="1" width="86" height="20" backcolor="#A89C72" uuid="71754212-99ab-4403-aac5-46bdcb269885"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/."+$F{totalPrecioCompra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="267" y="0" width="70" height="20" backcolor="#A89C72" uuid="9dea812b-4394-4558-9867-1ad33f21a496"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/."+$F{totalGanacia}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="403" y="24" width="88" height="20" backcolor="#A89C72" uuid="c38670ea-6840-43b9-8e25-938bee997585"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/."+$F{totalVentas}]]></textFieldExpression>
+			</textField>
+			<subreport runToBottom="false">
+				<reportElement x="0" y="50" width="555" height="27" uuid="eb7aedc5-7bca-44de-b96d-d0c87ac723ba"/>
+				<subreportParameter name="fechaini">
+					<subreportParameterExpression><![CDATA[$P{fechaini}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechafin">
+					<subreportParameterExpression><![CDATA[$P{fechafin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReporteVentas.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="0" y="88" width="555" height="20" forecolor="#006699" backcolor="#D1B5B5" uuid="6c48f75f-3fad-4e06-90ad-e6f7d9ffd49f"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Servicios]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="194" y="23" width="100" height="21" backcolor="#A89C72" uuid="fae100c6-e8c4-4952-bf69-6ef57f5c691f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/."+$F{totServicios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="467" y="1" width="88" height="20" backcolor="#A89C72" uuid="d56b6f2b-1c30-4ba7-8b97-775c4fb63a15"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/."+$F{totvenProduct}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="337" y="1" width="130" height="20" forecolor="#006699" backcolor="#D1B5B5" uuid="aaa1cb98-806c-4fc0-9626-a7e6f89a1a8b"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. Vent. Producto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="65" y="24" width="129" height="20" forecolor="#006699" backcolor="#D1B5B5" uuid="3d6f2238-86e0-4c15-9f30-fcb8bd4e690d"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[T. Ven. Servicos:]]></text>
+			</staticText>
+		</band>
+		<band height="19">
+			<subreport runToBottom="false">
+				<reportElement x="0" y="0" width="555" height="19" uuid="bb3c57ee-d622-403f-af03-6eb79b2cac77"/>
+				<subreportParameter name="fechaini">
+					<subreportParameterExpression><![CDATA[$P{fechaini}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechafin">
+					<subreportParameterExpression><![CDATA[$P{fechafin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReporteVentas3.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

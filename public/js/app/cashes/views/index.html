@@ -94,8 +94,8 @@
                     <tr ng-repeat="row in cashes">
                       <td>{{$index + 1}}</td>
                       <td>{{row.name}}</td>
-                      <td>{{row.fechaInicio}}</td>
-                      <td>{{row.fechaFin}}</td>
+                      <td>{{row.fechainicio2}}</td>
+                      <td>{{row.fechafin2}}</td>
                       <td>{{row.montoInicial}}</td>
                       <td>{{row.ingresos}}</td>
                       <td>{{row.gastos}}</td>
@@ -118,6 +118,31 @@
 
 
                 </div>
+                <div class="row">
+                <div class="col-md-1">  </div>
+                    <div class="col-md-4">                             
+                            <label for="fechaPedido">Fecha Inicio: </label>
+                            <div ng-hide="show" class="input-group">
+                                <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                </div>
+                                  <input type="date" class="form-control"  name="fechainicio" ng-model="fechainicio" >
+                            </div>                          
+                        </div> 
+                         <div class="col-md-4">                             
+                            <label for="fechaPedido">Fecha Fin: </label>
+                            <div ng-hide="show" class="input-group">
+                                <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                </div>
+                                  <input type="date" class="form-control"  ng-model="fechafin" >
+                            </div>                          
+                        </div>
+                        <div class="col-md-2"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafin<fechainicio" type="button" class="btn btn-warning" ng-click="GenReporteCajas()" value="{{decriboton}}">
+                        </div>
+                </div><br>
               </div><!-- /.box -->
             </div>  
           </div>

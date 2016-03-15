@@ -1,7 +1,7 @@
 (function(){
     angular.module('cashes.controllers',[])
-        .controller('CashesController',['$scope', '$routeParams','$location','crudService','socketService' ,'$filter','$route','$log',
-            function($scope, $routeParams,$location,crudService,socket,$filter,$route,$log){
+        .controller('CashesController',['$scope', '$routeParams','$location','crudService','socketService' ,'$filter','$route','$window','$log',
+            function($scope, $routeParams,$location,crudService,socket,$filter,$route,$window,$log){
                 $scope.cashes = [];
                 $scope.cash={};
                 $scope.errors = null;
@@ -35,6 +35,37 @@
                     }
                     
                 };
+                $scope.decriboton="Generar Reporte";
+                $scope.GenReporteCajas=function(){
+                    if($scope.fechainicio!=undefined && $scope.fechafin!=undefined){
+                    $scope.fechainicio1=$scope.fechainicio.getFullYear()+"-"+($scope.fechainicio.getMonth()+1)+"-"+$scope.fechainicio.getDate();
+                    $scope.fechafin2=$scope.fechafin.getFullYear()+"-"+($scope.fechafin.getMonth()+1)+"-"+$scope.fechafin.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decriboton="Generando..";
+                     crudService.reporteRangFechas('ReportCashes',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decriboton="Generar Reporte";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
+                $scope.descriReport="Generar Reporte";
+                $scope.generarReporteDetCash=function(){
+                    
+                     $scope.descriReport="Generarando...";
+                    crudService.Reportes10('Reportedetcash',$routeParams.id).then(function (data){
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.descriReport="Generar Reporte";
+                        }else{
+                            alert("Error al generar reporte");
+                        }
+                    });
+                 }
                 $scope.cargarCajasDiarias = function () {
                     //if (true) {};
                     //alert($scope.cash.cashHeader_id);

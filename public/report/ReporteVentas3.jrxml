@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteVentas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8ef771bc-de0e-41a0-9d1d-a47119ea8c9f">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="226"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaini" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select detSales.created_at as fecha,variants.id as varid,products.codigo,detSales.subTotal,sales.estado as estado,detSales.cantidad,saleMethodPayments.nombre as SMPNombre,listServices.nomServicio,listServices.descripcion from detSales left join detPres on detPres.id=detSales.detPre_id
+                     left join variants on variants.id=detPres.variant_id
+                     left join products on products.id=variants.product_id
+                     left join brands on products.brand_id=brands.id
+                     left join types on products.type_id=types.id
+                     left join stations on products.station_id=stations.id
+                     inner join sales on detSales.sale_id=sales.id
+                     inner join listServices on listServices.id=detSales.listService_id
+                     inner join detCash on sales.detCash_id=detCash.id
+                     inner join cashes on detCash.cash_id=cashes.id
+                     inner join salePayments on salePayments.sale_id=sales.id
+                     inner join saledetPayments on saledetPayments.salePayment_id=salePayments.id
+                     inner join saleMethodPayments on saleMethodPayments.id=saledetPayments.saleMethodPayment_id
+
+                    where detSales.listService_id>0 and detSales.created_at between $P{fechaini} and $P{fechafin}
+                    group by detSales.id]]>
+	</queryString>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="varid" class="java.lang.Long"/>
+	<field name="codigo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subTotal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SMPNombre" class="java.lang.String"/>
+	<field name="nomServicio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="4a50255f-bfe4-4ecf-9834-f00e39d2ed5b"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="52" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="9ed9a9a2-961e-4d9f-93ab-fad1536e15a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="52" y="0" width="151" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e93c7d98-e2a8-4c22-84a8-10417619c80c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="476" y="0" width="79" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="deff3f93-d5c3-45a8-9f66-d1bc9b93329e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P. Venta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="421" y="0" width="55" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f828a0b6-02a4-47a5-a951-63492843ed2f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="361" y="0" width="60" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="336f5b53-4c71-4563-95ca-65095a20ae6c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="203" y="0" width="158" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3d82e903-5442-496d-a3d0-7f624f7a0c42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="e40e3c5c-23c0-4b73-a3ca-0b0f2774694e"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="52" height="20" uuid="772f215d-3723-4e64-bb2b-8cbd4b4d80f5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="420" y="0" width="56" height="20" uuid="922f0791-7a5f-4120-9edd-6c69c9161e3a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="476" y="0" width="79" height="20" forecolor="#0000FF" uuid="1c21289b-1ac1-435d-99cd-beed1f35af29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/."+$F{subTotal}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="361" y="0" width="59" height="20" uuid="3d49abc4-d782-440e-97e3-6eb7a575b639"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SMPNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="52" y="0" width="151" height="20" uuid="f21e7390-cf6b-44b2-80cc-d5250501a9f5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomServicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="0" width="158" height="20" uuid="06a4e380-1287-4888-a5ae-9ef8f184d48d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
