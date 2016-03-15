@@ -54,8 +54,11 @@ class ServiceController extends Controller {
 
     public function create(Request $request)
     {
+        \DB::beginTransaction();
         $request->merge(['user_id' => auth()->user()->id]);
         //$request->merge
+        $numservi=$this->serviceRepo->numeroServicio();
+        $request->merge(["numeroServicio"=>intval($numservi->numeroServicio)+1]);
         $services = $this->serviceRepo->getModel();
         //var_dump($request->all());
         //die();
@@ -64,7 +67,7 @@ class ServiceController extends Controller {
         //print_r($manager); die();
         $manager->save();
         //Event::fire('update.brand',$brand->all());
-
+       \DB::commit();
         return response()->json(['estado'=>true, 'nombre'=>$services->nombre,'id'=>$services->id]);
     }
 
