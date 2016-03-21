@@ -84,7 +84,7 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subreporteFactura.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="81" y="18" width="290" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
+				<reportElement x="81" y="18" width="357" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
 				<textFieldExpression><![CDATA[($F{cliente}.equals(null)?"":$F{cliente})]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
@@ -100,7 +100,7 @@
 				<textFieldExpression><![CDATA[($F{dni}.equals(null)?"":$F{dni})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="81" y="38" width="290" height="20" uuid="6d8df4a3-2663-4d4f-8ede-00582569c533"/>
+				<reportElement x="81" y="38" width="357" height="20" uuid="6d8df4a3-2663-4d4f-8ede-00582569c533"/>
 				<textFieldExpression><![CDATA[($F{direccion_cliente}.equals("")?$F{direccion_cliente}:$F{direccion})]]></textFieldExpression>
 			</textField>
 		</band>
