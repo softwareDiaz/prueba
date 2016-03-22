@@ -26,7 +26,7 @@ class DetServicesRepo extends BaseRepo{
                     ->leftjoin('listServices','listServices.id','=','detServices.listService_id')
 
                     ->select(\DB::raw('detServices.*, variants.sku as SKU ,detPres.id as detPre_id,variants.id as vari ,
-                                IF(products.hasVariants=1 , CONCAT(products.nombre,"(",products.nombre,"/ ",(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /")
+                                IF(products.hasVariants=1 , CONCAT(products.nombre,"(",(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /")
                                  FROM variants
                                 LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                 LEFT JOIN atributes ON atributes.id = detAtr.atribute_id
@@ -67,7 +67,7 @@ class DetServicesRepo extends BaseRepo{
                             ->join('presentation as T2','T2.id','=','detPres.presentation_id')
                             ->select(\DB::raw('variants.sku as SKU ,detPres.id as detPre_id,variants.id as vari ,
 
-                                IF(products.hasVariants=1 , CONCAT(products.nombre,"(",products.nombre,"/ ",(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /")
+                                IF(products.hasVariants=1 , CONCAT(products.nombre,"(",(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /")
                                  FROM variants
                                 LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                 LEFT JOIN atributes ON atributes.id = detAtr.atribute_id
