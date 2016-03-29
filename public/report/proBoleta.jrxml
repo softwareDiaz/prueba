@@ -93,6 +93,7 @@
 			</textField>
 			<textField>
 				<reportElement x="503" y="320" width="72" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -108,11 +109,11 @@
 				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="489" y="31" width="35" height="20" uuid="69904540-2e10-474f-a97d-5bd56ee0a58a"/>
+				<reportElement x="483" y="31" width="35" height="20" uuid="69904540-2e10-474f-a97d-5bd56ee0a58a"/>
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="535" y="31" width="40" height="20" uuid="0a989000-92d2-47f4-b961-d9b6706cd342"/>
+				<reportElement x="524" y="31" width="40" height="20" uuid="0a989000-92d2-47f4-b961-d9b6706cd342"/>
 				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
 		</band>
