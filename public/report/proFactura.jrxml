@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="610" pageHeight="842" columnWidth="590" leftMargin="20" rightMargin="0" topMargin="90" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="365"/>
+	<property name="ireport.y" value="368"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/usr/share/nginx/html/salesfly/public/report/"]]></defaultValueExpression>
 	</parameter>
@@ -81,7 +81,7 @@
 	<detail>
 		<band height="732">
 			<subreport>
-				<reportElement x="12" y="91" width="546" height="479" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="12" y="94" width="546" height="479" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -89,15 +89,16 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subreporteFactura.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="73" y="26" width="391" height="20" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
+				<reportElement x="73" y="29" width="391" height="20" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[($F{direccion}.equals("")?$F{direccion_cliente}:$F{direccion})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="62" y="47" width="167" height="20" uuid="a41ece0c-a1c3-4ae6-ac93-4e792e295e4b"/>
+				<reportElement x="62" y="58" width="167" height="20" uuid="a41ece0c-a1c3-4ae6-ac93-4e792e295e4b"/>
 				<textFieldExpression><![CDATA[$F{ruc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="235" y="47" width="164" height="20" uuid="db0bacb3-db31-4510-bdfe-b20a1d5e20c4"/>
+				<reportElement x="235" y="58" width="164" height="20" uuid="db0bacb3-db31-4510-bdfe-b20a1d5e20c4"/>
 				<textFieldExpression><![CDATA[($F{GRemicion}.equals(null)?"":$F{GRemicion})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -116,7 +117,8 @@
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="62" y="597" width="312" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
+				<reportElement x="62" y="603" width="312" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{descriNum}+"/100"]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -135,7 +137,8 @@
 				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="73" y="6" width="391" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
+				<reportElement x="73" y="7" width="391" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 		</band>
