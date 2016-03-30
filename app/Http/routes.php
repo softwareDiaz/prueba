@@ -280,6 +280,9 @@ Route::post('api/materials/destroy',['as'=>'atribut_destroy', 'uses'=>'Materials
 Route::get('api/materials/search/{q?}',['as'=>'atribut_search', 'uses'=>'MaterialsController@search']);
 Route::get('api/materials/find/{id}',['as'=>'atribut_find', 'uses'=>'MaterialsController@find']);
 
+Route::get('materials/form-preDolar',['as'=>'atribut_form_create','uses'=>'MaterialsController@form_preDolar']);
+Route::get('materials/preDolar',['as'=>'atribut_create', 'uses'=>'MaterialsController@index']);
+
 Route::get('employees',['as'=>'person','uses'=>'EmployeesController@index']);
 Route::get('employees/create',['as'=>'person_create','uses'=>'EmployeesController@index']);
 Route::get('employees/edit/{id?}', ['as' => 'person_edit', 'uses' => 'EmployeesController@index']);

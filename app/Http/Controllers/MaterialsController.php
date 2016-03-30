@@ -39,12 +39,18 @@ class MaterialsController extends Controller {
     {
         return View('materials.form_create');
     }
-
+      public function form_preDolar()
+    {
+        return View('materials.form_preDolar');
+    }
     public function form_edit()
     {
         return View('materials.form_edit');
     }
-
+    public function preDolar(Request $request)
+    {
+        
+    }
     public function create(Request $request)
     {
         $materials = $this->materialRepo->getModel();

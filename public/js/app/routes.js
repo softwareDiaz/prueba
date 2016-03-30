@@ -93,6 +93,10 @@
                     templateUrl:'/materials/form-create',
                     controller: 'MaterialsController'
                 })
+                .when('/materials/preDolar',{
+                    templateUrl:'/materials/form-preDolar',
+                    controller: 'MaterialsController'
+                })
                 .when('/materials/edit/:id',{
                     templateUrl:'/materials/form-edit',
                     controller: 'MaterialsController'

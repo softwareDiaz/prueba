@@ -23,7 +23,7 @@ Clientes
 </section>
 
 @section('js-customize')
-<script src="/js/app/materials/app.js"></script>
+    <script src="/js/app/materials/app.js"></script>
     <script src="/js/app/materials/controllers.js"></script>
 @stop
 
