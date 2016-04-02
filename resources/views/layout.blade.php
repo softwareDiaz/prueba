@@ -220,7 +220,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Inventario </a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Pagos a Proveedores </a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Cajas </a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Ventas por Vendedores </a></li>
+                <li><a href="/purchases/cardex#compras"><i class="fa fa-circle-o"></i>Reporte de Compras </a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Movimientos de Almacén </a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Productos por llegar </a></li>
               </ul>

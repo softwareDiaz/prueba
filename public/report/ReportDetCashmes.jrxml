@@ -6,9 +6,14 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/usr/share/nginx/html/salesfly/public/report/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="cash_id" class="java.lang.String"/>
+	<parameter name="fechaini" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechafin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[select cashes.id,cashes.fechaInicio,cashMotives.nombre,SUM(montoMovimientoTarjeta) as totMovTar,SUM(montoMovimientoEfectivo)as totMovEfec ,cashMotives.observacion from detCash inner join cashMotives on cashMotives.id=detCash.cashMotive_id inner join cashes on cashes.id=detCash.cash_id where cashMotives.tipo="+" and cashes.id=$P{cash_id} group by cashMotives.id order by cashMotives.tipo;]]>
+		<![CDATA[select cashes.id,cashes.fechaInicio,cashMotives.nombre,SUM(montoMovimientoTarjeta) as totMovTar,SUM(montoMovimientoEfectivo)as totMovEfec ,cashMotives.observacion from detCash inner join cashMotives on cashMotives.id=detCash.cashMotive_id inner join cashes on cashes.id=detCash.cash_id where cashMotives.tipo="+" and cashes.fechainicio between $P{fechaini} and $P{fechafin} group by cashMotives.id order by cashMotives.tipo;]]>
 	</queryString>
 	<field name="id" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -34,9 +39,9 @@
 				<staticText>
 					<reportElement x="22" y="10" width="531" height="43" forecolor="#FFFFFF" uuid="3bf60065-5121-4034-8a58-97cfb11c8563"/>
 					<textElement>
-						<font size="34" isBold="true"/>
+						<font size="30" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Detalle Movimientos Caja]]></text>
+					<text><![CDATA[Detalle Movimientos Caja Mes]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -44,15 +49,18 @@
 	<pageHeader>
 		<band height="59">
 			<subreport>
-				<reportElement x="-20" y="0" width="595" height="48" uuid="f6a2c6b4-5df2-4536-a19b-5a082709307a"/>
-				<subreportParameter name="cash_id">
-					<subreportParameterExpression><![CDATA[$P{cash_id}]]></subreportParameterExpression>
-				</subreportParameter>
+				<reportElement x="-20" y="0" width="595" height="48" uuid="64302654-d83e-4cec-9b6a-c6fda8a864e2"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="fechaini">
+					<subreportParameterExpression><![CDATA[$P{fechaini}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechafin">
+					<subreportParameterExpression><![CDATA[$P{fechafin}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportDetCash2.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportDetCash2mes.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</pageHeader>
@@ -89,14 +97,6 @@
 				</textElement>
 				<text><![CDATA[Mov. Efectivo]]></text>
 			</staticText>
-			<subreport>
-				<reportElement x="2" y="41" width="553" height="31" uuid="b572a37d-919f-4a09-9a1d-57ff3fc5f4ab"/>
-				<subreportParameter name="cash_id">
-					<subreportParameterExpression><![CDATA[$P{cash_id}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DetCashTotales.jasper"]]></subreportExpression>
-			</subreport>
 			<staticText>
 				<reportElement mode="Opaque" x="2" y="0" width="555" height="31" forecolor="#006699" backcolor="#E6E6E6" uuid="98e55baf-e977-4e23-9a68-a16bd2a30249"/>
 				<textElement textAlignment="Center">
@@ -109,8 +109,19 @@
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Descripcion]]></text>
+				<text><![CDATA[Mov. Efectivo]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="2" y="45" width="553" height="33" uuid="a1c92d19-c453-4b65-8f5e-4e271e6fe57b"/>
+				<subreportParameter name="fechaini">
+					<subreportParameterExpression><![CDATA[$P{fechaini}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechafin">
+					<subreportParameterExpression><![CDATA[$P{fechafin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DetCashTotalesmes.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</columnHeader>
 	<detail>
@@ -124,11 +135,11 @@
 				<textFieldExpression><![CDATA["S/."+$F{totMovEfec}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="102" y="1" width="131" height="20" uuid="85ecdc8e-6163-413b-92a9-293e63eb4727"/>
+				<reportElement x="75" y="1" width="158" height="20" uuid="85ecdc8e-6163-413b-92a9-293e63eb4727"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="2" y="1" width="100" height="20" uuid="b6140114-6c36-4dab-a5ea-3114a5cbd693"/>
+				<reportElement x="2" y="1" width="73" height="20" uuid="b6140114-6c36-4dab-a5ea-3114a5cbd693"/>
 				<textFieldExpression><![CDATA[$F{fechaInicio}]]></textFieldExpression>
 			</textField>
 			<line>

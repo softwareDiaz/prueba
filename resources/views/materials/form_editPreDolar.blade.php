@@ -13,7 +13,6 @@
 
         <section class="content">
         <div class="row">
-        
         <div class="col-md-12">
 
           <div class="box box-primary">
@@ -29,9 +28,9 @@
                                               </ul>
                                             </div>
           <div class="row">
-          <div class="col-md-1"></div>
+              <div class="col-md-1"></div>
               <div class="col-md-4">
-                  <select class="form-control" ng-change="llenardolar()" ng-model="mes">
+                  <select class="form-control" ng-change="llenardolar()" ng-model="mes" ng-disabled="true">
                      <option value="">--Seleccione Mes--</option>
                      <option value="1">Enero</option>
                      <option value="2">Febrero</option>
@@ -49,7 +48,7 @@
               </div>
           </div><br>
           <div class="row">
-             <div class="col-md-1"></div>
+              <div class="col-md-1"></div>
               <div class="col-md-10">
                <table class="table table-bordered">
                  <thead>
@@ -57,14 +56,18 @@
                      <th>#</th>
                      <th>Fecha</th>
                      <th>Precio Dolar</th>
+                     <th>Edit</th>
                    </tr>
                  </thead>
                  <tbody>
                    <tr ng-repeat="row in mesActuales">
                      <th>@{{$index+1}}</th>
+                     <th ng-hide="true">@{{row.id}}</th>
+                     <th ng-hide="true">@{{row.fecha}}</th>
                      <th>@{{row.fecha2}}</th>
-
-                     <th><input style="width:300px;" ng-change="actualizarPreDolar($index,row)" type="number" class="form-control" ng-model="row.preDolar"></th>
+                     <th ng-hide="true">@{{row.mes}}</th>
+                     <th><input style="width:300px;" string-to-number  type="number" class="form-control" ng-model="row.preDolar"></th>
+                     <th><input type="button" class="btn btn-warning" ng-click="actualizarPredolar(row)" value="Modificar"></th>
                    </tr>
                  </tbody>
                </table>

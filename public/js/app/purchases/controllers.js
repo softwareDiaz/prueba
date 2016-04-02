@@ -1405,6 +1405,97 @@ $scope.decriboton1="Generar Reporte Empleados";
                              }
                         });
                 }
+                $scope.decribotonCaja="Generar Reporte Resumido";
+                $scope.ReportDetCajasResumido=function(){
+                    if($scope.fechainicioCaja!=undefined && $scope.fechafinCaja!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCaja.getFullYear()+"-"+($scope.fechainicioCaja.getMonth()+1)+"-"+$scope.fechainicioCaja.getDate();
+                    $scope.fechafin2=$scope.fechafinCaja.getFullYear()+"-"+($scope.fechafinCaja.getMonth()+1)+"-"+$scope.fechafinCaja.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decribotonCaja="Generando..";
+                     crudOPurchase.reportesMovFecha('ReportDetCashes',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decribotonCaja="Generar Reporte Resumido";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
+$scope.decribotonCaja1="Generar Reporte Detallado";
+                $scope.ReportDetCajasDetallado=function(){
+                    if($scope.fechainicioCaja!=undefined && $scope.fechafinCaja!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCaja.getFullYear()+"-"+($scope.fechainicioCaja.getMonth()+1)+"-"+$scope.fechainicioCaja.getDate();
+                    $scope.fechafin2=$scope.fechafinCaja.getFullYear()+"-"+($scope.fechafinCaja.getMonth()+1)+"-"+$scope.fechafinCaja.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decribotonCaja1="Generando..";
+                     crudOPurchase.reportesMovFecha('ReportDetCashes2',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decribotonCaja1="Generar Reporte Detallado";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
+$scope.decribotonCompra="Generar Reporte Compras";
+                $scope.ReportDetCompraPrin=function(){
+                    if($scope.fechainicioCompra!=undefined && $scope.fechafinCompra!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCompra.getFullYear()+"-"+($scope.fechainicioCompra.getMonth()+1)+"-"+$scope.fechainicioCompra.getDate();
+                    $scope.fechafin2=$scope.fechafinCompra.getFullYear()+"-"+($scope.fechafinCompra.getMonth()+1)+"-"+$scope.fechafinCompra.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decribotonCompra="Generando..";
+                     crudOPurchase.reportesMovFecha('ReportDetCompras',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decribotonCompra="Generar Reporte Compras";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
+$scope.decribotonCompra1="Generar Reporte Otras Compras";
+                $scope.ReportDetCompraVari=function(){
+                    if($scope.fechainicioCompra!=undefined && $scope.fechafinCompra!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCompra.getFullYear()+"-"+($scope.fechainicioCompra.getMonth()+1)+"-"+$scope.fechainicioCompra.getDate();
+                    $scope.fechafin2=$scope.fechafinCompra.getFullYear()+"-"+($scope.fechafinCompra.getMonth()+1)+"-"+$scope.fechafinCompra.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decribotonCompra1="Generando..";
+                     crudOPurchase.reportesMovFecha('ReportDetCompras2',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decribotonCompra1="Generar Reporte Otras Compras";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
+               
+                $scope.decribotonCaja2="Generar Reporte Caja Mensual";
+                $scope.ReporteCajaMensualPri=function(){
+                    if($scope.fechainicioCaja!=undefined && $scope.fechafinCaja!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCaja.getFullYear()+"-"+($scope.fechainicioCaja.getMonth()+1)+"-"+$scope.fechainicioCaja.getDate();
+                    $scope.fechafin2=$scope.fechafinCaja.getFullYear()+"-"+($scope.fechafinCaja.getMonth()+1)+"-"+$scope.fechafinCaja.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decribotonCaja2="Generando..";
+                     crudOPurchase.reportesMovFecha('ReporteCajaMensualPri',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decribotonCaja2="Generar Reporte Caja Mensual";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
                 //=======================================Reporte Cardex====================================
                  $scope.fechaPrueba;
                  $scope.fechaPrueba2;

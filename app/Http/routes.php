@@ -282,6 +282,15 @@ Route::get('api/materials/find/{id}',['as'=>'atribut_find', 'uses'=>'MaterialsCo
 
 Route::get('materials/form-preDolar',['as'=>'atribut_form_create','uses'=>'MaterialsController@form_preDolar']);
 Route::get('materials/preDolar',['as'=>'atribut_create', 'uses'=>'MaterialsController@index']);
+Route::post('api/PreDolar/create',['as'=>'atribut_create', 'uses'=>'MaterialsController@preDolar']);
+Route::get('materials/form-listPreciDolar','MaterialsController@form_listPreciDolar');
+Route::get('materials/listPreciDolar','MaterialsController@index');
+Route::get('api/preDolar/paginate/',['as' => 'atribut_paginate', 'uses' => 'MaterialsController@paginatep2']);
+Route::get('materials/editPreDolar/{id?}', ['as' => 'atribut_edit', 'uses' => 'MaterialsController@index']);
+Route::get('materials/form-editPreDolar',['as'=>'atribut_form_edit','uses'=>'MaterialsController@form_editPreDolar']);
+Route::get('api/preDolar/find/{mes}',['as'=>'atribut_form_edit','uses'=>'MaterialsController@editPaginar']);
+Route::put('api/updatePreDolar/edit',['as'=>'atribut_edit', 'uses'=>'MaterialsController@editPredolar']);
+
 
 Route::get('employees',['as'=>'person','uses'=>'EmployeesController@index']);
 Route::get('employees/create',['as'=>'person_create','uses'=>'EmployeesController@index']);
@@ -823,3 +832,9 @@ Route::post('api/ReportCashes/create/{fechaini}/{fechafin}','CashesController@Re
 Route::post('api/ReportVentas/create/{fechaini}/{fechafin}','SalesController@ReportVentas');
 Route::post('api/ReportMejoresCliente/create/{fechaini}/{fechafin}/{cant}','PurchasesController@ReportMejoresCliente');
 Route::post('api/ReportMejoresEmpleados/create/{fechaini}/{fechafin}/{cant}','PurchasesController@ReportMejoresEmpleados');
+Route::post('api/ReportDetCashes/create/{fechaini}/{fechafin}','PurchasesController@ReportDetCashesResumido');
+Route::post('api/ReportDetCashes2/create/{fechaini}/{fechafin}','PurchasesController@ReportDetCashesDetallado');
+Route::post('api/ReportDetCompras/create/{fechaini}/{fechafin}','PurchasesController@ReportDetCashesCompras');
+Route::post('api/ReportDetCompras2/create/{fechaini}/{fechafin}','PurchasesController@ReportDetCashesCompras2');
+Route::post('api/ReporteCajaMensualPri/create/{fechaini}/{fechafin}','PurchasesController@ReporteCajaMensualPri');
+

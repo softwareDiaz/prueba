@@ -97,6 +97,14 @@
                     templateUrl:'/materials/form-preDolar',
                     controller: 'MaterialsController'
                 })
+                .when('/materials/listPreciDolar',{
+                    templateUrl:'/materials/form-listPreciDolar',
+                    controller: 'MaterialsController'
+                })
+                .when('/materials/editPreDolar/:id',{
+                    templateUrl:'/materials/form-editPreDolar',
+                    controller: 'MaterialsController'
+                }) 
                 .when('/materials/edit/:id',{
                     templateUrl:'/materials/form-edit',
                     controller: 'MaterialsController'

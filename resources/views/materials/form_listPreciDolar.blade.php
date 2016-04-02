@@ -1,5 +1,5 @@
 <setion class="content-header"><h1>
-            Precio Dolar Sunat
+            Lista Precio Dolar Sunat
             <small>Panel de Control</small>
           </h1>
           <ol class="breadcrumb">
@@ -13,12 +13,11 @@
 
         <section class="content">
         <div class="row">
-        
         <div class="col-md-12">
 
           <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Agregar Precio Dolar</h3>
+                  <h3 class="box-title">Lista por meses</h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form name="brandCreateForm" role="form" novalidate>
@@ -28,49 +27,32 @@
                                               <li ng-repeat="row in errors track by $index"><strong >@{{row}}</strong></li>
                                               </ul>
                                             </div>
+         
           <div class="row">
           <div class="col-md-1"></div>
-              <div class="col-md-4">
-                  <select class="form-control" ng-change="llenardolar()" ng-model="mes">
-                     <option value="">--Seleccione Mes--</option>
-                     <option value="1">Enero</option>
-                     <option value="2">Febrero</option>
-                     <option value="3">Marzo</option>
-                     <option value="4">Abril</option>
-                     <option value="5">Mayo</option>
-                     <option value="6">Junio</option>
-                     <option value="7">Julio</option>
-                     <option value="8">Agosto</option>
-                     <option value="9">Setiembre</option>
-                     <option value="10">Octubre</option>
-                     <option value="11">Noviembre</option>
-                     <option value="12">Diciembre</option>
-                 </select>
-              </div>
-          </div><br>
-          <div class="row">
-             <div class="col-md-1"></div>
               <div class="col-md-10">
                <table class="table table-bordered">
                  <thead>
                    <tr>
                      <th>#</th>
-                     <th>Fecha</th>
-                     <th>Precio Dolar</th>
+                     <th style="text-align: center;">Fecha</th>
+                     <th style="text-align: right;">Edit</th>
                    </tr>
                  </thead>
                  <tbody>
                    <tr ng-repeat="row in mesActuales">
                      <th>@{{$index+1}}</th>
-                     <th>@{{row.fecha2}}</th>
+                     <th style="text-align: center;">@{{row.mes}}</th>
 
-                     <th><input style="width:300px;" ng-change="actualizarPreDolar($index,row)" type="number" class="form-control" ng-model="row.preDolar"></th>
+                     <th style="text-align: right;"><input type="button" class="btn btn-warning" ng-click="editPReDolar(row)" value="Edit"></th>
                    </tr>
                  </tbody>
                </table>
               </div>
           </div>
-               
+               <div class="box-footer clearfix">
+                  <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
+               </div> 
                  
                 
                 </div><!-- /.box-body -->

@@ -146,7 +146,8 @@
                <h2>Reporte Mejores Clientes/Empleados</h2>
               </div>
 
-       </div>   <hr>   
+       </div>   <hr>  
+       <div id="mejorCliente"> 
         <div class="row">
                 <div class="col-md-1">  </div>
                     <div class="col-md-4">                             
@@ -183,9 +184,103 @@
                         <input ng-disabled="fechafin<fechainicio" type="button" class="btn btn-warning" ng-click="ReportMejoresEmpleados()" value="@{{decriboton1}}">
                       </div>
                  </div>
-                <br>   
+                <br></div>   
                 <hr>           
-                    
+                  <!--==================================================================================================-->
+       <div id="detCajas">
+       <div class="row">
+            <div class="col-md-1"></div>
+              <div  class="col-md-6">
+               <h2>Reporte Detalles de Caja en el Mes</h2>
+              </div>
+
+       </div>   <hr>   
+        <div class="row">
+                <div class="col-md-1">  </div>
+                    <div class="col-md-4">                             
+                            <label for="fechaPedido">Fecha Inicio: </label>
+                            <div ng-hide="show" class="input-group">
+                                <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                </div>
+                                  <input type="date" class="form-control"  name="fechainicio" ng-model="fechainicioCaja" >
+                            </div>                          
+                        </div> 
+                         <div class="col-md-4">                             
+                            <label for="fechaPedido">Fecha Fin: </label>
+                            <div ng-hide="show" class="input-group">
+                                <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                </div>
+                                  <input type="date" class="form-control"  ng-model="fechafinCaja" >
+                            </div>                          
+                        </div>
+                </div>
+                 <div class="row">
+                      <div class="col-md-1">  </div>
+                      <div class="col-md-3"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafinCaja<fechainicioCaja" type="button" class="btn btn-warning" ng-click="ReportDetCajasResumido()" value="@{{decribotonCaja}}">
+                      </div>
+                      <div class="col-md-3"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafinCaja<fechainicioCaja" type="button" class="btn btn-warning" ng-click="ReportDetCajasDetallado()" value="@{{decribotonCaja1}}">
+                      </div>
+                      <div class="col-md-3"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafinCaja<fechainicioCaja" type="button" class="btn btn-warning" ng-click="ReporteCajaMensualPri()" value="@{{decribotonCaja2}}">
+                      </div>
+                 </div>
+                <br> 
+                </div>  
+                <hr>
+        <!--==================================================================================================-->  
+          <!--==================================================================================================-->
+       <div id="compras">
+       <div class="row">
+            <div class="col-md-1"></div>
+              <div  class="col-md-6">
+               <h2>Reporte Compras</h2>
+              </div>
+
+       </div>   <hr>   
+        <div class="row">
+                <div class="col-md-1">  </div>
+                    <div class="col-md-4">                             
+                            <label for="fechaPedido">Fecha Inicio: </label>
+                            <div ng-hide="show" class="input-group">
+                                <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                </div>
+                                  <input type="date" class="form-control"  name="fechainicio" ng-model="fechainicioCompra" >
+                            </div>                          
+                        </div> 
+                         <div class="col-md-4">                             
+                            <label for="fechaPedido">Fecha Fin: </label>
+                            <div ng-hide="show" class="input-group">
+                                <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                </div>
+                                  <input type="date" class="form-control"  ng-model="fechafinCompra" >
+                            </div>                          
+                        </div>
+                </div>
+                 <div class="row">
+                      <div class="col-md-1">  </div>
+                      <div class="col-md-3"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafinCompra<fechainicioCompra" type="button" class="btn btn-warning" ng-click="ReportDetCompraPrin()" value="@{{decribotonCompra}}">
+                      </div>
+                      <div class="col-md-3"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafinCompra<fechainicioCompra" type="button" class="btn btn-warning" ng-click="ReportDetCompraVari()" value="@{{decribotonCompra1}}">
+                      </div>
+                 </div>
+                <br> 
+                </div>  
+                <hr>
+        <!--==================================================================================================-->  
+     
      <div class="box-footer">
                     <a href="/purchases" class="btn btn-danger">Salir</a>
                   </div>
