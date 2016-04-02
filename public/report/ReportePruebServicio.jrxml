@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="221"/>
+	<property name="ireport.y" value="372"/>
 	<parameter name="q" class="java.lang.String"/>
 	<parameter name="Ruta_img" class="java.lang.String"/>
 	<queryString>
@@ -154,7 +154,7 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="523">
+		<band height="540">
 			<rectangle radius="10">
 				<reportElement x="91" y="351" width="436" height="60" uuid="8b3037c9-d6e5-4eb8-b2a4-940b64457488"/>
 			</rectangle>
@@ -258,7 +258,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
-				<text><![CDATA[Sentro de Servicio Autorizado]]></text>
+				<text><![CDATA[Centro de Servicio Autorizado]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="356" y="44" width="50" height="20" uuid="26fe0b83-b9b3-4e3f-9e6f-e642bf24bef9"/>
@@ -349,6 +349,21 @@
 				<reportElement x="100" y="426" width="100" height="20" uuid="adc48cc6-743e-4f81-a0de-df64df6e478e"/>
 				<textFieldExpression><![CDATA[$F{ordenTrabajo}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="228" y="486" width="100" height="20" uuid="e19b32d2-82cb-4359-9dc8-06f680687b45"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Soporte Tecnico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="387" y="486" width="100" height="20" uuid="aa797d67-6536-49c6-a2e2-d8f45378c60e"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="520" width="437" height="20" uuid="2628d847-2ca2-4c49-9307-e37888bbc3de"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Nota: Pasado los tres meses su equipo sera desechado.]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
