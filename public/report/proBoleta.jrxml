@@ -102,7 +102,7 @@
 			</textField>
 			<textField>
 				<reportElement x="81" y="31" width="357" height="20" uuid="6d8df4a3-2663-4d4f-8ede-00582569c533"/>
-				<textFieldExpression><![CDATA[($F{direccion_cliente}.equals("")?$F{direccion_cliente}:$F{direccion})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{direccion_cliente}.equals("")?$F{direccion}:$F{direccion_cliente})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="438" y="31" width="42" height="20" uuid="1cfa24cd-b1d7-4f55-a753-c3b7749d8d6c"/>
