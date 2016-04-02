@@ -12,6 +12,11 @@
         </section>
 
         <section class="content">
+         <div class="row">
+        <div class="col-md-12">
+          <a href="/materials/preDolar" type="submit" class="btn btn-primary pull-left">Registrar Precios</a> 
+          </div>
+        </div><br>
         <div class="row">
         <div class="col-md-12">
 
@@ -58,8 +63,7 @@
                 </div><!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" ng-click="cretatePredolar()">Crear</button>
-                    <a href="/brands" class="btn btn-danger">Cancelar</a>
+                    
                   </div>
                 </form>
               </div><!-- /.box -->

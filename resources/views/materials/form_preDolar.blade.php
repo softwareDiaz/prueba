@@ -77,7 +77,7 @@
 
                   <div class="box-footer">
                     <button type="submit" class="btn btn-primary" ng-click="cretatePredolar()">Crear</button>
-                    <a href="/brands" class="btn btn-danger">Cancelar</a>
+                    <a href="/materials/listPreciDolar" class="btn btn-danger">Cancelar</a>
                   </div>
                 </form>
               </div><!-- /.box -->

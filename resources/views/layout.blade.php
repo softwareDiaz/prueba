@@ -152,6 +152,7 @@
                 <li class=""><a href="/employees" ><i class="fa fa-circle-o"></i>Empleados</a></li>
                   <li><a href="/stores"><i class="fa fa-circle-o"></i>Tienda </a></li>
                 <li><a href="/warehouses"><i class="fa fa-circle-o"></i>Almacenes </a></li>
+                <li><a href="/materials/listPreciDolar"><i class="fa fa-circle-o"></i>Precio Dolar </a></li>
               </ul>
             </li>
             <li class="treeview">
