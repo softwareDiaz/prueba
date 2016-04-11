@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="372"/>
+	<property name="ireport.y" value="389"/>
 	<parameter name="q" class="java.lang.String"/>
 	<parameter name="Ruta_img" class="java.lang.String"/>
 	<queryString>
@@ -127,7 +127,7 @@
 				<textFieldExpression><![CDATA[$F{numeroServicio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="11" y="52" width="231" height="20" uuid="20ae13dc-0213-4b82-8d23-5c95a41c8329"/>
+				<reportElement x="11" y="52" width="247" height="20" uuid="20ae13dc-0213-4b82-8d23-5c95a41c8329"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{direcTienda}+" "+$F{TelefonoFijo}]]></textFieldExpression>
 			</textField>
@@ -137,14 +137,28 @@
 				<textFieldExpression><![CDATA[$F{rucTienda}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="11" y="8" width="231" height="50" uuid="f528b864-e37f-4c1d-946c-8c9277eba43b"/>
+				<reportElement x="11" y="8" width="247" height="50" uuid="f528b864-e37f-4c1d-946c-8c9277eba43b"/>
 				<imageExpression><![CDATA[""+$P{Ruta_img}+""]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="11" y="72" width="231" height="20" uuid="b280845f-29a2-434f-888d-4a3b87e401b0"/>
+				<reportElement x="11" y="72" width="247" height="20" uuid="b280845f-29a2-434f-888d-4a3b87e401b0"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{TelefonoMovil}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="11" y="86" width="247" height="13" isPrintWhenDetailOverflows="true" uuid="75350391-9631-499e-a572-e708cf15e14d"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Horario de Atencion: Lun a Vie (8:30 am- 1:30pm y 4:00 pm-8:00 pm)  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="96" width="247" height="9" isPrintWhenDetailOverflows="true" uuid="3ddf4dae-91d6-472e-b297-a5912ce33c26"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Sabado (9:00 am - 2:00 pm)]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -360,9 +374,9 @@
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="62" y="520" width="437" height="20" uuid="2628d847-2ca2-4c49-9307-e37888bbc3de"/>
+				<reportElement x="52" y="520" width="447" height="20" uuid="2628d847-2ca2-4c49-9307-e37888bbc3de"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Nota: Pasado los tres meses su equipo sera desechado.]]></text>
+				<text><![CDATA[Nota: Pasando los tres meses su equipo sera desechado sin reclamo alguno la gerencia.]]></text>
 			</staticText>
 		</band>
 	</detail>
