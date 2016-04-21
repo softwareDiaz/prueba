@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="totalReportCompras" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5047539-97d7-4e2d-86ea-1f35dbf2ce1b">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="3"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="fechaini" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -16,7 +16,7 @@
 		<![CDATA[select SUM(purchases.montoTotalDolar) AS totDolar,
 priceDolars.predolar,SUM(ROUND((purchases.montoTotalDolar*priceDolars.predolar),2)) as TotCompraSolesf from purchases
 inner join priceDolars on priceDolars.fecha=SUBSTRING(purchases.fechaEntrega,1,10)
-inner join suppliers on suppliers.id=purchases.supplier_id inner join payments on payments.purchase_id=purchases.id where purchases.fechaEntrega between $P{fechaini} and $P{fechafin} ;]]>
+inner join suppliers on suppliers.id=purchases.supplier_id inner join payments on payments.purchase_id=purchases.id where SUBSTRING(purchases.fechaEntrega,1,10) between $P{fechaini} and $P{fechafin} ;]]>
 	</queryString>
 	<field name="totDolar" class="java.math.BigDecimal"/>
 	<field name="predolar" class="java.math.BigDecimal">
@@ -72,11 +72,11 @@ inner join suppliers on suppliers.id=purchases.supplier_id inner join payments o
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportCompras.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="340" y="50" width="90" height="20" uuid="efdd20e4-3e8b-4127-9a3c-67c24ed95661"/>
+				<reportElement positionType="FixRelativeToBottom" x="340" y="50" width="90" height="20" uuid="67f48813-ecfa-4919-adb2-83dff3f09db8"/>
 				<textFieldExpression><![CDATA[$F{totDolar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="480" y="50" width="75" height="20" uuid="0dcbb934-e5c3-404c-8f04-b98b7e26ab4e"/>
+				<reportElement positionType="FixRelativeToBottom" x="480" y="50" width="75" height="20" uuid="5c0c9814-0543-4514-b60a-eebfe67a1d9f"/>
 				<textFieldExpression><![CDATA[$F{TotCompraSolesf}]]></textFieldExpression>
 			</textField>
 		</band>
