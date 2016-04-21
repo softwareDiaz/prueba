@@ -109,7 +109,7 @@ class AuthController extends Controller
             $data['image']='/images/users/default.jpg';
             //$user->save();
         }
-        return User::create([
+         User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -147,7 +147,7 @@ class AuthController extends Controller
        //$manager = new UserManager($user,$request);
        $manager->save();*/
 
-        //return response()->json(['estado'=>true, 'nombres'=>$employee->nombres]);
+        return response()->json(['estado'=>true]);
     }
     
 

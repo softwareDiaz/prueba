@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="totalReportCompras" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5047539-97d7-4e2d-86ea-1f35dbf2ce1b">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="3"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="fechaini" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -52,13 +52,6 @@ inner join suppliers on suppliers.id=purchases.supplier_id inner join payments o
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="340" y="50" width="90" height="20" uuid="e9b364c7-dccd-4368-9889-09970af5f64e"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{totDolar}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="430" y="50" width="50" height="20" uuid="113ace44-2434-4af6-a455-0ef84c124a72"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -66,13 +59,6 @@ inner join suppliers on suppliers.id=purchases.supplier_id inner join payments o
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="480" y="50" width="73" height="20" uuid="be39fc6a-dde3-4b8f-92b8-c7c0c208c0be"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{TotCompraSolesf}]]></textFieldExpression>
-			</textField>
 			<subreport>
 				<reportElement x="1" y="4" width="554" height="42" uuid="557adfb6-1ef6-4eed-9f00-bf66a7c705e5"/>
 				<subreportParameter name="fechaini">
@@ -85,6 +71,14 @@ inner join suppliers on suppliers.id=purchases.supplier_id inner join payments o
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportCompras.jasper"]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="340" y="50" width="90" height="20" uuid="efdd20e4-3e8b-4127-9a3c-67c24ed95661"/>
+				<textFieldExpression><![CDATA[$F{totDolar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="480" y="50" width="75" height="20" uuid="0dcbb934-e5c3-404c-8f04-b98b7e26ab4e"/>
+				<textFieldExpression><![CDATA[$F{TotCompraSolesf}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
