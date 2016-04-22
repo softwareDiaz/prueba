@@ -1,7 +1,6 @@
 <?php
-
 namespace Salesfly\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 use Salesfly\User;
 use Salesfly\Salesfly\Entities\Store;
@@ -9,7 +8,12 @@ use Validator;
 use Salesfly\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+<<<<<<< HEAD
 
+=======
+//add custom
+//use Salesfly\Http\Requests;
+>>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
 class AuthController extends Controller
 {
     /*
@@ -22,9 +26,7 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
     /**
      * Create a new authentication controller instance.
      *
@@ -32,10 +34,13 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['getLogout','indexU','all','paginate','form_create','form_edit','store_select','postRegister','search','find','edit']]);
+        $this->middleware('guest', ['except' => ['getLogout','indexU','all','paginate','form_create','form_edit','store_select','postRegister','search','find','edit','disableuser','changePass']]);
         //$this->middleware('auth',['only' => 'index']);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
     /**
      * Get a validator for an incoming registration request.
      *
@@ -54,7 +59,6 @@ class AuthController extends Controller
             'image' => ''
         ]);
     }
-
     /**
      * Get a validator for an incoming edit request.
      *
@@ -73,7 +77,6 @@ class AuthController extends Controller
             'image' => ''
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -82,7 +85,10 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+<<<<<<< HEAD
         //var_dump("expression");die();
+=======
+>>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -93,7 +99,10 @@ class AuthController extends Controller
             //'image' => $data['image']
         ]);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
     /**
      * Update a user instance after edit form.
      *
@@ -113,8 +122,6 @@ class AuthController extends Controller
         ]);
         return $user;
     }
-
-
     /**
     * funciones creadas por Salesfly
      **/
@@ -125,9 +132,7 @@ class AuthController extends Controller
         }else{
             return redirect()->to('auth/login');
         }
-
     }
-
     protected  function all()
     {
         if(\Auth::check()){
@@ -137,7 +142,6 @@ class AuthController extends Controller
             return redirect()->to('auth/login');
         }
     }
-
     protected  function paginate(){
         if(\Auth::check()) {
             $users = User::with(array('store'=>function($query){
@@ -149,7 +153,6 @@ class AuthController extends Controller
             }
             $tienda = $user->store()->get();*/
             return response()->json($users);
-
         }else{
             return redirect()->to('auth/login');
         }
@@ -158,7 +161,6 @@ class AuthController extends Controller
     {
         return View('auth.users.form_create');
     }
-
     public function form_edit()
     {
         return View('auth.users.form_edit');
@@ -180,4 +182,26 @@ class AuthController extends Controller
         $user = User::find($id);
         return response()->json($user);
     }
+<<<<<<< HEAD
 }
+=======
+    public function disableuser($userId){
+        //print_r($proId);
+        \DB::beginTransaction();
+        $user = User::find($userId);
+        $estado = $user->estado;
+        //var_dump($product->hasVariants); die();
+            if ($estado == 1) {
+                $user->estado = 0;
+                //$variant->estado = 0;
+            } else {
+                $user->estado = 1;
+                //$variant->estado = 1;
+            }
+        $user->save();
+        //die();
+        \DB::commit();
+        return response()->json(['estado'=>true]);
+    }
+}
+>>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
