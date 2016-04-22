@@ -1,19 +1,15 @@
 <?php
-
 namespace Salesfly\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 use Salesfly\User;
 use Salesfly\Salesfly\Entities\Store;
-use Salesfly\Salesfly\Repositories\UserRepo;
-use Salesfly\Salesfly\Managers\UserManager;
 use Validator;
 use Salesfly\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Intervention\Image\Facades\Image;
-use Illuminate\Http\Request;
-
+//add custom
+//use Salesfly\Http\Requests;
 class AuthController extends Controller
 {
     /*
@@ -26,9 +22,7 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
-
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
     /**
      * Create a new authentication controller instance.
      *
@@ -36,10 +30,9 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['getLogout','indexU','all','paginate','form_create','form_edit','store_select','postRegister','search','find','edit']]);
+        $this->middleware('guest', ['except' => ['getLogout','indexU','all','paginate','form_create','form_edit','store_select','postRegister','search','find','edit','disableuser','changePass']]);
         //$this->middleware('auth',['only' => 'index']);
     }
-     
     /**
      * Get a validator for an incoming registration request.
      *
@@ -50,7 +43,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
             'store_id' => 'required|integer',
             'role_id' => 'required|integer',
@@ -58,7 +51,6 @@ class AuthController extends Controller
             'image' => ''
         ]);
     }
-
     /**
      * Get a validator for an incoming edit request.
      *
@@ -70,87 +62,31 @@ class AuthController extends Controller
         $user = User::find($data['id']);
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'store_id' => 'required|integer',
             'role_id' => 'required|integer',
             'estado' => 'required|integer',
             'image' => ''
         ]);
     }
-
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return User
      */
-    public function get_string_between($string, $start, $end){
-    $string = " ".$string;
-     $ini = strpos($string,$start);
-     if ($ini == 0) return "";
-     $ini += strlen($start);     
-     $len = strpos($string,$end,$ini) - $ini;
-     return substr($string,$ini,$len);
-}
     protected function create(array $data)
     {
-        //var_dump($data['name']);die();
-        $userRepo = new UserRepo;
-        $user = $userRepo->traerUltimoID();
-        //var_dump($user->id);die();
-        if(!empty($data['image']) && $data['image'] and substr($data['image'],5,5) === 'image'){
-            $imagen = $data['image'];
-            $mime = $this->get_string_between($imagen,'/',';');
-            $imagen = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imagen));
-            Image::make($imagen)->resize(200,200)->save('images/users/'.$user->id.'.'.$mime);
-            $data['image']='/images/users/'.$user->id.'.'.$mime;
-            //$user->save();
-        }else{
-            $data['image']='/images/users/default.jpg';
-            //$user->save();
-        }
-         User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'store_id' => $data['store_id'],
             'role_id' => $data['role_id'],
-            'estado' => $data['estado'],
-            'image' => $data['image']
+            'estado' => $data['estado']
+            //'image' => $data['image']
         ]);
-        //$request['password'] = bcrypt($data['password']),
-        /*$userRepo = new UserRepo;
-        $user = $userRepo->getModel();
-       $manager = new UserManager($user,$data['name'],
-             $data['email'],
-             bcrypt($data['password']),
-             $data['store_id'],
-             $data['role_id'],
-             $data['estado']);
-       $manager->save();
-        
-        //------------------------------------------------
-
-        if($request['image'] and substr($request['image'],5,5) === 'image'){
-            $imagen = $request['image'];
-            $mime = $this->get_string_between($imagen,'/',';');
-            $imagen = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imagen));
-            Image::make($imagen)->resize(200,200)->save('images/users/'.$user->id.'.'.$mime);
-            $user->imagen='/images/users/'.$user->id.'.'.$mime;
-            $user->save();
-        }else{
-            $user->imagen='/images/users/default.jpg';
-            $user->save();
-        }
-        //-------------------------------------------------
-        
-       //$manager = new UserManager($user,$request);
-       $manager->save();*/
-
-        return response()->json(['estado'=>true]);
     }
-    
-
     /**
      * Update a user instance after edit form.
      *
@@ -160,32 +96,16 @@ class AuthController extends Controller
     protected function update(User $user,array $data)
     {
         //retorna filas afectadas;
-         $userRepo = new UserRepo;
-        $user1 = $userRepo->traerUltimoID();
-    var_dump($data["name"]);die();
-        if(!empty($data['image']) && $data['image'] and substr($data['image'],5,5) === 'image'){
-            $imagen = $data['image'];
-            $mime = $this->get_string_between($imagen,'/',';');
-            $imagen = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imagen));
-            Image::make($imagen)->resize(200,200)->save('images/users/'.$user1->id.'.'.$mime);
-            $data['image']='/images/users/'.$user1->id.'.'.$mime;
-            //$user->save();
-        }else{
-            $data['image']='/images/users/default.jpg';
-            //$user->save();
-        }
          $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
             'store_id' => $data['store_id'],
             'role_id' => $data['role_id'],
-            'estado' => $data['estado'],
-            'image' => $data['image']
+            'estado' => $data['estado']
+            //'image' => $data['image']
         ]);
         return $user;
     }
-
-
     /**
     * funciones creadas por Salesfly
      **/
@@ -196,9 +116,7 @@ class AuthController extends Controller
         }else{
             return redirect()->to('auth/login');
         }
-
     }
-
     protected  function all()
     {
         if(\Auth::check()){
@@ -208,7 +126,6 @@ class AuthController extends Controller
             return redirect()->to('auth/login');
         }
     }
-
     protected  function paginate(){
         if(\Auth::check()) {
             $users = User::with(array('store'=>function($query){
@@ -220,7 +137,6 @@ class AuthController extends Controller
             }
             $tienda = $user->store()->get();*/
             return response()->json($users);
-
         }else{
             return redirect()->to('auth/login');
         }
@@ -229,7 +145,6 @@ class AuthController extends Controller
     {
         return View('auth.users.form_create');
     }
-
     public function form_edit()
     {
         return View('auth.users.form_edit');
@@ -250,5 +165,23 @@ class AuthController extends Controller
     {
         $user = User::find($id);
         return response()->json($user);
+    }
+    public function disableuser($userId){
+        //print_r($proId);
+        \DB::beginTransaction();
+        $user = User::find($userId);
+        $estado = $user->estado;
+        //var_dump($product->hasVariants); die();
+            if ($estado == 1) {
+                $user->estado = 0;
+                //$variant->estado = 0;
+            } else {
+                $user->estado = 1;
+                //$variant->estado = 1;
+            }
+        $user->save();
+        //die();
+        \DB::commit();
+        return response()->json(['estado'=>true]);
     }
 }
