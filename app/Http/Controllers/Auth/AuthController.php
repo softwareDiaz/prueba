@@ -8,12 +8,7 @@ use Validator;
 use Salesfly\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-<<<<<<< HEAD
 
-=======
-//add custom
-//use Salesfly\Http\Requests;
->>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
 class AuthController extends Controller
 {
     /*
@@ -37,10 +32,6 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => ['getLogout','indexU','all','paginate','form_create','form_edit','store_select','postRegister','search','find','edit','disableuser','changePass']]);
         //$this->middleware('auth',['only' => 'index']);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
     /**
      * Get a validator for an incoming registration request.
      *
@@ -85,10 +76,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-<<<<<<< HEAD
-        //var_dump("expression");die();
-=======
->>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -99,10 +87,6 @@ class AuthController extends Controller
             //'image' => $data['image']
         ]);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
     /**
      * Update a user instance after edit form.
      *
@@ -182,9 +166,7 @@ class AuthController extends Controller
         $user = User::find($id);
         return response()->json($user);
     }
-<<<<<<< HEAD
-}
-=======
+
     public function disableuser($userId){
         //print_r($proId);
         \DB::beginTransaction();
@@ -204,4 +186,3 @@ class AuthController extends Controller
         return response()->json(['estado'=>true]);
     }
 }
->>>>>>> 62ef134296c649f0a357579880cac6f7ec0e338d
