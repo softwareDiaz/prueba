@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="610" pageHeight="842" columnWidth="590" leftMargin="20" rightMargin="0" topMargin="90" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="404"/>
+	<property name="ireport.y" value="492"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/usr/share/nginx/html/salesfly/public/report/"]]></defaultValueExpression>
 	</parameter>
@@ -116,7 +116,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="62" y="603" width="312" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{descriNum}+"/100"]]></textFieldExpression>
