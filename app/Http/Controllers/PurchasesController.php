@@ -1092,22 +1092,22 @@ class PurchasesController extends Controller {
      public function ReportDetCashesCompras($f1,$f2){
            $database = \Config::get('database.connections.mysql');
         $time=time();
-        $output = public_path() . '/report/'.$time.'_totalReportCompras';        
+        $output = public_path() . '/report/'.$time.'_ReporteComprasPrincipal';        
         $ext = "pdf";
         
         \JasperPHP::process(
-            public_path() . '/report/totalReportCompras.jasper', 
+            public_path() . '/report/ReporteComprasPrincipal.jasper', 
             $output, 
             array($ext),
             //array(),
             //while($i<=3){};
-             ['SUBREPORT_DIR'=> public_path() . '/report/','fechaini'=>$f1,'fechafin'=>$f2],//Parametros
+             ['fechaini'=>$f1,'fechafin'=>$f2,'SUBREPORT_DIR'=> public_path() . '/report/'],//Parametros
               
             $database,
             false,
             false
         )->execute();
-        return '/report/'.$time.'_totalReportCompras.'.$ext;
+        return '/report/'.$time.'_ReporteComprasPrincipal.'.$ext;
      }
      public function ReporteCajaMensualPri($f1,$f2){
            $database = \Config::get('database.connections.mysql');
