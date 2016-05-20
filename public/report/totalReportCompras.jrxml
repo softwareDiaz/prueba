@@ -16,7 +16,7 @@
 		<![CDATA[select SUM(purchases.montoTotalDolar) AS totDolar,
 priceDolars.predolar,SUM(ROUND((purchases.montoTotalDolar*priceDolars.predolar),2)) as TotCompraSolesf from purchases
 inner join priceDolars on priceDolars.fecha=SUBSTRING(purchases.fechaEntrega,1,10)
-inner join suppliers on suppliers.id=purchases.supplier_id inner join payments on payments.purchase_id=purchases.id where SUBSTRING(purchases.fechaEntrega,1,10) between $P{fechaini} and $P{fechafin} ;]]>
+inner join suppliers on suppliers.id=purchases.supplier_id inner join payments on payments.purchase_id=purchases.id where purchases.fechaEntrega between $P{fechaini} and $P{fechafin} ;]]>
 	</queryString>
 	<field name="totDolar" class="java.math.BigDecimal"/>
 	<field name="predolar" class="java.math.BigDecimal">
