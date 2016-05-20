@@ -13,16 +13,11 @@
 		<defaultValueExpression><![CDATA["/var/www/html/prueba/public/report/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select SUM(purchases.montoTotalDolar) AS totDolar,
-priceDolars.predolar,SUM(ROUND((purchases.montoTotalDolar*priceDolars.predolar),2)) as TotCompraSolesf from purchases
-inner join priceDolars on priceDolars.fecha=SUBSTRING(purchases.fechaEntrega,1,10)
+		<![CDATA[select purchases.id as TotCompraSolesf from purchases
+
 inner join suppliers on suppliers.id=purchases.supplier_id inner join payments on payments.purchase_id=purchases.id where purchases.fechaEntrega between $P{fechaini} and $P{fechafin} ;]]>
 	</queryString>
-	<field name="totDolar" class="java.math.BigDecimal"/>
-	<field name="predolar" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TotCompraSolesf" class="java.math.BigDecimal"/>
+	<field name="TotCompraSolesf" class="java.lang.Long"/>
 	<background>
 		<band/>
 	</background>
