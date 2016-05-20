@@ -59,14 +59,6 @@ inner join suppliers on suppliers.id=purchases.supplier_id inner join payments o
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="340" y="50" width="90" height="20" uuid="67f48813-ecfa-4919-adb2-83dff3f09db8"/>
-				<textFieldExpression><![CDATA[$F{totDolar}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="480" y="50" width="75" height="20" uuid="5c0c9814-0543-4514-b60a-eebfe67a1d9f"/>
-				<textFieldExpression><![CDATA[$F{TotCompraSolesf}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<columnFooter>
