@@ -59,18 +59,6 @@ inner join suppliers on suppliers.id=purchases.supplier_id inner join payments o
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
-			<subreport>
-				<reportElement x="1" y="4" width="554" height="42" uuid="557adfb6-1ef6-4eed-9f00-bf66a7c705e5"/>
-				<subreportParameter name="fechaini">
-					<subreportParameterExpression><![CDATA[$P{fechaini}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="fechafin">
-					<subreportParameterExpression><![CDATA[$P{fechafin}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="SUBREPORT_DIR"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReportCompras.jasper"]]></subreportExpression>
-			</subreport>
 			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="340" y="50" width="90" height="20" uuid="67f48813-ecfa-4919-adb2-83dff3f09db8"/>
 				<textFieldExpression><![CDATA[$F{totDolar}]]></textFieldExpression>
