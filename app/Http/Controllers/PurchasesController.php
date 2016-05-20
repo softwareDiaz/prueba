@@ -1092,11 +1092,11 @@ class PurchasesController extends Controller {
      public function ReportDetCashesCompras($f1,$f2){
            $database = \Config::get('database.connections.mysql');
         $time=time();
-        $output = public_path() . '/report/'.$time.'_totalReportCompras';        
+        $output = public_path() . '/report/'.$time.'_ReporteComprasPrincipal';        
         $ext = "pdf";
         
         \JasperPHP::process(
-            public_path() . '/report/totalReportCompras.jasper', 
+            public_path() . '/report/ReporteComprasPrincipal.jasper', 
             $output, 
             array($ext),
             //array(),
@@ -1107,7 +1107,7 @@ class PurchasesController extends Controller {
             false,
             false
         )->execute();
-        return '/report/'.$time.'_totalReportCompras.'.$ext;
+        return '/report/'.$time.'_ReporteComprasPrincipal.'.$ext;
      }
      public function ReporteCajaMensualPri($f1,$f2){
            $database = \Config::get('database.connections.mysql');
