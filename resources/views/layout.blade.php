@@ -218,7 +218,7 @@
               </a>
               <ul class="treeview-menu">
                 <li class=""><a href="#" ><i class="fa fa-circle-o"></i>Reporte de Ventas</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Inventario </a></li>
+                <li><a href="/otherPheads/balance"><i class="fa fa-circle-o"></i>Balance </a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Pagos a Proveedores </a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Cajas </a></li>
                 <li><a href="/purchases/cardex#compras"><i class="fa fa-circle-o"></i>Reporte de Compras </a></li>

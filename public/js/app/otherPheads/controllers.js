@@ -75,8 +75,8 @@
                   $scope.pagos.fecha10=$scope.pagos.fecha1.getFullYear()+'-'+($scope.pagos.fecha1.getMonth()+1)+'-'+$scope.pagos.fecha1.getDate();
                    $scope.pagos.fecha12=$scope.pagos.fecha2.getFullYear()+'-'+($scope.pagos.fecha2.getMonth()+1)+'-'+$scope.pagos.fecha2.getDate();
                   
-                   alert($scope.pagos.fecha10);
-                   alert($scope.pagos.fecha12);
+                   //alert($scope.pagos.fecha10);
+                   //alert($scope.pagos.fecha12);
                       crudService.balance('payments',$scope.pagos.fecha10,$scope.pagos.fecha12).then(function (data) {
                          $scope.Compras=data[0];
                       });
