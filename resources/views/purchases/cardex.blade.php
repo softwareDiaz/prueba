@@ -230,6 +230,14 @@
                         <label></label> <br>
                         <input ng-disabled="fechafinCaja<fechainicioCaja" type="button" class="btn btn-warning" ng-click="ReporteCajaMensualPri()" value="@{{decribotonCaja2}}">
                       </div>
+                      
+                 </div>
+                 <div class="row">
+                 <div class="col-md-1"> </div>
+                    <div class="col-md-3"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafinCaja<fechainicioCaja" type="button" class="btn btn-warning" ng-click="ReporteFacturado()" value="@{{decribotonFacturado}}">
+                      </div>
                  </div>
                 <br> 
                 </div>  
@@ -274,6 +282,10 @@
                       <div class="col-md-3"> 
                         <label></label> <br>
                         <input ng-disabled="fechafinCompra<fechainicioCompra" type="button" class="btn btn-warning" ng-click="ReportDetCompraVari()" value="@{{decribotonCompra1}}">
+                      </div>
+                      <div class="col-md-3"> 
+                        <label></label> <br>
+                        <input ng-disabled="fechafinCompra<fechainicioCompra" type="button" class="btn btn-warning" ng-click="ReporteGastosMes()" value="@{{descriGasto}}">
                       </div>
                  </div>
                 <br> 

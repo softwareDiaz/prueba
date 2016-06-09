@@ -1109,6 +1109,47 @@ class PurchasesController extends Controller {
         )->execute();
         return '/report/'.$time.'_ReporteComprasPrincipal.'.$ext;
      }
+     
+     public function ReporteFacturado($f1,$f2){
+           $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_TotalReporteFacturado';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/TotalReporteFacturado.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+             ['SUBREPORT_DIR'=> public_path() . '/report/','fechaini'=>$f1,'fechafin'=>$f2],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_TotalReporteFacturado.'.$ext;
+     }
+     public function reporteGastos($f1,$f2){
+           $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_TotalReportGastos';        
+        $ext = "xlsx";
+        
+        \JasperPHP::process(
+            public_path() . '/report/TotalReportGastos.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+             ['SUBREPORT_DIR'=> public_path() . '/report/','fechaini'=>$f1,'fechafin'=>$f2],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_TotalReportGastos.'.$ext;
+     }
      public function ReporteCajaMensualPri($f1,$f2){
            $database = \Config::get('database.connections.mysql');
         $time=time();

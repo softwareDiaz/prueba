@@ -14,6 +14,7 @@
                 $scope.otherPhead.tipoDoc="O";
                 $scope.otherPhead.fecha=new Date();
                 $scope.pagos.fecha= $scope.otherPhead.fecha;
+                $scope.tipomodi="Compra"
 
                 $scope.toggle = function () {
                     $scope.show = !$scope.show;
@@ -27,6 +28,17 @@
                     }else{
                         crudService.paginate('otherPheads',$scope.currentPage).then(function (data) {
                             $scope.otherPheads = data.data;
+                        });
+                    }
+                };
+                $scope.pageChanged1 = function() {
+                    if ($scope.query.length > 0) {
+                        crudService.search('otherPheads',$scope.query,$scope.currentPage).then(function (data){
+                        $scope.otherPheads = data.data;
+                    });
+                    }else{
+                        crudService.paginate('otherPheadsGastos',$scope.currentPage).then(function (data) {
+                            $scope.expenses = data.data;
                         });
                     }
                 };
@@ -53,7 +65,13 @@
                         }
 
                     });
+
+                    
                 }else{
+                    crudService.select('cashMotives','select').then(function (data) {
+                       
+                        $scope.cashMotives = data;
+                    });
                     crudService.paginate('otherPheads',1).then(function (data) {
                         $scope.otherPheads = data.data;
                         $scope.maxSize = 5;
@@ -62,8 +80,32 @@
                         $scope.itemsperPage = 15;
 
                     });
+                    crudService.paginate('otherPheadsGastos',1).then(function (data) {
+                        $scope.expenses = data.data;
+                        $scope.maxSize1 = 5;
+                        $scope.totalItems1 = data.total;
+                        $scope.currentPage1 = data.current_page;
+                        $scope.itemsperPage1 = 15;
+
+                    });
                 }
- 
+                if($location.path() == '/otherPheads/editGasto/'+id) {
+                     $scope.tipomodi="Gasto";
+                     crudService.Cuentas(id,'detalleGastos').then(function (data) {
+                                  $scope.otherPdetails=data.data;
+                          
+                     crudService.byId(id,'gastos').then(function (data) {
+                        $scope.otherPhead = data;
+                        $scope.otherPhead.fecha=new Date(data.fecha);
+                        $scope.otherPhead.MontoTotal=Number(data.MontoTotal);
+                    });
+                    crudService.select('cashMotives','select').then(function (data) {
+                       
+                        $scope.cashMotives = data;
+                    });
+                    });
+                      
+                 }
                 socket.on('otherPhead.update', function (data) {
                     $scope.otherPheads=JSON.parse(data);
                 });
@@ -122,6 +164,33 @@
                    	 });
                    	 
                    	  crudService.listaCashes('cashHeaders',1).then(function (data) {
+                                      $scope.cashHeaders = data;
+                                      //alert(data.id);
+                                  });
+
+                 }
+                  if($location.path() == '/otherPheads/show2/'+$routeParams.id) {
+                $scope.pagos.idpago=id;
+                                 
+                      
+                     
+                     crudService.byId(id,'gastos').then(function (data) {
+                        $scope.otherPhead = data;
+                        $scope.otherPhead.fecha=new Date(data.fecha);
+                        $scope.otherPhead.documento=data.tipoDoc+"-"+data.numeroDocumento;
+                        $scope.otherPhead.igv=Number(data.igv);
+                        $scope.otherPhead.MontoTotal=Number(data.MontoTotal);
+                        $scope.otherPhead.saldo=Number(data.Saldo);
+                       
+                       //$scope.otherPhead.saldo=Number($scope.otherPhead.MontoTotal)-Number($scope.spagado);
+                    });
+                     
+                      $scope.tot=0
+                     crudService.byId(id,'pagos3').then(function (data) {
+                       $scope.listpagos=data.data;
+                     });
+                     
+                      crudService.listaCashes('cashHeaders',1).then(function (data) {
                                       $scope.cashHeaders = data;
                                       //alert(data.id);
                                   });
@@ -188,6 +257,27 @@
                   	alert("llene todos los campos");
                   }
                 }
+                $scope.llenarDetalles2=function(){  
+                   if ($scope.otherPdetail.total>0 && $scope.otherPdetail.cashmotive_id>0) {
+                      crudService.Cuentas($scope.otherPdetail.cashmotive_id,'cashMotives').then(function (data) {
+                        
+                      $scope.otherPdetail.nomCuenta=data['nombre'];                    
+                      $scope.calcularGastosIgv();
+                      $scope.otherPdetails.push($scope.otherPdetail);
+                      $scope.otherPdetail = {};
+                      });
+                  }else{
+                    alert("llene todos los campos");
+                  }
+                }
+                $scope.calcularGastosIgv=function(){
+                  $scope.otherPhead.total=Number(($scope.otherPdetail.total/1.18).toFixed(2));
+                  $scope.otherPdetail.igv=Number((Number($scope.otherPdetail.total)-Number($scope.otherPhead.total)).toFixed(2));
+                  if($scope.otherPhead.MontoTotal>0){
+                  $scope.otherPhead.MontoTotal=Number($scope.otherPhead.MontoTotal)+Number($scope.otherPdetail.total); 
+                  $scope.verificar();
+                  }else{$scope.otherPhead.MontoTotal=$scope.otherPdetail.total; $scope.verificar();}
+                }
                 $scope.calcMontosFinales=function(){
                 	  //$scope.otherPhead.MontoSubTotal=$scope.otherPhead.MontoSubTotal+$scope.otherPdetail.PrecioFinal; 
                       $scope.activIgvtotal();
@@ -218,22 +308,28 @@
                       //$scope.otherPhead.MontoTotal=$scope.otherPhead.BaseImponible+$scope.otherPhead.igv;
                       
                 }
+                $scope.sacarRow2=function(index,monto){
+                  
+                  $scope.otherPhead.MontoTotal=Number($scope.otherPhead.MontoTotal)-Number(monto);
+                  
+                  $scope.otherPdetails.splice(index,1);
+                }
                 $scope.sacarRow=function(index,monto){
-                	
-                	$scope.otherPhead.MontoSubTotal=Number(($scope.otherPhead.MontoSubTotal-monto).toFixed(2));
-                	if($scope.otherPhead.checkIgv==true){
+                  
+                  $scope.otherPhead.MontoSubTotal=Number(($scope.otherPhead.MontoSubTotal-monto).toFixed(2));
+                  if($scope.otherPhead.checkIgv==true){
                       $scope.total=Number(($scope.otherPhead.MontoSubTotal-(($scope.otherPhead.MontoSubTotal*$scope.otherPhead.descuento)/100)).toFixed(2))
                       $scope.otherPhead.igv=Number(($scope.total-($scope.total/1.18)).toFixed(2));
                       $scope.otherPhead.BaseImponible=Number(($scope.total/1.18).toFixed(2));             
                       $scope.otherPhead.MontoTotal=$scope.otherPhead.BaseImponible+$scope.otherPhead.igv;
-                	}else{
-                	  $scope.total=Number(($scope.otherPhead.MontoSubTotal-(($scope.otherPhead.MontoSubTotal*$scope.otherPhead.descuento)/100)).toFixed(2))
+                  }else{
+                    $scope.total=Number(($scope.otherPhead.MontoSubTotal-(($scope.otherPhead.MontoSubTotal*$scope.otherPhead.descuento)/100)).toFixed(2))
                       $scope.otherPhead.igv=$scope.total*0.18;
                       $scope.otherPhead.BaseImponible=$scope.otherPhead.MontoSubTotal;             
                       $scope.otherPhead.MontoTotal=$scope.otherPhead.BaseImponible+$scope.otherPhead.igv;
                      
-                	}
-                	$scope.otherPdetails.splice(index,1);
+                  }
+                  $scope.otherPdetails.splice(index,1);
                 }
                 $scope.clalcSubtotal=function(){
                 	if($scope.otherPdetail.cantidad!=undefined && $scope.otherPdetail.PrecioUnit!=undefined){
@@ -258,6 +354,7 @@
                     //$scope.atribut.estado = 1;
                     $scope.otherPhead.fecha=$scope.otherPhead.fecha.getFullYear()+'-'+($scope.otherPhead.fecha.getMonth()+1)+'-'+$scope.otherPhead.fecha.getDate()+' '+$scope.otherPhead.fecha.getHours()+':'+$scope.otherPhead.fecha.getMinutes()+':'+$scope.otherPhead.fecha.getSeconds();
                     $scope.otherPhead.detalles=$scope.otherPdetails;
+                    if($scope.tipomodi=="Compra"){
                     //if ($scope.otherPheadCreateForm.$valid) {
                         crudService.create($scope.otherPhead, 'otherPheads').then(function (data) {
                           
@@ -271,7 +368,20 @@
 
                             }
                         });
-                    //}
+                    }else{
+
+                         crudService.create($scope.otherPhead, 'gastos').then(function (data) {
+                          
+                            if (data['estado'] == true) {
+                                alert('grabado correctamente');
+                                $location.path('/otherPheads');
+
+                            } else {
+                                $scope.errors = data;
+
+                            }
+                        });
+                    }
                 }
                 $scope.cancelCreatePago=function(){
                 	$location.path('/otherPheads');
@@ -305,12 +415,46 @@
                 	alert('Por favor ingrese un monto mayor a cero');
                 }
                 }
+                 $scope.createPagos2 = function(){
+                    //$scope.atribut.estado = 1;
+                    if($scope.pagos.monto>0){
+                    if($scope.pagos.cajamensual==true){
+                        $scope.pagos.fecha=$scope.pagos.fecha.getFullYear()+'-'+($scope.pagos.fecha.getMonth()+1)+'-'+$scope.pagos.fecha.getDate()+' '+$scope.otherPhead.fecha.getHours()+':'+$scope.otherPhead.fecha.getMinutes()+':'+$scope.otherPhead.fecha.getSeconds();
+                       
+                    }else{
+                      $scope.pagos.fecha=$scope.pagos.fecha.getFullYear()+'-'+($scope.pagos.fecha.getMonth()+1)+'-'+$scope.pagos.fecha.getDate();
+                      $scope.pagos.hora=$scope.otherPhead.fecha.getHours()+':'+$scope.otherPhead.fecha.getMinutes()+':'+$scope.otherPhead.fecha.getSeconds();
+                    }
+                    
+                    //if ($scope.otherPheadCreateForm.$valid) {
+                        crudService.create($scope.pagos, 'gastos5').then(function (data) {
+                         
+                            if (data['estado'] == true) {
+                                $scope.success = data['nombres'];
+                                alert('grabado correctamente');
+                                $location.path('/otherPheads');
 
+                            } else {
+                                $scope.errors = data;
+
+                            }
+                        });
+                    //}
+                }else{
+                  alert('Por favor ingrese un monto mayor a cero');
+                }
+                }
+                $scope.editotherGasto = function(row){
+                    $location.path('/otherPheads/editGasto/'+row.id);
+                };
                 $scope.editotherPhead = function(row){
                     $location.path('/otherPheads/edit/'+row.id);
                 };
                 $scope.pagarVentana = function(row){
                     $location.path('/otherPheads/show/'+row.id);
+                };
+                $scope.pagarVentana2 = function(row){
+                    $location.path('/otherPheads/show2/'+row.id);
                 };
 
                 $scope.updateotherPhead = function(){
@@ -329,10 +473,26 @@
                         });
                    // }
                 };
+                $scope.updateGastos = function(){
+                    $scope.otherPhead.fecha=$scope.otherPhead.fecha.getFullYear()+'-'+($scope.otherPhead.fecha.getMonth()+1)+'-'+$scope.otherPhead.fecha.getDate()+' '+$scope.otherPhead.fecha.getHours()+':'+$scope.otherPhead.fecha.getMinutes()+':'+$scope.otherPhead.fecha.getSeconds();
+                    $scope.otherPhead.detalles=$scope.otherPdetails;
+                    //if ($scope.otherPheadCreateForm.$valid) {
+                        crudService.update($scope.otherPhead,'gastos').then(function(data)
+                        {
+                            if(data['estado'] == true){
+                                alert('editado correctamente');
+                                $location.path('/otherPheads');
+                            }else{
+                                $scope.errors =data;
+                            }
+                        });
+                   // }
+                };
 
                 $scope.deleteotherPhead = function(row){
                     $scope.otherPhead = row;
                 }
+
 
                 $scope.cancelotherPhead = function(){
                     $scope.otherPhead = {};
@@ -345,6 +505,40 @@
                         if(data['estado'] == true){
                             
                             $scope.otherPhead = {};
+                            //alert('hola');
+                            $route.reload();
+
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                }
+                $scope.destroyGastos = function(row){
+
+                    crudService.destroy(row,'gastos').then(function(data)
+                    {
+                        if(data['estado'] == true){
+                            
+                            $scope.otherPhead = {};
+                            //alert('hola');
+                            $route.reload();
+
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                }
+                $scope.verificar=function(){
+                  $scope.montoSinIGV=Number(($scope.otherPhead.MontoTotal/1.18).toFixed(2));
+                  $scope.igv=Number(($scope.otherPhead.MontoTotal-$scope.montoSinIGV).toFixed(2));
+                }
+                $scope.destroyPagos2 = function(row){
+
+                    crudService.destroy(row,'pagosGastos').then(function(data)
+                    {
+                        if(data['estado'] == true){
+                            
+                            alert(data["nota"]);
                             //alert('hola');
                             $route.reload();
 

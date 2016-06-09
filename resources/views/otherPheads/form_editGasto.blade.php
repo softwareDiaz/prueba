@@ -1,5 +1,5 @@
 <setion class="content-header"><h1>
-            Compras Varios
+            Gastos Especiales
             <small>Panel de Control</small>
           </h1>
           <ol class="breadcrumb">
@@ -113,52 +113,11 @@
                     </div>
                     <hr>
                     <form  name="otherPdetailCreateForm" role="form" novalidate>
-                    <div  ng-if="tipomodi=='Compra'" class="row">
-                             <div class="col-md-2">
-                                 <div class="form-group">
-                                 <label for="cantidad">Cantidad</label>
-                                 
-                                   <input type="number" ng-change="clalcSubtotal()" name="cantidad" ng-model="otherPdetail.cantidad" class="form-control" required>
-                               
-                               </div>
-                             </div>
-                             <div class="col-md-4">
-                                 <div class="form-group">
-                                 <label for="descripcion">Descripcion</label>
-                                 
-                                   <textarea class="form-control" name="descripcion" ng-model="otherPdetail.descripcion" rows="1" required></textarea> 
-                               
-                               </div>
-                             </div>
-                             <div class="col-md-2">
-                                 <div class="form-group">
-                                 <label for="preciounitario">Precio Unitario</label>
-                                 
-                                   <input type="number" ng-change="clalcSubtotal()" name="preciounitario" ng-model="otherPdetail.PrecioUnit" class="form-control" required>
-                               
-                               </div>
-                             </div>
-                             <div class="col-md-2">
-                                 <div class="form-group">
-                                 <label for="subtotal">Subtotal</label>
-                                 
-                                   <input type="number" name="subtotal" ng-model="otherPdetail.PrecioFinal" class="form-control" required>
-                               
-                               </div>
-                             </div>
-                             <div class="col-md-2">
-                                 <div class="form-group">
-                                 <label for="fechaPrevista"></label><br>
-                                 
-                                   <input type="submit" ng-click="llenarDetalles()" class="btn btn-info" value="Agregar Detalle">
-                               
-                               </div>
-                             </div>
-                    </div>
+                    
                   
                    <!--gg----------------Gastos----------------------yy-->
                     
-                    <div ng-if="tipomodi=='Gasto'" class="row">
+                    <div  class="row">
                              
                              <div class="col-md-4">
                                  <div class="form-group">
@@ -172,7 +131,7 @@
                                  <div class="form-group">
                                  <label for="preciounitario">Cuenta</label>
                                      <select class="form-control" ng-model="otherPdetail.cashmotive_id" ng-options="item.id as item.nombre for item in cashMotives">
-                                       <option value="">--Seleccione una cuenta--</option>
+                                       <option value="">--Seleccione una Cuenta--</option>
                                      </select>
                                    
                                </div>
@@ -196,30 +155,9 @@
                     </div>
                    </form>
                    <!-----------------Fin Gastos-------------->
-                      <div ng-if="tipomodi=='Compra'" class="row">
-                      <div class="col-md-12">
-                      <div class="box-body table-responsive no-padding">
-                        <table class="table table-striped">
-                          <thead>
-                            <th>Cantidad</th>
-                            <th style="widht:500px;">Decripcion</th>
-                            <th>Precio Unitario</th>
-                            <th>Subtotal</th>
-                          </thead>
-                          <tbody>
-                            <tr ng-repeat="row in otherPdetails">
-                              <td>@{{row.descripcion}}</td>
-                              <td>S/.@{{row.cashmotive_id}}</td>
-                              <td>S/.@{{row.PrecioFinal}}</td>
-                              <td><button type="button" class="btn btn-danger btn-xs"  ng-click="sacarRow($index,row.PrecioFinal)">
-                        <span class="glyphicon glyphicon-trash"></span></button></td>
-                            </tr>
-                          </tbody>
-                        </table></div>
-                        </div>
-                      </div>
+                    
 
-                       <div ng-if="tipomodi=='Gasto'" class="row">
+                       <div class="row">
                       <div class="col-md-12">
                       <div class="box-body table-responsive no-padding">
                         <table class="table table-striped">
@@ -243,55 +181,14 @@
                         </div>
                       </div>
 
-                     <div ng-if="tipomodi=='Compra'" class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                 <label for="descuento">Descuento</label>
-                                 
-                                   <input type="Number" ng-change="calcMontosFinales()" name="descuento" ng-model="otherPhead.descuento" class="form-control">
-                               
-                               </div>
-                            </div>
-                             <div class="col-md-3">
-                                <div class="form-group">
-                                 <label for="MontoSubTotal">Monto Bruto</label>
-                                 
-                                   <input ng-disabled="true" name="MontoSubTotal" ng-model="otherPhead.MontoSubTotal" type="number" class="form-control">
-                               
-                               </div>
-                            </div>
-                             <div class="col-md-2">
-                                <div class="form-group">
-                                 <label for="igv">IGV<input type="checkbox" ng-model="otherPhead.checkIgv" ng-click="activIgvtotal()"></label>
-                                 
-                                   <input ng-disabled="true" name="igv" ng-model="otherPhead.igv" type="number" class="form-control">
-                               
-                               </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                 <label for="BaseImponible">Base Imponible</label>
-                                 
-                                   <input ng-disabled="true" name="BaseImponible" ng-model="otherPhead.BaseImponible" type="number" class="form-control">
-                               
-                               </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                 <label for="fechaPrevista">Monto Total</label>
-                                 
-                                   <input type="number" ng-blur="calcMontosFinales2()" name="MontoTotal" ng-model="otherPhead.MontoTotal" class="form-control">
-                               
-                               </div>
-                            </div>
-                    </div>
-                    <div ng-if="tipomodi=='Gasto'" class="row">
+                     
+                    <div  class="row">
                             <div class="col-md-9">
                                  <div class="form-group">
                                  <label for="fechaPrevista"></label><br>
                                  
-                                  
-                                  <button type="button" ng-click="" data-toggle="modal" data-target="#miventana1" class="btn btn-success"  >Comprobar IGV</button> 
+                                   <input type="submit" ng-click="llenarDetalles()" class="btn btn-success" value="Comprobar igv">
+                               
                                </div>                             
                             </div>
                              <div class="col-md-3">
@@ -306,67 +203,12 @@
                 </div><!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" ng-click="createotherPhead()">Crear</button>
+                    <button type="submit" class="btn btn-primary" ng-click="updateGastos()">Crear</button>
                     <a href="/otherPheads" class="btn btn-danger">Cancelar</a>
                   </div>
                 </form>
               </div><!-- /.box -->
 
               </div>
-
               </div><!-- /.row -->
-                   <div  class="modal fade" id="miventana1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="ngenabled">
-             <div  class="modal-dialog">
-                       <div style="border-radius: 5px" class="modal-content">
-                        <div class="modal-header" style="" >
-                         <button type="button" style="" class="close" data-dismiss="modal" aria-hidden="ngenabled"> &times; </button>
-                        <h4><b>Verificacion de montos</b></h4>
-                        </div>
-                   <div class="modal-body">
-                   <div class="row">
-                       <div class="col-md-12">
-                       <div class="box-body table-responsive no-padding">
-                          <table class="table table-striped">
-                            <thead>
-                              <th></th>
-                              <th>Monto Base</th>
-                              <th>Total</th>
-                            </thead>
-                            <tbody>
-                               <tr>
-                                 <td><label>Monto Sin IGV</label></td>
-                                 <td>@{{montoSinIGV}}</td>
-                                 <td>@{{montoSinIGV}}</td>
-                               </tr>
-                               <tr>
-                                  <td><label>Monto IGV</label></td>
-                                  <td>@{{igv}}</td>
-                                  <td>@{{igv}}</td>
-                               </tr>
-                               <tr>
-                                  <td></td>
-                                  <td><label>TOTAL</label></td>
-                                  <td>@{{otherPhead.MontoTotal}}</td>
-                               </tr>
-                            </tbody>
-                          </table>
-                          </div>
-                       </div>
-          
-
-                   </div>
-                      <div class="modal-footer" style="">
-                    <a  class="btn btn-info" data-dismiss="modal" aria-hidden="ngenabled">OK</a>
-                   </div>
-                   
-                   
-               </div>
-             </div>
-           </div>
-        </div>
               </section><!-- /.content -->
-
-
-
-           
-        

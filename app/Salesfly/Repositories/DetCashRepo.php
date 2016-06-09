@@ -149,6 +149,15 @@ class DetCashRepo extends BaseRepo{
         ->paginate(15);
         return $detCashs;
     }
+    public function gastos($id){
+        $detCashs = DetCash::join('cashes','cashes.id','=','detCash.cash_id')
+                          ->join('expenses','expenses.id','=','detCash.expense_id')                          
+                          ->where('detCash.expense_id','=',$id)
+                          ->select(\DB::raw('detCash.id ,CONCAT(detCash.fecha," ",detCash.hora)as fecha,detCash.montoMovimientoEfectivo as monto,"Caja" as tipo'))
+
+        ->paginate(15);
+        return $detCashs;
+    }
     public function inventarioVentas($fechaini,$fechafin){
         $detCashs = DetCash::join('cashMotives','cashMotives.id','=','detCash.cashMotive_id')                          
                           ->where('cashMotives.tipo','=','+')

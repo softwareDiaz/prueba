@@ -25,5 +25,13 @@ class CashMotiveRepo extends BaseRepo{
                     ->paginate(15);
         return $cashMotive;
     }
+    public function traerNombre($q)
+    {
+        $cashMotive =CashMotive::where('id','=', $q)
+        ->select("nombre")
+                    //with(['customer','employee'])
+                    ->first();
+        return $cashMotive;
+    }
 
 } 

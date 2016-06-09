@@ -138,7 +138,15 @@
                 .when('/otherPheads/show/:id',{
                     templateUrl:'/otherPheads/view-show',
                     controller: 'OtherPheadController'
-                })  
+                }) 
+                .when('/otherPheads/show2/:id',{
+                    templateUrl:'/otherPheads/view-show2',
+                    controller: 'OtherPheadController'
+                })   
+                .when('/otherPheads/editGasto/:id',{
+                    templateUrl:'/otherPheads/form-editGasto',
+                    controller: 'OtherPheadController'
+                })
                  .when('/otherPheads/balance',{
                     templateUrl:'/otherPheads/form-balance',
                     controller: 'OtherPheadController'

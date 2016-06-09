@@ -1477,6 +1477,61 @@ $scope.decribotonCompra1="Generar Reporte Otras Compras";
                     });
                  }
                 }
+                
+                /*$scope.decribotonFacturado="Generar Reporte Ventas Facturado";
+                $scope.ReporteFacturado=function(){
+                    if($scope.fechainicioCompra!=undefined && $scope.fechafinCompra!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCompra.getFullYear()+"-"+($scope.fechainicioCompra.getMonth()+1)+"-"+$scope.fechainicioCompra.getDate();
+                    $scope.fechafin2=$scope.fechafinCompra.getFullYear()+"-"+($scope.fechafinCompra.getMonth()+1)+"-"+$scope.fechafinCompra.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.decribotonFacturado="Generando..";
+                     crudOPurchase.reportesMovFecha('ReporteFacturado',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decribotonFacturado="Generar Reporte Ventas Facturado";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }*/
+                $scope.decribotonFacturado="Generar Reporte Ventas Facturado";
+                $scope.ReporteFacturado=function(){
+                    if($scope.fechainicioCaja!=undefined && $scope.fechafinCaja!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCaja.getFullYear()+"-"+($scope.fechainicioCaja.getMonth()+1)+"-"+$scope.fechainicioCaja.getDate();
+                    $scope.fechafin2=$scope.fechafinCaja.getFullYear()+"-"+($scope.fechafinCaja.getMonth()+1)+"-"+$scope.fechafinCaja.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                    $scope.decribotonFacturado="Generando..";
+                     crudOPurchase.reportesMovFecha('ReporteFacturado',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.decribotonFacturado="Generar Reporte Ventas Facturado";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
+                $scope.descriGasto="Generar Reporte de Gastos";
+                $scope.ReporteGastosMes=function(){
+                    if($scope.fechainicioCompra!=undefined && $scope.fechafinCompra!=undefined){
+                    $scope.fechainicio1=$scope.fechainicioCompra.getFullYear()+"-"+($scope.fechainicioCompra.getMonth()+1)+"-"+$scope.fechainicioCompra.getDate();
+                    $scope.fechafin2=$scope.fechafinCompra.getFullYear()+"-"+($scope.fechafinCompra.getMonth()+1)+"-"+$scope.fechafinCompra.getDate();
+                    //alert($scope.fechainicio+"---"+$scope.fechafin);
+                     $scope.descriGasto="Generando..";
+                     crudOPurchase.reportesMovFecha('reporteGastos',$scope.fechainicio1,$scope.fechafin2).then(function(data)
+                    {
+                        if(data!=undefined){
+                            $window.open(data);
+                            $scope.descriGasto="Generar Reporte de Gastos";
+                        }else{
+                            $scope.errors = data;
+                        }
+                    });
+                 }
+                }
                
                 $scope.decribotonCaja2="Generar Reporte Caja Mensual";
                 $scope.ReporteCajaMensualPri=function(){

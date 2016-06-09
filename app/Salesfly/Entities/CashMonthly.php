@@ -9,7 +9,8 @@ class CashMonthly extends \Eloquent {
     'descripcion',
     'expenseMonthlys_id',
     'fecha',
-    'otherPhead_id'];
+    'otherPhead_id',
+    'expense_id'];
 
     /*
     'months_id',

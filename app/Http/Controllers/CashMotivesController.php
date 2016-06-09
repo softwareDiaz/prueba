@@ -26,6 +26,11 @@ class CashMotivesController extends Controller
     {
         //
     }
+    public function traerNombre($q){
+        $cashMotives = $this->cashMotiveRepo->traerNombre($q);
+
+        return response()->json($cashMotives);
+    }
     public function search($q)
     {
         //$q = Input::get('q');

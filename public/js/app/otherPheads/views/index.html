@@ -1,6 +1,6 @@
 <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>Brands
+          <h1>Compras y Gastos
             <small>Panel de Control</small>
           </h1>
           <ol class="breadcrumb">
@@ -28,7 +28,7 @@
               <div class="box">
 
                 <div class="box-header with-border">
-                  <h3 class="box-title">Brands</h3>
+                  <h3 class="box-title">Compras y Gastos</h3>
                   <div class="box-tools">
                   <form ng-keyup="searchotherPhead()">
                     <div class="input-group" style="width: 200px;">
@@ -40,6 +40,7 @@
                     </form>
                   </div>
                 </div><!-- /.box-header -->
+              
                 <div class="box-body">
                     <div class="row">
                         <div class="col-sm-10">
@@ -55,6 +56,14 @@
                       <button type="button" class="btn btn-default" ng-click="cancelotherPhead()">No</button>
                     </p>
                   </div>
+            <div  class="nav-tabs-custom "  id="myTabs">
+                <ul class="nav nav-tabs">
+                      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Compras Varios</a></li>
+                      <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" ng-click="actualizarCaja()">Gastos Especiales</a></li>
+                               
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
                   <div class="box-body table-responsive no-padding">
                   <table class="table table-bordered">
                     <tr>
@@ -89,9 +98,48 @@
                     
                   </table>
                   </div>
+                   </div>
+                   <div class="tab-pane" id="tab_2">
+                      <div class="box-body table-responsive no-padding">
+                  <table class="table table-bordered">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Fecha</th>
+                      <th>Proveedor</th>
+                      <th>Ruc</th>
+                      <th>Numero de Documento</th>
+                      <th>Monto</th>
+                      <th>Saldo</th>
+                      <th>Monto Pagado</th>
+                      <th style="width: 40px">Pagos</th>
+                      <th style="width: 40px">Editar</th>
+                      <th style="width: 40px">Eliminar</th>
+                    </tr>
+                    
+                    <tr ng-repeat="row in expenses">
+                      <td>{{$index+1}}</td>
+                      <td>{{row.fecha}}</td>
+                      <td>{{row.proveedor}}</td>
+                      <td>{{row.ruc}}</td>
+                      <td>{{row.tipoDoc}}-({{row.numeroDocumento}})<br>{{row.serie}}</td>
+                      <td>S/.{{row.MontoTotal}}</td>
+                      <td>S/.{{row.Saldo}}</td>
+                      <td>S/.{{row.montoPagado}}</td>
+                       <td><a ng-click="pagarVentana2(row)" class="btn btn-success btn-xs">Pagos</a></td>
+                      <td><a ng-click="editotherGasto(row)" class="btn btn-warning btn-xs">Editar</a></td>
+                      <td><a ng-click="destroyGastos(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
+                      
+                    </tr>
+                    
+                    
+                  </table>
+                  </div>
+                   </div>
+                </div>
+              </div>
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                  <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
+                  <pagination total-items="totalItems1" ng-model="currentPage1" max-size="maxSize1" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1" boundary-links="true" rotate="false" num-pages="numPages1" ng-change="pageChanged1()"></pagination>
 
 
 
@@ -99,4 +147,8 @@
               </div><!-- /.box -->
             </div>  
           </div>
+           <script type="text/javascript">$('#myTabs a').click(function (e) {
+                          e.preventDefault()
+                          $(this).tab('show')})
+              </script>
         </section>

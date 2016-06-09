@@ -86,6 +86,14 @@ class CashMonthlyRepo extends BaseRepo{
         ->get();
         return $cashMonthlys;
     }
+    public function gastos($id){
+        $cashMonthlys = CashMonthly::join('expenses','expenses.id','=','cashMonthlys.expense_id')                          
+                          ->where('cashMonthlys.expense_id','=',$id)
+                          ->select(\DB::raw('cashMonthlys.id ,cashMonthlys.fecha,cashMonthlys.amount as monto,"CajaMensual" as tipo'))
+
+        ->get();
+        return $cashMonthlys;
+    }
      /* public function Totales(){
        $payment=Payment::select(\DB::raw("SUM(amount) as totalPaga,SUM(saldo) as totSaldo"))
                         ->where('otherPhead_id','>',0)->get();
