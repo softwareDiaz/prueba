@@ -117,7 +117,7 @@
                         //alert(f);
                         var r = new FileReader();
                         r.onloadend = function(e) {
-                            alert(e.target.result);
+                            //alert(e.target.result);
                             $scope.user.image = e.target.result;
 
                             crudService.create($scope.user, 'users').then(function (data) {
