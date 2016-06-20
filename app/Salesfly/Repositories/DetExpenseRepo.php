@@ -24,8 +24,8 @@ class DetExpenseRepo extends BaseRepo{
         return $brands;
     }
        public function traendoDetGastos($q){
-       $InputStock=DetExpense::join("cashMotives","cashMotives.id","=","detExpenses.cashmotive_id")
-                            ->select(\DB::raw("detExpenses.*,cashMotives.nombre as nomCuenta,detExpenses.total as PrecioFinal"))
+       $InputStock=DetExpense::join("SunatAcounts","SunatAcounts.id","=","detExpenses.acount_id")
+                            ->select(\DB::raw("detExpenses.*,SunatAcounts.nombre as nomCuenta,detExpenses.total as PrecioFinal"))
                             ->where("detExpenses.expense_id","=",$q)
                             ->paginate(50);
         return $InputStock;

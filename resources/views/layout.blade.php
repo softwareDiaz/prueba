@@ -136,11 +136,13 @@
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
-
+          <?php $role = Auth()->user()->role_id; ?>
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">Navegación</li>
             <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+
+            @if($role == 1)
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-wrench"></i>
@@ -155,6 +157,7 @@
                 <li><a href="/materials/listPreciDolar"><i class="fa fa-circle-o"></i>Precio Dolar </a></li>
               </ul>
             </li>
+             @endif
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-barcode"></i>
@@ -209,7 +212,7 @@
                 <i class="fa fa-users"></i> <span>Clientes</span>
               </a>
             </li>
-
+             @if($role == 1)
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-bar-chart-o"></i>
@@ -226,7 +229,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Productos por llegar </a></li>
               </ul>
             </li>
-
+               @endif
 
           </ul>
         </section>

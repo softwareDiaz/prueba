@@ -105,7 +105,7 @@
                         <div class="col-md-8"><h1>Datos de Detalle de @{{tipomodi}}</h1></div>
                         <div class="col-md-4">
                         <label>Seleccione tipo</label>
-                            <select class="form-control" ng-model="tipomodi">
+                            <select ng-disabled="Cambiarestado" class="form-control" ng-model="tipomodi">
                          <option value="Compra">Compra</option>
                          <option value="Gasto">Gasto</option>
                     </select>
@@ -171,7 +171,7 @@
                              <div class="col-md-4">
                                  <div class="form-group">
                                  <label for="preciounitario">Cuenta</label>
-                                     <select class="form-control" ng-model="otherPdetail.cashmotive_id" ng-options="item.id as item.nombre for item in cashMotives">
+                                     <select class="form-control" ng-model="otherPdetail.acount_id" ng-options="item.id as item.nombre for item in cashMotives">
                                        <option value="">--Seleccione una cuenta--</option>
                                      </select>
                                    
@@ -225,7 +225,7 @@
                         <table class="table table-striped">
                           <thead>
                             <th>Detalle</th>
-                            <th>cashmotive_id</th>
+                            <th>acount_id</th>
                             <th>IGV</th>
                             <th>Total</th>
                           </thead>
@@ -284,6 +284,17 @@
                                
                                </div>
                             </div>
+                    </div>
+                    <div ng-if="tipomodi=='Compra'" class="row">
+                         <div class="col-md-4">
+                                 <div class="form-group">
+                                 <label for="preciounitario">Cuenta</label>
+                                     <select  class="form-control" ng-model="otherPhead.acount_id" ng-options="item.id as item.nombre for item in cashMotives">
+                                       <option value="">--Seleccione una cuenta--</option>
+                                     </select>
+                                   
+                               </div>
+                             </div>
                     </div>
                     <div ng-if="tipomodi=='Gasto'" class="row">
                             <div class="col-md-9">

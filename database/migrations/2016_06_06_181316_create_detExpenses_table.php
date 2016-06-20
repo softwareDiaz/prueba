@@ -15,8 +15,8 @@ class CreateDetExpensesTable extends Migration
         Schema::create('detExpenses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('detalle');            
-            $table->integer('cashmotive_id')->unsigned();
-            $table->foreign('cashmotive_id')->references('id')->on('cashMotives');       
+            $table->integer('acount_id')->unsigned();
+            $table->foreign('acount_id')->references('id')->on('SunatAcounts');       
             $table->decimal('igv',10,2);
             $table->decimal('total',10,2);
             $table->integer('expense_id')->unsigned();

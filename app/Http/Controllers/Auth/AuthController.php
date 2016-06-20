@@ -54,7 +54,31 @@ class AuthController extends Controller
             'image' => ''
         ]);
     }
+     public function createUSEr(Request $request)
+    {
+        var_dump($request->all());die();
+        $validator = $this->validator($request->all());
 
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        //Auth::login($this->create($request->all()));
+        $user = $this->create($request->except('image'));
+
+        if($request->has('image') and substr($request->input('image'),5,5) === 'image'){
+            $image = $request->input('image');
+            $mime = $this->get_string_between($image,'/',';');
+            $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $image));
+            Image::make($image)->resize(200,200)->save('images/users/'.$user->id.'.'.$mime);
+            $user->image='/images/users/'.$user->id.'.'.$mime;
+            $user->save();
+        }
+
+        //return redirect($this->redirectPath());
+        return response()->json(['estado'=>true, 'nombres'=>$user->name]);
+    }
     /**
      * Get a validator for an incoming edit request.
      *
@@ -82,7 +106,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        //var_dump("expression");die();
+        var_dump("expression");die();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

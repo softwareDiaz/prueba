@@ -21,7 +21,8 @@ class Purchase extends \Eloquent {
                     'montoBase',
                     'montoBaseDolar',
                     'igv',
-                    'igvDolar'];
+                    'igvDolar',
+                    'acount_id'];
      public function warehouse()
     {
         return $this->belongsTo('\Salesfly\Salesfly\Entities\Warehouse');

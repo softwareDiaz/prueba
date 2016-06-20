@@ -6,7 +6,7 @@ class DetExpense extends \Eloquent {
 	protected $table = 'detExpenses';
     
     protected $fillable = ['detalle',
-                           'cashmotive_id',
+                           'acount_id',
                            'igv',
                            'total',
                            'expense_id'];

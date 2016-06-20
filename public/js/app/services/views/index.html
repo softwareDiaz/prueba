@@ -64,6 +64,7 @@
                       <th>Modelo</th>
                       <th>Serie</th>
                       <th>Telefonos Referencia</th>
+                      <th>OT</th>
                       <th>Tipo servicio</th>
                       <th>Estado</th>
                       
@@ -80,6 +81,7 @@
                       <td>{{row.modelo}}</td>
                       <td>{{row.serie}}</td>
                       <td>{{row.telefono}}</td>
+                      <td>{{row.ordenTrabajo}}</td>
                       <td>{{row.tipo==0? 'Servicio':'Garantia'}}</td>
                       <td>{{row.estado==1? 'Por Revision': row.estado==2? 'Con Revision':row.estado==3? 'Cambio de Repuesto':row.estado==4? 'Por Entregar':'Entregado'}}</td>
                       <td><a ng-disabled="row.estado==5" ng-click="editService(row)" class="btn btn-warning btn-xs">Editar</a></td>

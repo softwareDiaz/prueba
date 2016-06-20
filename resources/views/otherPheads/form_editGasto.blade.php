@@ -130,7 +130,7 @@
                              <div class="col-md-4">
                                  <div class="form-group">
                                  <label for="preciounitario">Cuenta</label>
-                                     <select class="form-control" ng-model="otherPdetail.cashmotive_id" ng-options="item.id as item.nombre for item in cashMotives">
+                                     <select class="form-control" ng-model="otherPdetail.acount_id" ng-options="item.id as item.nombre for item in cashMotives">
                                        <option value="">--Seleccione una Cuenta--</option>
                                      </select>
                                    

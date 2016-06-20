@@ -24,6 +24,7 @@ class ServiceRepo extends BaseRepo{
                     ->orWhere('cliente','like','%'.$q.'%')
                     ->orWhere('serie','like',$q.'%')
                     ->orWhere('empresa','like','%'.$q.'%')
+                    ->orWhere('ordenTrabajo','like','%'.$q.'%')
                     ->orderBy('id', 'desc')
                     //->with(['customer','employee'])
                     ->paginate(15);

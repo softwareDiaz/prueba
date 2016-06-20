@@ -58,8 +58,8 @@
                   </div>
             <div  class="nav-tabs-custom "  id="myTabs">
                 <ul class="nav nav-tabs">
-                      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Compras Varios</a></li>
-                      <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" ng-click="actualizarCaja()">Gastos Especiales</a></li>
+                      <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true" ng-click="cargarCompras()">Compras Varios</a></li>
+                      <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" ng-click="cargarGastos()">Gastos Especiales</a></li>
                                
                 </ul>
                 <div class="tab-content">
@@ -97,8 +97,11 @@
                     
                     
                   </table>
-                  </div>
+                  <div class="box-footer clearfix">
+                  <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
                    </div>
+                  </div>
+                  </div>
                    <div class="tab-pane" id="tab_2">
                       <div class="box-body table-responsive no-padding">
                   <table class="table table-bordered">
@@ -133,13 +136,15 @@
                     
                     
                   </table>
+
                   </div>
+                  <div class="box-footer clearfix">
+                  <pagination total-items="totalItems1" ng-model="currentPage1" max-size="maxSize1" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged1()"></pagination>
                    </div>
                 </div>
               </div>
                 </div><!-- /.box-body -->
-                <div class="box-footer clearfix">
-                  <pagination total-items="totalItems1" ng-model="currentPage1" max-size="maxSize1" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1" boundary-links="true" rotate="false" num-pages="numPages1" ng-change="pageChanged1()"></pagination>
+                
 
 
 

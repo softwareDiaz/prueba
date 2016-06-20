@@ -9,6 +9,7 @@
                 $scope.pagos = {};
                 $scope.listpagos ={};
                 $scope.errors = null;
+                $scope.Cambiarestado=false;
                 $scope.success;
                 $scope.query = '';
                 $scope.otherPhead.tipoDoc="O";
@@ -68,7 +69,7 @@
 
                     
                 }else{
-                    crudService.select('cashMotives','select').then(function (data) {
+                    crudService.select('acounts','select').then(function (data) {
                        
                         $scope.cashMotives = data;
                     });
@@ -80,7 +81,20 @@
                         $scope.itemsperPage = 15;
 
                     });
-                    crudService.paginate('otherPheadsGastos',1).then(function (data) {
+                   
+                }
+                $scope.cargarCompras=function(){
+                  crudService.paginate('otherPheads',1).then(function (data) {
+                        $scope.otherPheads = data.data;
+                        $scope.maxSize = 5;
+                        $scope.totalItems = data.total;
+                        $scope.currentPage = data.current_page;
+                        $scope.itemsperPage = 15;
+
+                    });
+                }
+                $scope.cargarGastos=function(){
+                   crudService.paginate('otherPheadsGastos',1).then(function (data) {
                         $scope.expenses = data.data;
                         $scope.maxSize1 = 5;
                         $scope.totalItems1 = data.total;
@@ -99,7 +113,7 @@
                         $scope.otherPhead.fecha=new Date(data.fecha);
                         $scope.otherPhead.MontoTotal=Number(data.MontoTotal);
                     });
-                    crudService.select('cashMotives','select').then(function (data) {
+                    crudService.select('acounts','select').then(function (data) {
                        
                         $scope.cashMotives = data;
                     });
@@ -249,6 +263,7 @@
                 $scope.llenarDetalles=function(){  
                 	 if ($scope.otherPdetail.cantidad>0 && $scope.otherPdetail.PrecioUnit>0
                 	 	&& $scope.otherPdetail.PrecioFinal>0 && $scope.otherPdetail.descripcion.length>0) {
+                     $scope.Cambiarestado=true;
                       $scope.otherPhead.MontoSubTotal=$scope.otherPhead.MontoSubTotal+$scope.otherPdetail.PrecioFinal; 
                       $scope.activIgvtotal();
                       $scope.otherPdetails.push($scope.otherPdetail);
@@ -258,8 +273,10 @@
                   }
                 }
                 $scope.llenarDetalles2=function(){  
-                   if ($scope.otherPdetail.total>0 && $scope.otherPdetail.cashmotive_id>0) {
-                      crudService.Cuentas($scope.otherPdetail.cashmotive_id,'cashMotives').then(function (data) {
+                  //alert($scope.otherPdetail.acount_id);
+                   if ($scope.otherPdetail.total>0 && $scope.otherPdetail.acount_id>0) {
+                       $scope.Cambiarestado=true;
+                      crudService.Cuentas($scope.otherPdetail.acount_id,'cashMotives').then(function (data) {
                         
                       $scope.otherPdetail.nomCuenta=data['nombre'];                    
                       $scope.calcularGastosIgv();

@@ -215,6 +215,10 @@
 
                      
                 }
+                crudPurchase.select('acounts','select').then(function (data) {
+                       
+                        $scope.cashMotives = data;
+                    });
                 //=========================================
                
               // if($location.path()=='/orderPurchases/create/' || $location.path()=='/orderPurchases/edit/'){

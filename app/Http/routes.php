@@ -41,16 +41,21 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+Route::group(['middleware' => 'role'], function () {
 Route::get('users/create',['as'=>'user_create','uses'=>'Auth\AuthController@indexU']);
-Route::get('users/edit/{id?}', ['as' => 'user_edit', 'uses' => 'Auth\AuthController@indexU']);
 Route::get('users/form-create',['as'=>'user_form_create','uses'=>'Auth\AuthController@form_create']);
+Route::post('api/users/create',['as'=>'user_create', 'uses'=>'UserController2@create']);
+Route::post('api/users/destroy',['as'=>'person_destroy', 'uses'=>'UserController2@destroy']);
+});
+Route::get('users/edit/{id?}', ['as' => 'user_edit', 'uses' => 'Auth\AuthController@indexU']);
 Route::get('users/form-edit',['as' => 'user_form_edit','uses' => 'Auth\AuthController@form_edit']);
 Route::get('users',['as'=>'user','uses'=>'Auth\AuthController@indexU']);
 Route::get('api/users/all',['as'=>'user_all', 'uses'=>'Auth\AuthController@all']);
 Route::get('api/users/paginate/',['as' => 'user_paginate', 'uses' => 'Auth\AuthController@paginate']);
-Route::post('api/users/create',['as'=>'user_create', 'uses'=>'Auth\AuthController@postRegister']);
-Route::put('api/users/edit',['as'=>'user_edit', 'uses'=>'Auth\AuthController@edit']);
-Route::post('api/users/destroy',['as'=>'user_destroy', 'uses'=>'Auth\AuthController@destroy']);
+Route::put('api/users/edit',['as'=>'user_edit', 'uses'=>'UserController2@edit']);
+Route::put('api/editPasword/edit',['as'=>'user_edit', 'uses'=>'UserController2@editpassword']);
+
+
 Route::get('api/users/search/{q?}',['as'=>'user_search', 'uses'=>'Auth\AuthController@search']);
 Route::get('api/users/find/{id}',['as'=>'user_find', 'uses'=>'Auth\AuthController@find']);
 Route::get('api/users/stores',['as' => 'user_stores_select','uses' => 'Auth\AuthController@store_select']);
@@ -72,6 +77,7 @@ Route::get('api/persons/find/{id}',['as'=>'person_find', 'uses'=>'PersonsControl
 //END PERSONS ROUTES
 
 //CUSTOMERS ROUTES
+
 Route::get('customers',['as'=>'person','uses'=>'CustomersController@index']);
 Route::get('customers/create',['as'=>'person_create','uses'=>'CustomersController@index']);
 Route::get('customers/edit/{id?}', ['as' => 'person_edit', 'uses' => 'CustomersController@index']);
@@ -164,6 +170,7 @@ Route::get('api/equiv/traer/{id}','EquivController@equivalencias');
 //end equiv routes
 
 //STORE ROUTES
+Route::group(['middleware' => 'role'], function () {
 Route::get('stores',['as'=>'store','uses'=>'StoresController@index']);
 Route::get('stores/create',['as'=>'store_create','uses'=>'StoresController@index']);
 Route::get('stores/edit/{id?}', ['as' => 'store_edit', 'uses' => 'StoresController@index']);
@@ -179,6 +186,7 @@ Route::get('api/storeReport/search/{q?}',['as'=>'store_search', 'uses'=>'StoresC
 
 Route::get('api/stores/find/{id}',['as'=>'store_find', 'uses'=>'StoresController@find']);
 Route::get('api/stores/select','StoresController@selectStores');
+});
 //route::controller('/', 'Layout\proban@prob'); 
 Route::get('brands',['as'=>'brand','uses'=>'BrandsController@index']);
  Route::get('brands/create',['as'=>'brand_create','uses'=>'BrandsController@index']);
@@ -232,7 +240,7 @@ Route::get('/joder','WarehousesController@all');
 //Route::controller('api/warehouses/','WarehousesController');
 Route::get('api/stores/','AtributesController@selest');
 Route::get('api/praticando/{id}','alumController@find');
-
+Route::group(['middleware' => 'role'], function () {
 Route::get('warehouses',['as'=>'warehouse','uses'=>'WarehousesController@index']);
 Route::get('warehouses/create',['as'=>'warehouse_create','uses'=>'WarehousesController@index']);
 Route::get('warehouses/edit/{id?}', ['as' => 'atribut_edit', 'uses' => 'WarehousesController@index']);
@@ -249,7 +257,7 @@ Route::get('api/warehouses/find/{id}',['as'=>'atribut_find', 'uses'=>'Warehouses
 Route::get('api/warehousesStore/search/{q?}',['as'=>'atribut_search', 'uses'=>'WarehousesController@searchWere']);
 
 Route::get('api/warehouses/search/{q?}/{id?}',['as'=>'atribut_search', 'uses'=>'WarehousesController@searchWarehouse']);
-
+});
 //Route::get('api/stores/select','WarehousesController@select');
 
 Route::get('stations',['as'=>'warehouse','uses'=>'StationsController@index']);
@@ -280,6 +288,7 @@ Route::post('api/materials/destroy',['as'=>'atribut_destroy', 'uses'=>'Materials
 Route::get('api/materials/search/{q?}',['as'=>'atribut_search', 'uses'=>'MaterialsController@search']);
 Route::get('api/materials/find/{id}',['as'=>'atribut_find', 'uses'=>'MaterialsController@find']);
 
+Route::group(['middleware' => 'role'], function () {
 Route::get('materials/form-preDolar',['as'=>'atribut_form_create','uses'=>'MaterialsController@form_preDolar']);
 Route::get('materials/preDolar',['as'=>'atribut_create', 'uses'=>'MaterialsController@index']);
 Route::post('api/PreDolar/create',['as'=>'atribut_create', 'uses'=>'MaterialsController@preDolar']);
@@ -305,7 +314,7 @@ Route::post('api/employees/destroy',['as'=>'person_destroy', 'uses'=>'EmployeesC
 Route::get('api/employees/search/{q?}',['as'=>'person_search', 'uses'=>'EmployeesController@search']);
 Route::get('api/employees/find/{id}',['as'=>'person_find', 'uses'=>'EmployeesController@find']);
 Route::get('api/employeesVenta/search/{q?}',['as'=>'person_search', 'uses'=>'EmployeesController@searchVenta']);
-
+});
 Route::get('api/buscar/find/{id}',['as'=>'person_find', 'uses'=>'EmployeesController@find']);
 
 Route::get('suppliers',['as'=>'person','uses'=>'SuppliersController@index']);
@@ -323,7 +332,7 @@ Route::get('api/suppliers/find/{id}',['as'=>'person_find', 'uses'=>'SuppliersCon
 Route::get('api/suppliers/select','SuppliersController@selectSupliers');
 Route::get('api/suppliers/deudas','SuppliersController@deudas');
 Route::get('api/counts/paginatep/{id}','SuppliersController@getCuentas');
-
+Route::group(['middleware' => 'role'], function () {
 Route::get('employeecosts',['as'=>'person','uses'=>'EmployeecostsController@index']);
 Route::get('employeecosts/create',['as'=>'person_create','uses'=>'EmployeecostsController@index']);
 Route::get('employeecosts/edit/{id?}', ['as' => 'person_edit', 'uses' => 'EmployeecostsController@index']);
@@ -337,6 +346,7 @@ Route::post('api/employeecosts/destroy',['as'=>'person_destroy', 'uses'=>'Employ
 Route::get('api/employeecosts/search/{q?}',['as'=>'person_search', 'uses'=>'EmployeecostsController@search']);
 Route::get('api/employeecosts/find/{id}',['as'=>'person_find', 'uses'=>'EmployeecostsController@find']);
 Route::get('api/employeecosts/mostrarCostos/{id}','EmployeecostsController@mostrarCostos');
+});
 //Route::get('api/employeecosts/hola','EmployeecostsController@hola');
 // Route::get('aprende',function(){
 // 	echo Form::open(array('url'=>'nombre','method'=>'post'));
@@ -450,16 +460,18 @@ Route::post('api/reporteCompraLike/create/{descr}','PurchasesController@reporteC
 Route::get('purchases/createMov','PurchasesController@index');
 Route::get('purchases/form-createMov','PurchasesController@form_createMov');
 //Route::post('api/orderPurchases/create',['as'=>'person_create', 'uses'=>'OrderPurchasesController@create']);
-
+Route::group(['middleware' => 'role'], function () {
 Route::post('api/reportePorFechacom/create/{fech1}/{fecha2}','PurchasesController@reporteRangoFechas');
 Route::post('api/reportPagos1/create/{idpro}','PurchasesController@reportepagosProveedor');
 Route::post('api/reportPagos2/create/{idpay}','PurchasesController@reportepagos');
 Route::post('api/ReportComprobante/create/{idpago}','DetPaymentsController@ReportComprobante');
-
+});
 Route::get('purchases/showD','PurchasesController@index');
 Route::get('purchases/view-showD','PurchasesController@form_showD');
+Route::group(['middleware' => 'role'], function () {
 Route::get('purchases/cardex','PurchasesController@index');
 Route::get('purchases/view-cardex','PurchasesController@form_cardex');
+});
 Route::get('api/purchases/paginar/{fechaini}/{fechafin}','PurchasesController@paginar1');
 
 //---------------------------------------------------------------------
@@ -524,11 +536,12 @@ Route::get('api/inputStocks/paginar/{fechaini}/{fechafin}','InputStocksControlle
 Route::get('api/inputStocks/paginartipos/{tipo}','InputStocksController@paginateTipos');
 Route::get('api/inputStocks/paginarfechaTipo/{fechaini}/{fechafin}/{tipo}','InputStocksController@selectFechaYtipo');
 //Route::post('api/reportes/reporteMovimientotipo/{tipo}','InputStocksController@reporteMovimentos');
+Route::group(['middleware' => 'role'], function () {
 Route::post('api/reporttiket/reporteEstado/{id}','InputStocksController@reporttiket');
 Route::post('api/movimientoTipo/create/{tipo}','InputStocksController@reporteMovimentos');
 Route::post('api/movimientoFechas/create/{fech1}/{fecha2}','InputStocksController@reporteMovimentosFechas');
 Route::post('api/movimientoFechasTipo/create/{fech1}/{fecha2}/{tipo}','InputStocksController@reporteMovimentosFechasTipo');
-
+});
 //-----------------------------Promociones---------------------------
 Route::get('promotions',['as'=>'person','uses'=>'PromotionsController@index']);
 Route::get('promotions/create',['as'=>'person_create','uses'=>'PromotionsController@index']);
@@ -618,6 +631,7 @@ Route::get('api/ver_ventas/paginate/',['as'=>'person_search', 'uses'=>'DetCashCo
 
 //-------------------------------------------------------------
 Route::get('api/cashMotives/select','CashMotivesController@select');
+Route::get('api/acounts/select','CashMotivesController@select2');
 Route::get('api/cashMotives/paginatep/{q}','CashMotivesController@traerNombre');
 Route::get('api/cashMotives/search/{q?}',['as'=>'person_search', 'uses'=>'CashMotivesController@search']);
 Route::get('api/cashMotive/search/{q?}',['as'=>'person_search', 'uses'=>'CashMotivesController@searchMotive']); 
@@ -714,7 +728,7 @@ Route::get('api/separateSales/find/{id}',['as'=>'person_find', 'uses'=>'Separate
 //--------------------------------------------------------------
 Route::get('api/DetSeparateSales/search/{id?}',['as'=>'person_search', 'uses'=>'DetSeparateSalesController@searchDetalle']);
 Route::put('api/DetSeparateSales/edit',['as'=>'person_edit', 'uses'=>'DetSeparateSalesController@edit']);
-
+Route::group(['middleware' => 'role'], function () {
 Route::post('api/cardexUltimoDia/generate/{tipo}/{fecha}/{tienda}','PurchasesController@cardexUltimoDia');
 Route::post('api/cardexRangoFechas/create/{fechaini}/{fechafin}/{tipo}/{tienda}','PurchasesController@cardexRangoFechas');
 Route::post('api/cardexTopPrimero/generate/{fecha}/{tienda}/{tipo}','PurchasesController@cardexTopPrimero');
@@ -727,7 +741,7 @@ Route::post('api/cardextop10Peores/generate/{fecha}/{tienda}/{tipo}','PurchasesC
 Route::post('api/cardextop10peoresFechas/create/{fechaini}/{fechafin}/{tienda}/{tipo}','PurchasesController@cardextop10peoresFechas');
 Route::post('api/reportMovimientoVarianteDMA/generate/{tipo}/{fecha}/{tienda}/{var}','PurchasesController@reportMovimientoVarianteDMA');
 Route::post('api/reportMovimientosVarianteRangoF/create/{fechaini}/{fechafin}/{tipo}/{tienda}/{var}','PurchasesController@reportMovimientosVarianteRangoF');
-
+});
 Route::get('listServices',['as'=>'brand','uses'=>'ListServicesController@index']);
  Route::get('listServices/create',['as'=>'brand_create','uses'=>'ListServicesController@index']);
  Route::get('listServices/edit/{id?}', ['as' => 'brand_edit', 'uses' => 'ListServicesController@index']);
@@ -746,6 +760,7 @@ Route::get('listServices',['as'=>'brand','uses'=>'ListServicesController@index']
 
 
 //-----------------------------Separate---------------------------
+ 
 Route::get('services',['as'=>'person','uses'=>'ServiceController@index']);
 Route::get('services/create',['as'=>'person_create','uses'=>'ServiceController@index']);
 Route::get('services/edit/{id?}', ['as' => 'person_edit', 'uses' => 'ServiceController@index']);
@@ -793,7 +808,6 @@ Route::post('api/reporteServicio/{id}','ServiceController@reporteServicio');
 Route::post('api/reports1/{cant}',['as'=>'person_search', 'uses'=>'ProductsController@reports']);
 
 
-
 Route::get('otherPheads',['as'=>'store','uses'=>'OtherPheadController@index']);
 Route::get('otherPheads/create',['as'=>'type_create','uses'=>'OtherPheadController@index']);
 Route::get('otherPheads/edit/{id?}', ['as' => 'type_edit', 'uses' => 'OtherPheadController@index']);
@@ -836,7 +850,7 @@ Route::post('api/servicePayment/create',['as'=>'person_create', 'uses'=>'Service
 Route::get('api/servicePayment/find/{id}',['as'=>'person_create', 'uses'=>'ServicePaymentController@find']);
 Route::post('api/servicePayment/destroy',['as'=>'person_destroy', 'uses'=>'ServicePaymentController@destroy']);
 
-
+Route::group(['middleware' => 'role'], function () {
 
 Route::get('api/payments/totales/{fecha1}/{fecha2}','PaymentsController@Totales');
 Route::get('api/payments2/totales/{fecha1}/{fecha2}','CashMonthlyController@totales');
@@ -856,4 +870,4 @@ Route::post('api/ReportDetCompras2/create/{fechaini}/{fechafin}','PurchasesContr
 Route::post('api/ReporteCajaMensualPri/create/{fechaini}/{fechafin}','PurchasesController@ReporteCajaMensualPri');
 Route::post('api/reporteGastos/create/{fechaini}/{fechafin}','PurchasesController@reporteGastos');
 Route::post('api/ReporteFacturado/create/{fechaini}/{fechafin}','PurchasesController@ReporteFacturado');
-
+});

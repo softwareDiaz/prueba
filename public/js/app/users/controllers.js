@@ -1,7 +1,7 @@
 (function(){
     angular.module('users.controllers',[])
-        .controller('UserController',['$scope', '$routeParams','$location','crudService','socketService' ,'$filter','$route','$log',
-            function($scope, $routeParams,$location,crudService,socket,$filter,$route,$log){
+        .controller('UserController',['$window','$scope', '$routeParams','$location','crudService','socketService' ,'$filter','$route','$log',
+            function($window,$scope, $routeParams,$location,crudService,socket,$filter,$route,$log){
                 $scope.users = [];
                 $scope.user = {};
                 $scope.generos = [{name:'Masculino'},{name:'Femenino'}];
@@ -17,6 +17,29 @@
 
                 $scope.changePass = function(){
                     $scope.showChange = !$scope.showChange;
+                }
+                
+
+                $scope.changePass1 = function(){
+                    //alert("hola mundo");
+                    if($scope.user.password===$scope.user.password_confirmation){
+                    crudService.update($scope.user,'editPasword').then(function(data)
+                        {
+                            if(data['estado'] == true){
+                                $scope.success = data['nombres'];
+                                alert('editado correctamente');
+                                $window.location.href="/auth/logout";
+                                //$location.path('/users');
+                            }else{
+                                $scope.errors =data;
+                            }
+                        });
+                }else{
+                    alert("Las contraseña no coinciden ingrese nuevamente??");
+                    $scope.user.password="";
+                    $scope.user.password_confirmation="";
+                    //$scope.showChange = !$scope.showChange;
+                }
                 }
 
                 $scope.toggle = function () {
@@ -100,7 +123,7 @@
                             crudService.create($scope.user, 'users').then(function (data) {
                                 if (data['estado'] == true) {
                                     $scope.success = data['nombres'];
-
+                                    alert("creado Correctamente usuario");
                                     $location.path('/users');
 
                                 } else {
@@ -114,7 +137,7 @@
                         crudService.create($scope.user,'users').then(function (data){
                             if (data['estado'] == true) {
                                 $scope.success = data['nombres'];
-
+                                alert("creado Correctamente usuario");
                                 $location.path('/users');
 
                             } else {

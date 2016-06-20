@@ -20,6 +20,7 @@ class PurchaseManager extends BaseManager {
                     'montoBase'=>'between:0,9999999999.00',
                     'montoBaseDolar'=>'between:0,9999999999.00',
                     'igv'=>'between:0,9999999999.00',
-                    'igvDolar'=>'between:0,9999999999.00'];
+                    'igvDolar'=>'between:0,9999999999.00',
+                    'acount_id'=>''];
         return $rules;
     }}
