@@ -90,7 +90,7 @@
                       <td ng-if="row.estado==5"><a ng-click="editServiceDiagnostico(row)" class="btn btn-info btn-xs">Ver Detalle</a></td>
                       <td><button ng-disabled="row.estado==5  || row.tipo!=0" class=" label-default" ng-click="VerAdelantos(row.id)">Adelanto</button></td>
                       <td><a ng-disabled="row.estado==5" ng-click="deleteService(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
-                      <td><a   ng-click="printDocument(row.id,$index)" class="btn btn-default btn-xs">{{variable[$index]}}</a></td>
+                      <td><a   ng-click="printDocument(row.id,row,$index)" class="btn btn-default btn-xs">{{variable[$index]}}</a></td>
                       
                     </tr>
                     

@@ -137,4 +137,25 @@ class ServiceController extends Controller {
         )->execute();
         return '/report/'.$time.'_ReportePruebServicio.'.$ext;
     }
+    public function reporteServicio2($id){
+       //var_dump($id);die();
+        $database = \Config::get('database.connections.mysql');
+        $time=time();
+        $output = public_path() . '/report/'.$time.'_ReportePruebServicio2';        
+        $ext = "pdf";
+        
+        \JasperPHP::process(
+            public_path() . '/report/ReportePruebServicio2.jasper', 
+            $output, 
+            array($ext),
+            //array(),
+            //while($i<=3){};
+            ['Ruta_img'=>public_path() . '/images/logotipo.png','q'=>$id],//Parametros
+              
+            $database,
+            false,
+            false
+        )->execute();
+        return '/report/'.$time.'_ReportePruebServicio2.'.$ext;
+    }
 }

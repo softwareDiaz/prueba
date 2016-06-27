@@ -128,8 +128,10 @@
                     
                     $scope.variable.push("Imprimir");
                 }
-                $scope.printDocument=function(id,index){
+                $scope.printDocument=function(id,row,index){
+                    //$log.log(row);
                     $scope.variable.splice(index,1,"Imprimiendo");
+                    if(row.tipo==0){
                     crudServiceServices.reporteServicio('reporteServicio',id).then(function (data) { 
                                                       //$scope.variable[index]="Imprimiendo";
                                                       if(data!=undefined){
@@ -141,6 +143,19 @@
                                                       }
                                                        
                                             });
+                   }else{
+                        crudServiceServices.reporteServicio('reporteServicio2',id).then(function (data) { 
+                                                      //$scope.variable[index]="Imprimiendo";
+                                                      if(data!=undefined){
+                                                        $scope.variable[index]="Imprimir";
+                                                        $window.open(data);
+
+                                                      }else{
+                                                        alert("error de imprecion");
+                                                      }
+                                                       
+                                            });
+                   }
                 }
                 $scope.createService = function(){
                     $scope.service.estado = 1;

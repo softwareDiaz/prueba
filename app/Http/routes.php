@@ -805,6 +805,7 @@ Route::post('api/Factura/{descri}/{id}','SalesController@reporteFactura');
 Route::post('api/Boleta/{descri}/{id}','SalesController@reporteBoleta');
 
 Route::post('api/reporteServicio/{id}','ServiceController@reporteServicio');
+Route::post('api/reporteServicio2/{id}','ServiceController@reporteServicio2');
 Route::post('api/reports1/{cant}',['as'=>'person_search', 'uses'=>'ProductsController@reports']);
 
 

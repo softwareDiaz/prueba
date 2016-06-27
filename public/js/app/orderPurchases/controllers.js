@@ -263,7 +263,7 @@
                                //$scope.detailOrderPurchase.nombre=$scope.product.proId.proNombre;
                         crudPurchase.paginateDPedido($scope.product.proId.varid,'detpres').then(function (data) {
                                $scope.detPres=data.data;
-                               
+                               alert()
                        
                       if($scope.detPres.length<2){
                          $scope.mostrardetalles=true;
