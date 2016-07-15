@@ -78,9 +78,9 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="214">
+		<band height="242">
 			<subreport>
-				<reportElement x="7" y="51" width="580" height="133" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="0" y="51" width="568" height="151" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -88,12 +88,12 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subreporteFactura.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="81" y="11" width="380" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
+				<reportElement x="81" y="12" width="380" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[($F{cliente}.equals(null)?"":$F{cliente})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="503" y="184" width="72" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
+				<reportElement x="503" y="202" width="72" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
@@ -113,12 +113,12 @@
 			</textField>
 			<textField>
 				<reportElement x="506" y="31" width="35" height="20" uuid="69904540-2e10-474f-a97d-5bd56ee0a58a"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="547" y="31" width="40" height="20" uuid="0a989000-92d2-47f4-b961-d9b6706cd342"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
 		</band>
