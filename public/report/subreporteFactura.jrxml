@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreporteFactura" language="groovy" pageWidth="550" pageHeight="792" columnWidth="550" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4550bfe4-43f9-44fd-9b4b-d8895c35f840">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreporteFactura" language="groovy" pageWidth="620" pageHeight="792" columnWidth="620" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4550bfe4-43f9-44fd-9b4b-d8895c35f840">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -51,16 +51,16 @@
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="55" y="0" width="354" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
+				<reportElement x="55" y="0" width="424" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="409" y="0" width="62" height="20" uuid="502479fc-f7ae-406b-b222-52235d50e2f1"/>
+				<reportElement x="479" y="0" width="62" height="20" uuid="502479fc-f7ae-406b-b222-52235d50e2f1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{PrecioUnit}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="471" y="0" width="79" height="20" uuid="c895da09-a171-4722-9972-6e13538625bf"/>
+				<reportElement x="541" y="0" width="79" height="20" uuid="c895da09-a171-4722-9972-6e13538625bf"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{PrecioVent}]]></textFieldExpression>
 			</textField>
