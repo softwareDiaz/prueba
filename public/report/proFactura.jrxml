@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="700" pageHeight="842" columnWidth="680" leftMargin="20" rightMargin="0" topMargin="90" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="680" pageHeight="842" columnWidth="660" leftMargin="20" rightMargin="0" topMargin="90" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -79,9 +79,9 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="411">
+		<band height="452">
 			<subreport>
-				<reportElement x="0" y="71" width="642" height="275" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="0" y="71" width="642" height="300" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -104,37 +104,37 @@
 				<textFieldExpression><![CDATA[($F{GRemicion}.equals(null)?"":$F{GRemicion})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="575" y="351" width="100" height="15" uuid="e9169480-3850-4f65-a73e-8537080a7aac"/>
+				<reportElement x="546" y="371" width="100" height="15" uuid="e9169480-3850-4f65-a73e-8537080a7aac"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="575" y="367" width="100" height="15" uuid="a513859a-a026-4b51-bcbb-84996209418d"/>
+				<reportElement x="546" y="387" width="100" height="15" uuid="a513859a-a026-4b51-bcbb-84996209418d"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{igv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="575" y="384" width="100" height="15" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
+				<reportElement x="546" y="404" width="100" height="15" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="62" y="351" width="452" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
+				<reportElement x="62" y="371" width="452" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{descriNum}+"/100"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="556" y="35" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
+				<reportElement x="521" y="35" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="589" y="35" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
+				<reportElement x="554" y="35" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="618" y="35" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
+				<reportElement x="583" y="35" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
