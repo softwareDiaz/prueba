@@ -78,9 +78,9 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="356">
+		<band height="274">
 			<subreport>
-				<reportElement x="7" y="70" width="543" height="250" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="7" y="70" width="543" height="159" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -92,7 +92,7 @@
 				<textFieldExpression><![CDATA[($F{cliente}.equals(null)?"":$F{cliente})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="503" y="320" width="72" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
+				<reportElement x="503" y="238" width="72" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
