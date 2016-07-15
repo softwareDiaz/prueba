@@ -80,7 +80,7 @@
 	<detail>
 		<band height="242">
 			<subreport>
-				<reportElement x="-26" y="51" width="594" height="151" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="-26" y="60" width="594" height="151" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -94,7 +94,7 @@
 			</textField>
 			<textField>
 				<reportElement x="518" y="210" width="72" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -118,7 +118,7 @@
 			</textField>
 			<textField>
 				<reportElement x="550" y="31" width="40" height="20" uuid="0a989000-92d2-47f4-b961-d9b6706cd342"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
 		</band>
