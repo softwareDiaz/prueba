@@ -12,7 +12,13 @@ class SaleRepo extends BaseRepo{
 
     public function search($q)
     {
-        $sale =Sale::where('nombre','like', $q.'%')
+        $sale =Sale::leftjoin('salePayments','salePayments.sale_id','=','sales.id')
+                        ->leftjoin('customers','sales.customer_id','=','customers.id')
+                        ->select('sales.*','salePayments.estado as estadoPago')
+                        ->with('customer','employee')
+                        ->where('customers.empresa','like', $q.'%')
+                        ->orWhere('customers.nombres','like', $q.'%')
+                        ->orWhere('sales.created_at','like','%'.$q.'%')
                     //with(['customer','employee'])
                     ->paginate(15);
         return $sale;
