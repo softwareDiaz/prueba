@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="680" pageHeight="842" columnWidth="660" leftMargin="20" rightMargin="0" topMargin="90" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="152"/>
+	<property name="ireport.y" value="19"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/usr/share/nginx/html/salesfly/public/report/"]]></defaultValueExpression>
 	</parameter>
@@ -81,7 +81,7 @@
 	<detail>
 		<band height="669">
 			<subreport>
-				<reportElement x="35" y="118" width="614" height="469" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="26" y="118" width="623" height="469" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -138,21 +138,21 @@
 				<textFieldExpression><![CDATA[$P{descriNum}+"/100"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="528" y="38" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
+				<reportElement x="523" y="38" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="559" y="38" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
+				<reportElement x="554" y="38" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="590" y="38" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
+				<reportElement x="585" y="38" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
