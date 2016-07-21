@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteOrderPurchases" language="groovy" pageWidth="680" pageHeight="842" columnWidth="660" leftMargin="20" rightMargin="0" topMargin="90" bottomMargin="20" uuid="7f3ea2e2-5cac-4706-a27a-fb405c62256e">
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="152"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String">
 		<defaultValueExpression><![CDATA["/usr/share/nginx/html/salesfly/public/report/"]]></defaultValueExpression>
 	</parameter>
@@ -79,9 +79,9 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="452">
+		<band height="669">
 			<subreport>
-				<reportElement x="0" y="73" width="642" height="300" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
+				<reportElement x="0" y="92" width="642" height="444" uuid="728d2036-5cda-4e2f-b6d3-9a1d94f8aa46"/>
 				<subreportParameter name="detail_id">
 					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -89,58 +89,80 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "subreporteFactura.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="73" y="34" width="391" height="20" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="73" y="34" width="391" height="26" uuid="1499ab8d-a517-4714-afc8-28f2a4d04752"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[($F{direccion}.equals("")?$F{direccion_cliente}:$F{direccion})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="62" y="56" width="167" height="15" uuid="a41ece0c-a1c3-4ae6-ac93-4e792e295e4b"/>
-				<textElement verticalAlignment="Top"/>
+				<reportElement x="62" y="60" width="167" height="26" uuid="a41ece0c-a1c3-4ae6-ac93-4e792e295e4b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ruc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="235" y="56" width="164" height="15" uuid="db0bacb3-db31-4510-bdfe-b20a1d5e20c4"/>
-				<textElement verticalAlignment="Top"/>
+				<reportElement x="235" y="60" width="229" height="26" uuid="db0bacb3-db31-4510-bdfe-b20a1d5e20c4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[($F{GRemicion}.equals(null)?"":$F{GRemicion})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="515" y="372" width="100" height="15" uuid="e9169480-3850-4f65-a73e-8537080a7aac"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<reportElement x="515" y="551" width="100" height="20" uuid="e9169480-3850-4f65-a73e-8537080a7aac"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="515" y="388" width="100" height="15" uuid="a513859a-a026-4b51-bcbb-84996209418d"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<reportElement x="515" y="574" width="100" height="20" uuid="a513859a-a026-4b51-bcbb-84996209418d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{igv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="515" y="405" width="100" height="15" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<reportElement x="515" y="595" width="100" height="20" uuid="95d83b8c-6ce1-4324-96c9-892496b620eb"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{Total}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="62" y="371" width="452" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="62" y="550" width="452" height="20" uuid="73e3b241-d4b9-4524-9854-c59e6863a561"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{descriNum}+"/100"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="515" y="35" width="33" height="20" uuid="9caea58c-dcbd-42a5-9ed6-4bf812ce5a85"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="548" y="35" width="33" height="20" uuid="701e15f0-38d8-479b-87d5-1ed212a7c49c"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="577" y="35" width="59" height="20" uuid="fb4b9533-89a2-4f82-9466-fcf6605fca13"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{año}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="73" y="13" width="391" height="20" uuid="9a02f350-c25c-4410-84f0-5948972b4ef8"/>
-				<textElement verticalAlignment="Bottom"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 		</band>
