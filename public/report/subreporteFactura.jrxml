@@ -47,21 +47,30 @@
 		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="55" height="20" uuid="165432c6-8f6c-4d0a-9ee4-e6f3b5571777"/>
-				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="55" y="0" width="424" height="20" uuid="a86ed662-e697-4d1e-b5ce-9cd94ef5361c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="479" y="0" width="62" height="20" uuid="502479fc-f7ae-406b-b222-52235d50e2f1"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{PrecioUnit}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="541" y="0" width="79" height="20" uuid="c895da09-a171-4722-9972-6e13538625bf"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{PrecioVent}]]></textFieldExpression>
 			</textField>
 		</band>
