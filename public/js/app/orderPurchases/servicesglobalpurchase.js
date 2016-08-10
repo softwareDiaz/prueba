@@ -12,6 +12,16 @@
 
                 return deferred.promise;
             }
+             function all1(uri)
+            {
+                var deferred = $q.defer();
+                $http.get('/api/'+uri+'/all/')
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
             function eligirNumero(id,id2){
 
                 var deferred = $q.defer();
@@ -284,6 +294,7 @@
             }
             return {
                 all: all,
+                all1: all1,
                 paginate: paginate,
                 create:create,
                 byId:byId,

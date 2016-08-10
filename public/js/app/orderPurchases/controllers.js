@@ -228,7 +228,7 @@
                       crudPurchase.paginatVariants("variants").then(function (data){
                         $scope.variants1=data;
                       });
-                      crudPurchase.paginate('suppliers',1).then(function (data) {
+                      crudPurchase.all1('suppliers').then(function (data) {
                         $scope.suppliers = data.data;
                       });
                       crudPurchase.paginate('methodPayments',1).then(function (data) {
