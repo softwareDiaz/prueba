@@ -46,7 +46,7 @@
               <div class="form-group form-ok" ng-hide="show" style="width: 100%;">
                
                <input typeahead-on-select="asignarEmpresa()" type="text" name="empresa" ng-model="orderPurchase.empresa" placeholder=" por Proveedor" 
-                     typeahead="supplier as supplier.empresa for supplier in suppliers | filter:$viewValue | limitTo:8"  
+                     typeahead="supplier as supplier.empresa for supplier in suppliers | filter:$viewValue | limitTo:20"  
                      typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="is_required validate account_input form-control"
                      tooltip="Ingrese caracteres para busacar Proveedor por Empres" required>
                     <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
