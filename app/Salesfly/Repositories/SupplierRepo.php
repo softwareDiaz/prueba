@@ -16,7 +16,11 @@ class SupplierRepo extends BaseRepo{
                     ->paginate(15);
         return $supplier;
     }
-
+    public function todos()
+    {
+        $supplier =Supplier::get();
+        return $supplier;
+    }
     function validateDate($date, $format = 'Y-m-d')
     {
         $d = \DateTime::createFromFormat($format, $date);

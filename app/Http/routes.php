@@ -323,6 +323,7 @@ Route::get('suppliers/edit/{id?}', ['as' => 'person_edit', 'uses' => 'SuppliersC
 Route::get('suppliers/form-create',['as'=>'person_form_create','uses'=>'SuppliersController@form_create']);
 Route::get('suppliers/form-edit',['as'=>'person_form_edit','uses'=>'SuppliersController@form_edit']);
 Route::get('api/suppliers/all',['as'=>'person_all', 'uses'=>'SuppliersController@all']);
+Route::get('api/suppliers/all1',['as'=>'person_all', 'uses'=>'SuppliersController@todos']);
 Route::get('api/suppliers/paginate/',['as' => 'person_paginate', 'uses' => 'SuppliersController@paginatep']);
 Route::post('api/suppliers/create',['as'=>'person_create', 'uses'=>'SuppliersController@create']);
 Route::put('api/suppliers/edit',['as'=>'person_edit', 'uses'=>'SuppliersController@edit']);
