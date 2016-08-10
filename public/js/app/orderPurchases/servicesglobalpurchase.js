@@ -15,7 +15,7 @@
              function all1(uri)
             {
                 var deferred = $q.defer();
-                $http.get('/api/'+uri+'/all1/')
+                $http.get('/api/'+uri+'/all/')
                     .success(function (data) {
                         deferred.resolve(data);
                     });

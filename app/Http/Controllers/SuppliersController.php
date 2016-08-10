@@ -30,7 +30,7 @@ class SuppliersController extends Controller {
     }
     public function all()
     {
-        $suppliers = $this->supplierRepo->paginate(15);
+        $suppliers = $this->supplierRepo->paginate(10000);
         return response()->json($suppliers);
     }
     public function todos()
