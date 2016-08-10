@@ -1,0 +1,17 @@
+.fondo{
+    background-image: url("../images/fondo3.jpg");
+	width: 100%;
+	height: 100%;
+}
+.primername{
+	color: red;
+}
+.segunname{
+	color: white;
+}
+.cuadro{
+	background-image: url("../images/cuadro2.jpg");
+}
+.menuhori{
+	background:red;
+}

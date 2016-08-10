@@ -18,7 +18,7 @@
     <link href="/vendor/adminlte/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE fonts OpenSans-->
     <link href="/css/fonts.css" rel="stylesheet" type="text/css" />
-
+  <link href="/css/styleFondo.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/vendor/ngprogress/ngProgress.css">
 
     <link href="/vendor/jquery-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
@@ -39,10 +39,10 @@
 
 
   </head>
-  <body class="skin-blue sidebar-mini">
-    <div class="wrapper">
+  <body class="skin-blue sidebar-mini ">
+    <div class="wrapper ">
 
-      <header class="main-header">
+      <header class="main-header ">
         <!-- Logo -->
         <a href="/" class="logo" >
           <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -121,7 +121,7 @@
           </div>
         </nav>
       </header>
-      <!-- Left side column. contains the logo and sidebar -->
+      <!-- Left side column. contains the logo and sidebar menu vertical-->
       <aside class="main-sidebar" style="background-color:#1C2E3C;">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">

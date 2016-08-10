@@ -13,7 +13,7 @@
     <link href="/vendor/adminlte/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="/vendor/adminlte/plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
-
+    <link href="/css/styleFondo.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,13 +21,13 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="login-page">
-    <div class="login-box">
+  <body class="login-page fondo">
+    <div class="login-box ">
       <div class="login-logo">
-        <a href="../../index2.html"><b>Sales</b>Fly</a>
+        <a href="../../index2.html"><b class="primername">Computel</b><b class="segunname">Peru</b></a>
       </div><!-- /.login-logo -->
-      <div class="login-box-body">
-        <p class="login-box-msg">Escibre tus credenciales para iniciar sesión</p>
+      <div class="login-box-body cuadro">
+        <p class="login-box-msg primername">Escibre tus credenciales para iniciar sesión</p>
         @if($errors->has())
          <div class="callout callout-warning">
             @foreach($errors->all() as $error)
